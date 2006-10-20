@@ -4,7 +4,7 @@
 namespace model{
 class object{
 	public:
-	int speed();
+	double speed();
 	void setSpeed();
 	double getSpeed();
 	void setDirection();
