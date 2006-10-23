@@ -1,0 +1,49 @@
+/** got  to figure out how to get this into doxygen 
+
+\todo 
+Planning and Documentation 				<br>
+&nbsp;	Define object classes 			(Group)	<br>
+&nbsp;	Draw UML diagram 			(Group)	<br>
+&nbsp;	Assign Tasks 				(Group)	<br>
+&nbsp;	Set up CVS system 			(Group)	<br>
+Implementation 						<br>
+&nbsp;	Build initial framework 		(Group)	<br>
+&nbsp;	Check initial framework with professor 	(Group)	<br>
+&nbsp;	Enhancements to world environment	(Emily)	<br>
+&nbsp;	* Background					<br>
+&nbsp;	* Bounds					<br>
+&nbsp;	* Path from A to B				<br>
+&nbsp;	Modelling of Objects	 		(Emily)	<br>
+&nbsp;	Implementation of asteroid class	(Kate)	<br>
+&nbsp;	* Each asteroid has a random size, shape, and spin	<br>
+&nbsp;	* All asteroids have the same texture and are 
+&nbsp;	  assumed to be made of the same material	<br>
+&nbsp;	* Asteroids have mass relative to their size	<br>
+&nbsp;	* All asteroids have the same speed and direction	<br>
+&nbsp;	* Generation					<br>
+&nbsp;	* Destruction 					<br>
+&nbsp;	Implementation of space ship class	(Kennie)<br>
+&nbsp;	* Space ship has direction, speed (forward or 
+	  backward), and health				<br>
+&nbsp;	Implementation of space ship controls	(Kennie)<br>
+&nbsp;	* Keyboard control			 	<br>
+&nbsp;	Coding of menus and screen border	(Emily)	<br>
+&nbsp;	* New game, Exit				<br>
+&nbsp;	* Game statistics (ship health, number of 
+	  asteroids destroyed, etc)			<br>
+&nbsp;	Coding of interaction between laser 
+	 and asteroids (intersection detection) (Kate)	<br>
+&nbsp;	Coding of interaction between space 
+	ship and asteroids (collision detection) (Kate)	<br>
+&nbsp;	Coding of game extras if time permits 	(Group)	<br>
+Finalized Project					<br>
+&nbsp;	Write user's guide to the software 	(Kate)	<br>
+&nbsp;	Write maintainer's guide 		Kennie	<br>
+&nbsp;  Write report				(Emily)	<br>
+&nbsp;&nbsp;	* discussion of how well goals were met		<br>
+&nbsp;&nbsp;	* description of final division of labor	<br>
+&nbsp;&nbsp;	* list of references used			<br>
+&nbsp;  Make project website 			(Emily)	<br>
+ */
+
+todo;
