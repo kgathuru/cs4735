@@ -41,11 +41,11 @@ SUBGROUPING            = YES
 #---------------------------------------------------------------------------
 # Build related configuration options
 #---------------------------------------------------------------------------
-EXTRACT_ALL            = NO
+EXTRACT_ALL            = YES
 EXTRACT_PRIVATE        = NO
 EXTRACT_STATIC         = NO
 EXTRACT_LOCAL_CLASSES  = YES
-EXTRACT_LOCAL_METHODS  = NO
+EXTRACT_LOCAL_METHODS  = YES
 HIDE_UNDOC_MEMBERS     = NO
 HIDE_UNDOC_CLASSES     = NO
 HIDE_FRIEND_COMPOUNDS  = NO
@@ -126,7 +126,8 @@ FILE_PATTERNS          = *.c \
                          *.patch \
                          *.moc \
                          *.xpm \
-                         *.dox
+                         *.dox \
+			 TODO
 RECURSIVE              = yes
 EXCLUDE                = 
 EXCLUDE_SYMLINKS       = NO
