@@ -9,6 +9,9 @@ class object{
 	double getSpeed();
 	void setDirection();
 	double getDirection();
+	bool loadModel();
+	bool isMesh();
+	
 	object();
 	~object();	
 	private:
