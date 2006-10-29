@@ -24,3 +24,14 @@ void model::object::setDirection(){
 double model::object::getDirection(){
 
 }
+
+
+/** load a mesh file for the object */
+bool model::object::loadModel(){
+
+}
+
+/** determine whether object is a mesh or drawn with GLU funtions */
+bool model::object::isMesh();{
+
+}
