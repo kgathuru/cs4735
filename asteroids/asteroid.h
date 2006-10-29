@@ -11,5 +11,6 @@ class asteroid: public object{
 	asteroid(); 		// constructor
 	void setSpin(float Sx, float Sy, float Sz);	//Set the spin in degrees
 	Vector3 getSpin();	//Return spin
+	void doStep(float t);	//Time t in the simulation, change to reflect
 };
 };
