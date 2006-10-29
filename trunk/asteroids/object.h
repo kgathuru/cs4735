@@ -9,7 +9,8 @@ class object{
 	double getSpeed();
 	void setDirection();
 	double getDirection();
-	object();	
+	object();
+	~object();	
 	private:
 	//model::world world;
 };
