@@ -1,0 +1,7 @@
+namespace model{
+
+class world{
+
+};
+
+};

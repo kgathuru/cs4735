@@ -33,5 +33,5 @@ bool model::object::loadModel(){
 
 /** determine whether object is a mesh or drawn with GLU funtions */
 bool model::object::isMesh();{
-
+	return true;
 }
