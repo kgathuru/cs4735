@@ -9,7 +9,7 @@ namespace controller{
 /*! the engine class controls the flow of the game */ 
 class engine{
 	public:
-	bool start();
+	bool start(bool finish);
 	bool end();
 	engine();	
 	model::world theWorld;
