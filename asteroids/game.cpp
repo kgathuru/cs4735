@@ -1,3 +1,4 @@
+#include "game.h"
 #include "world.cpp"
 #include "view.cpp"
 #include "engine.cpp"
