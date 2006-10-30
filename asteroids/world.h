@@ -3,6 +3,7 @@
 
 #include "math.cpp"
 #include "object.cpp"
+#include "asteroid.cpp"
 
 namespace model{
 
@@ -11,7 +12,7 @@ class world{
 	Vector3 pathStart();
 	Vector3 pathEnd();
 	object testpawn;
-	//asteroid 
+	//asteroid asteroid[NUM_ASTEROIDS]; 
 	double height();
 	double width();
 	double depth();
