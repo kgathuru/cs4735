@@ -9,8 +9,10 @@ namespace model{
 
 class world{
 	public:
-	Vector3 pathStart();
-	Vector3 pathEnd();
+	Vector3 getStartPoint();
+	void setStartPoint();
+	Vector3 getEndPoint();
+	void setEndPoint();
 	object spacebarn;
 	//asteroid asteroid[NUM_ASTEROIDS]; 
 
