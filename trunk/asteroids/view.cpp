@@ -5,7 +5,7 @@ view::view(){
 	
 }
 
-void view::display(){
+void view::display(void){
 	// set properties of the surface material
 	GLfloat mat_ambient[] = { 0.25f, 0.25f, 0.25f, 1.0f}; // copper
 	GLfloat mat_diffuse[] = { 0.4f, 0.4f, 0.4f, 1.0f}; 
@@ -35,8 +35,8 @@ void view::display(){
 
 	//for each object in world.objects{
 	//extern controller::engine gameEngine;
-	controller::gameEngine.theWorld.testpawn.readFile("SIMPBARN.3VN");
-	controller::gameEngine.theWorld.testpawn.draw();
+	controller::gameEngine.theWorld.spacebarn.readFile("SIMPBARN.3VN");
+	controller::gameEngine.theWorld.spacebarn.draw();
 	//}	
 
 	glEnd();				// Done Drawing The Pyramid

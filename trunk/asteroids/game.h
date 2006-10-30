@@ -1,3 +1,3 @@
 //add all game constants here
 
-const int NUM_ASTEROIDS = 10;
+const int INITAL_NUM_ASTEROIDS = 10;
