@@ -6,7 +6,6 @@
 namespace model{
 class object: public Mesh{
 	public:
-	double speed();
 	void setSpeed();
 	double getSpeed();
 	void setDirection();
