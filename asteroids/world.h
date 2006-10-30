@@ -11,7 +11,7 @@ class world{
 	Vector3 pathStart();
 	Vector3 pathEnd();
 	object testpawn;
-	asteroid 
+	//asteroid 
 	double height();
 	double width();
 	double depth();
