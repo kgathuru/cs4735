@@ -5,6 +5,7 @@
 
 class view{
 	public:
+	//extern controller::gameEngine;
 	void display();
 	view();
 };

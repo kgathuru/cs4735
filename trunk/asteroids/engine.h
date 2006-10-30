@@ -12,10 +12,9 @@ class engine{
 	bool start();
 	bool end();
 	engine();	
-	private:
-	//model::world world;
+	model::world theWorld;
 };
-//extern engine gameengine;
-//extern view gameview;
+extern engine gameEngine;
+extern view gameView;
 };
 #endif

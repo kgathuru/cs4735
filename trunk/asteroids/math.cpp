@@ -105,9 +105,9 @@ void Mesh:: writeMesh(char * fname)
 }
 
 /** return the normalized normal to face with vertices */
-Vector3 Mesh :: newell4(int indx[]) { 
-     pt[indx[0]],...,pt[indx[3]]. i.e. indx[] contains the four indices 
+/** pt[indx[0]],...,pt[indx[3]]. i.e. indx[] contains the four indices 
      into the vertex list to be used in the Newell calculation */
+Vector3 Mesh :: newell4(int indx[]) { 
   Vector3 m;
   for(int i = 0; i < 4 ; i++)
   {

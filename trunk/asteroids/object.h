@@ -1,19 +1,18 @@
 #ifndef OBJECT_H
 #define OBJECT_H
 
+#include "math.h"
+
 namespace model{
-class object{
+class object: public Mesh{
 	public:
 	double speed();
 	void setSpeed();
 	double getSpeed();
 	void setDirection();
 	double getDirection();
-	bool loadModel();
-	bool isMesh();
-	
 	object();
-	~object();	
+	//~object();	
 	private:
 	//model::world world;
 };

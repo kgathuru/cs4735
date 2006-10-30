@@ -1,16 +1,16 @@
-#include "object.cpp"
+#include "world.cpp"
 #include "view.cpp"
 #include "engine.cpp"
 
 #include <GL/glut.h>
 
 namespace controller{
-	engine gameengine;
-	view gameview;
+	engine gameEngine;
+	view gameView;
 };
 
 void displayFunc(){
-	controller::gameview.display();
+	controller::gameView.display();
 }
 
 main(int argc, char **argv) {
