@@ -4,6 +4,7 @@
 #include <ctime>
 #include <iostream>
 
+//Constructor
 asteroid::asteroid()
 {
 	//Size is radius of the sphere that represents the asteroid
@@ -39,19 +40,75 @@ asteroid::asteroid()
 	position.set(x,y,z);
 }
 
+//Deconstructor
+asteroid::~asteroid()
+{
+    this = NULL;
+}
 
-void setSpin(float Sx, float Sy, float Sz)
+
+void asteroid:: setSpin(float Sx, float Sy, float Sz)
 {
 	spin.set(Sx,Sy,Sz);
 }
 
-Vector3 getSpin()
+Vector3 asteroid:: getSpin()
 {
 	return spin;
 }
 
-void doStep(float t)
+void asteroid:: doStep(float t)
 {
+	float x,y,z;
+
 	//change position to reflect movement
+	x = position.x + t * direction.x;
+	y = position.y + t * direction.y;
+	z = position.z + t * direction.z;
+	position.set(x,y,z);
+
+	//Need to check for collision with spaceship
+	//Asteroids can't collide with each other, only ship
+	
+
+
+	//Draw new asteroid
+	draw();
+	
+}
+
+void asteroid:: draw()
+{
+	//DRAW NEW ASTEROID
+	glMatrixMode(GL_MODELVIEW);
+
+	//Rotate mesh based on movement
+	glRotatef(t, spin.x, spin.y, spin.z);
+
+	//Move asteroid to position in space
+	glTranslatef(position.x, position.y, position.z);
+
+	//Asteroid mesh is within unit circle centered at origin, need to scale by size
+	glScalef(size, size, size);
+
+	//Asteroid is just a sphere for now, may make mesh later if time
+	glutSolidSphere(1,15,15);
+}
+
+void asteroid:: destroy()
+{
+	//Animation to remove asteroid
+
+	//object removed
+	this = NULL;
+}
+
+bool asteroid:: checkCollision(Point3 shipPosition, float shipSize)
+{
+	//Find distance between two centers
+	
+
+	//See if it is less than the sum of the raduis of the ship and asteroid
+
 	
 }
