@@ -13,11 +13,10 @@ class world{
 	Vector3 pathEnd();
 	object spacebarn;
 	//asteroid asteroid[NUM_ASTEROIDS]; 
-	double height();
-	double width();
-	double depth();
+
 	/** \todo add more methods from UML */ 	
-	world();	
+	world();
+	~world();	
 	private:
 };
 
