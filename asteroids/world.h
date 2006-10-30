@@ -14,7 +14,7 @@ class world{
 	Vector3 getEndPoint();
 	void setEndPoint();
 	object spacebarn;
-	//asteroid asteroid[NUM_ASTEROIDS]; 
+	//asteroid asteroid[INITAL_NUM_ASTEROIDS]; 
 
 	/** \todo add more methods from UML */ 	
 	world();
