@@ -1,7 +1,5 @@
-namespace model{
+#include "world.h"
 
-class world{
+model::world::world(){
 
-};
-
-};
+}
