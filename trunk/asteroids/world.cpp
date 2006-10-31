@@ -7,7 +7,7 @@ model::world::world(){
 
 /**world deconstructor*/
 model::world::~world(){
- this = NULL;
+	this = NULL;
 }
 
 /** starting point accessor method */ 
@@ -16,7 +16,7 @@ Vector3 model::world::getStartPoint(){
 }
 
 /** starting point mutator method */
-void model::world::setStartPoint(Vector3 v){
+void model::world::setStartPoint(Point3 v){
 	
 }
 
@@ -26,7 +26,7 @@ Vector3 model::world::getEndPoint(){
 }
 
 /** ending point mutator method */
-void model::world::setEndPoint(Vector3 v){
+void model::world::setEndPoint(Point3 v){
 
 }
 
