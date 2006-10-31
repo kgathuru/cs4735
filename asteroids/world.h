@@ -10,9 +10,9 @@ namespace model{
 class world{
 	public:
 	Vector3 getStartPoint();
-	void setStartPoint();
+	void setStartPoint(Point3 v);
 	Vector3 getEndPoint();
-	void setEndPoint();
+	void setEndPoint(Point3 v);
 	object spacebarn;
 	//asteroid asteroid[INITAL_NUM_ASTEROIDS]; 
 
@@ -20,6 +20,7 @@ class world{
 	world();
 	~world();	
 	private:
+	
 };
 
 };
