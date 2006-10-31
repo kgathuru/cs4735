@@ -13,6 +13,9 @@ class object: public Mesh{
 	object();
 	//~object();	
 	private:
+	Vector3 direction;
+	Point3 position;
+	float speed;
 	//model::world world;
 };
 //extern engine gameengine;
