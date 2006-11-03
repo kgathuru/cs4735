@@ -9,7 +9,7 @@ namespace controller{
 /*! the engine class controls the flow of the game */ 
 class engine{
 	public:
-	void keyboardFunc(unsigned char key, int x, int y);
+	static void keyboard(unsigned char key, int x, int y);
 	bool start(bool finish);
 	bool end();
 	engine();	
