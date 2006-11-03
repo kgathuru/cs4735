@@ -3,6 +3,7 @@
 
 #include "math.cpp"
 #include "object.cpp"
+#include <list> 
 //#include "asteroid.cpp"
 
 namespace model{
@@ -13,7 +14,12 @@ class world{
 	void setStartPoint(Point3 v);
 	Vector3 getEndPoint();
 	void setEndPoint(Point3 v);
-	object spacebarn;
+	
+
+	/** \todo change to asteroids when ready */
+	list<object> asteroids;
+	typedef list<object>::iterator asteroids_iter;
+	
 	//asteroid asteroid[INITAL_NUM_ASTEROIDS]; 
 
 	/** \todo add more methods from UML */ 	

@@ -5,6 +5,16 @@ view::view(){
 	
 }
 
+/** initialize OpenGL environment */
+void view::init(int *argc,char**argv){
+	glutInit (argc,argv);
+	glutInitDisplayMode (GLUT_RGB | GLUT_DOUBLE | GLUT_DEPTH);
+	glutInitWindowSize (640,480);
+	glutCreateWindow ("Asteroids3D");
+	glutDisplayFunc(&(view::display));
+	//glutKeyboardFunc(&(gameEngine::keyboard));
+}
+
 void view::display(void){
 	// set properties of the surface material
 	GLfloat mat_ambient[] = { 0.25f, 0.25f, 0.25f, 1.0f}; // copper
@@ -35,8 +45,8 @@ void view::display(void){
 
 	//for each object in world.objects{
 	//extern controller::engine gameEngine;
-	controller::gameEngine.theWorld.spacebarn.readFile("SIMPBARN.3VN");
-	controller::gameEngine.theWorld.spacebarn.draw();
+	//controller::gameEngine.theWorld.spacebarn.readFile("SIMPBARN.3VN");
+	//controller::gameEngine.theWorld.spacebarn.draw();
 	//}	
 
 	glEnd();				// Done Drawing The Pyramid

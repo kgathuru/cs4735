@@ -10,22 +10,15 @@ namespace controller{
 	view gameView;
 };
 
-void displayFunc(){
-	controller::gameView.display();
+
+void keyboardFunc(unsigned char key, int x, int y){
+	controller::gameEngine.keyboard(key, x, y);
 }
 
-void keyboardFunc(){
-	controller::gameView.display();
-}
-
-main(int argc, char **argv) {
-	glutInit (&argc, argv);
-	glutInitDisplayMode (GLUT_RGB | GLUT_DOUBLE | GLUT_DEPTH);
-	glutInitWindowSize (640,480);
-	glutCreateWindow ("Asteroids3D");
-	glutDisplayFunc (displayFunc);
-	//glutMouseFunc(MouseButtons);
+main(int argc, char * argv[]) {
+	controller::gameView.init(&argc, argv);
 	glutKeyboardFunc(keyboardFunc);
+	//glutMouseFunc(MouseButtons);
 	//glutMotionFunc(MouseMotion);
 	//glutPassiveMotionFunc(MouseMotion);
 	//glutTimerFunc(FRAMETIME,Timer,0);

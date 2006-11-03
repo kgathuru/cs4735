@@ -4,7 +4,7 @@ controller::engine::engine(){
 	
 }
 
-void keyboardFunc(unsigned char key, int x, int y){
+void controller::engine::keyboard(unsigned char key, int x, int y){
 	switch (key){
 		case 'w':
 			cout << "w pressed"; 

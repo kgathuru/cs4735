@@ -5,9 +5,11 @@
 
 class view{
 	public:
-	//extern controller::gameEngine;
-	void display();
+	void init(int *argc,char**argv);
+	static void display(void);
 	view();
+	private:
+	//extern engine gameEngine;
 };
 
 #endif
