@@ -4,6 +4,14 @@ controller::engine::engine(){
 	
 }
 
+void keyboardFunc(unsigned char key, int x, int y){
+	switch (key){
+		case 'w':
+			cout << "w pressed"; 
+	}
+	glutPostRedisplay();
+}
+
 bool controller::engine::start(bool finish){
 
 	float t = 0.0;
