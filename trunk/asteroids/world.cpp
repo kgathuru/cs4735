@@ -7,7 +7,7 @@ model::world::world(){
 
 /**world deconstructor*/
 model::world::~world(){
-	this = NULL;
+	//this = NULL;
 }
 
 /** starting point accessor method */ 

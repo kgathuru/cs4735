@@ -14,6 +14,10 @@ void displayFunc(){
 	controller::gameView.display();
 }
 
+void keyboardFunc(){
+	controller::gameView.display();
+}
+
 main(int argc, char **argv) {
 	glutInit (&argc, argv);
 	glutInitDisplayMode (GLUT_RGB | GLUT_DOUBLE | GLUT_DEPTH);
@@ -21,6 +25,7 @@ main(int argc, char **argv) {
 	glutCreateWindow ("Asteroids3D");
 	glutDisplayFunc (displayFunc);
 	//glutMouseFunc(MouseButtons);
+	glutKeyboardFunc(keyboardFunc);
 	//glutMotionFunc(MouseMotion);
 	//glutPassiveMotionFunc(MouseMotion);
 	//glutTimerFunc(FRAMETIME,Timer,0);
