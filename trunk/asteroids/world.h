@@ -15,11 +15,11 @@ class world{
 	void setStartPoint(Point3 v);
 	Vector3 getEndPoint();
 	void setEndPoint(Point3 v);
+	void render();
 	
-
-	/** \todo change to asteroids when ready */
-	list<object> asteroids;
-	typedef list<object>::iterator asteroids_iter;
+	/** STL list of asteroids */
+	list<asteroid> asteroids;
+	typedef list<asteroid>::iterator asteroid_iterator;
 	
 	asteroid asteroidArray[INITIAL_NUM_ASTEROIDS];
 

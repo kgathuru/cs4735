@@ -48,11 +48,8 @@ void view::display(void){
 	gluLookAt(2.3, 2.0, 2.5, 0, 0.5, 0, 0.0, 0.0, 1.0);
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT); // clear the screen
 
-	//for each object in world.objects{
-	//extern controller::engine gameEngine;
-	//controller::gameEngine.theWorld.spacebarn.readFile("SIMPBARN.3VN");
-	//controller::gameEngine.theWorld.spacebarn.draw();
-	//}	
+
+	controller::gameEngine.theWorld.render();
 
 	glEnd();				// Done Drawing The Pyramid
 	glutSwapBuffers();
