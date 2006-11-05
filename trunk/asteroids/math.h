@@ -11,13 +11,13 @@
 #include<iostream>
 #include<fstream>
 
-using namespace std;
+/** Support Classes for Mesh */
 
-//<<Support Classes for Mesh>>>
+using namespace std;
 
 /** Point2 class for 2D points with real coordinates */ 
 class Point2{ 
-public: 
+  public: 
 	float x,y;
 	void set(float dx, float dy){x = dx; y = dy;}
 	void set(Point2& p){ x = p.x; y = p.y;} 
@@ -27,7 +27,7 @@ public:
 
 /** a polyline is a num plus an array of points */
 class PolyLine{ 
-public:
+  public:
 	int num;
 	Point2 pt[80]; //may need larger arrays in some circumstances
 	PolyLine(){num = 0;}
@@ -35,11 +35,11 @@ public:
 
 /** Point3 class */
 class Point3{ 
-public: 
+  public: 
 	float x,y,z;
 	void set(float dx, float dy, float dz){x = dx; y = dy; z = dz;}
 	void set(Point3& p){x = p.x; y = p.y; z = p.z;} 	
- Point3(float xx,     float yy, float zz){x = xx; y = yy; z = zz;}
+	Point3(float xx,     float yy, float zz){x = xx; y = yy; z = zz;}
 	Point3(){x = y = z = 0;}
 	void build4tuple(float v[])
 	{// load 4-tuple with this color: v[3] = 1 for homogeneous
@@ -49,8 +49,9 @@ public:
 
 /** Vector3 class */
 class Vector3{ 
-public: 
+  public: 
 	float x,y,z;
+       	void set(Vector3 v){ x = v.x; y = v.y; z = v.z;}
 	void set(float dx, float dy, float dz){ x = dx; y = dy; z = dz;} 
 	void set(Vector3& v){ x = v.x; y = v.y; z = v.z;}
 	void flip(){x = -x; y = -y; z = -z;} // reverse this vector
@@ -81,23 +82,23 @@ public:
 
 /** VertexID class */
 class VertexID {
-public:
-  int vertIndex;  // index of this vertex in the vertex list
-  int normIndex;  // index of this vertex's normal
+  public:
+	int vertIndex;  // index of this vertex in the vertex list
+	int normIndex;  // index of this vertex's normal
 };
 
 /** Face class */
 class Face {
-public:
-  int nVerts; // number of vertices in this face
-  VertexID * vert; // the list of vertex and normal indices
-  Face(){nVerts = 0; vert = NULL;} // constructor
-  ~Face(){delete[] vert; nVerts = 0;} // destructor
+  public:
+	int nVerts; // number of vertices in this face
+	VertexID * vert; // the list of vertex and normal indices
+	Face(){nVerts = 0; vert = NULL;} // constructor
+	~Face(){delete[] vert; nVerts = 0;} // destructor
 };
 
-//###################### Mesh #######################
+/** Mesh class */
 class Mesh{
-   private:
+  private:
 	int numVerts;	// number of vertices in the mesh
 	Point3* pt;	      // array of 3D vertices
 	int numNormals;   // number of normal vectors for the mesh
@@ -105,7 +106,7 @@ class Mesh{
 	int numFaces; 	// number of faces in the mesh
 	Face* face;	      // array of face data
 	
-   public:
+  public:
 	Mesh(); 		// constructor
 	//        ~Mesh();                // destructor
 	int readFile(char * fileName);  // to read in a filed mesh

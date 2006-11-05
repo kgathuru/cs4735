@@ -8,16 +8,16 @@ namespace controller{
 
 /*! the engine class controls the flow of the game */ 
 class engine{
-	public:
+  public:
 	static void keyboard(unsigned char key, int x, int y);
 	void init(int *argc,char**argv);
 	bool start(bool finish);
 	bool end();
 	engine();	
 	model::world theWorld;
-	view gameView;
+	viewer::view gameView;
 };
 
-engine gameEngine;
+engine gameEngine; //global engine
 };
 #endif
