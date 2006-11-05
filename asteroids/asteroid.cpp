@@ -1,18 +1,19 @@
+#include "asteroid.h"
 #include "object.h"
 #include "math.h"
 #include <cstdlib>
 #include <ctime>
 #include <iostream>
-#include "mathlib.h"
+#include "math.h"
 
 //Constructor
-asteroid::asteroid()
+model::asteroid::asteroid()
 {
 	//Size is radius of the sphere that represents the asteroid
-	float sizeLimitUpper = 100;	//Upper size limit of asteroid
-	float sizeLimitLower = 1; 	//Lower size limit of asteroid
-	float x,y,z;
-	float WIDTH, DEPTH, HEIGHT;
+	int sizeLimitUpper = 100;	//Upper size limit of asteroid
+	int sizeLimitLower = 1; 	//Lower size limit of asteroid
+	int x,y,z;
+	int WIDTH, DEPTH, HEIGHT;
  
 	//Set speed to be the same for every asteroid
 	speed = 10.0;
@@ -35,25 +36,25 @@ asteroid::asteroid()
 	//Assuming that world path is the x axis
 	z = (rand()%WIDTH);
 	if(z%2 == 0)
-		z = z*(-1)	
+		z = z*(-1);
 	y = (rand()%HEIGHT);
 	x = (rand()%DEPTH);
 	position.set(x,y,z);
 }
 
 //Deconstructor
-asteroid::~asteroid()
+model::asteroid::~asteroid()
 {
-    this = NULL;
+    //this = NULL;
 }
 
-void asteroid:: recreate()
+void model::asteroid:: recreate()
 {
 	//Size is radius of the sphere that represents the asteroid
-	float sizeLimitUpper = 100;	//Upper size limit of asteroid
-	float sizeLimitLower = 1; 	//Lower size limit of asteroid
-	float x,y,z;
-	float WIDTH, DEPTH, HEIGHT;
+	int sizeLimitUpper = 100;	//Upper size limit of asteroid
+	int sizeLimitLower = 1; 	//Lower size limit of asteroid
+	int x,y,z;
+	int WIDTH, DEPTH, HEIGHT;
  
 	//Set speed to be the same for every asteroid
 	speed = 10.0;
@@ -76,48 +77,24 @@ void asteroid:: recreate()
 	//Assuming that world path is the x axis
 	x = (rand()%WIDTH);
 	if(z%x == 0)
-		x = x*(-1)	
+		x = x*(-1);	
 	y = (rand()%HEIGHT);
 	z = (rand()%DEPTH);
 	position.set(x,y,z);
 }
 
 
-void asteroid:: setSpin(float Sx, float Sy, float Sz)
+void model::asteroid:: setSpin(float Sx, float Sy, float Sz)
 {
 	spin.set(Sx,Sy,Sz);
 }
 
-Vector3 asteroid:: getSpin()
+Vector3 model::asteroid:: getSpin()
 {
 	return spin;
 }
 
-void asteroid:: doStep(float t)
-{
-	float x,y,z;
-
-	//change position to reflect movement
-	x = position.x + t * direction.x;
-	y = position.y + t * direction.y;
-	z = position.z + t * direction.z;
-	position.set(x,y,z);
-
-	if(position.z < 0.0)
-	{
-		//Destroy asteroid
-		destroy()
-		//Reset fields and restart at end of path
-		recreate();
-	}
-
-	//Need to check for collision with spaceship
-	//Asteroids can't collide with each other, only ship
-	
-	//Draw new asteroid after collision detection
-}
-
-void asteroid:: draw()
+void model::asteroid:: draw()
 {
 	//Rotate the asteroid by how much
 	float angleRot = 5;
@@ -138,7 +115,7 @@ void asteroid:: draw()
 	glutSolidSphere(1,15,15);
 }
 
-void asteroid:: destroy()
+void model::asteroid:: destroy()
 {
 	//Animation to remove asteroid
 	for(float i = size; i > 0; i--);
@@ -148,14 +125,39 @@ void asteroid:: destroy()
 	}
 }
 
-bool asteroid:: checkCollision(Point3 shipPosition, float shipSize)
+void model::asteroid:: doStep(float t)
+{
+	float x,y,z;
+
+	//change position to reflect movement
+	x = position.x + t * direction.x;
+	y = position.y + t * direction.y;
+	z = position.z + t * direction.z;
+	position.set(x,y,z);
+
+	if(position.z < 0.0)
+	{
+		//Destroy asteroid
+		destroy();
+		//Reset fields and restart at end of path
+		recreate();
+	}
+
+	//Need to check for collision with spaceship
+	//Asteroids can't collide with each other, only ship
+	
+	//Draw new asteroid after collision detection
+}
+
+
+bool model::asteroid:: checkCollision(Point3 shipPosition, float shipSize)
 {
 	//Find distance between two centers
 	float distance;
 	float dx, dy, dz;
-	dx = postion.x - shipPosition.x;
-	dy = postion.y - shipPosition.y;
-	dz = postion.z - shipPosition.z;
+	dx = position.x - shipPosition.x;
+	dy = position.y - shipPosition.y;
+	dz = position.z - shipPosition.z;
 	distance = sqrt(dx*dx + dy*dy + dz*dz);
 
 	//See if it is less than the sum of the raduis of the ship and asteroid
@@ -163,10 +165,9 @@ bool asteroid:: checkCollision(Point3 shipPosition, float shipSize)
 	{
 		//Need to destroy the asteroid if it's true
 		destroy();
-		//call deconstructor
-		~asteroid();
 		
 		return true;
+		//Call deconstructor outside of the method
 	}
 	else
 	{

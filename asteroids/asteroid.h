@@ -1,5 +1,7 @@
+#ifndef ASTEROID_H
+#define ASTEROID_H
+
 #include "object.h"
-#include "asteroid.h"
 #include "math.h"
 
 namespace model{
@@ -9,7 +11,7 @@ class asteroid: public object{
 	
    public:
 	asteroid(); 		// constructor
-	~asteroid()	//deconstructor
+	~asteroid();	//deconstructor
 	void setSpin(float Sx, float Sy, float Sz);	//Set the spin in degrees
 	Vector3 getSpin();	//Return spin
 	void doStep(float t);	//Change in time t in the simulation, change to reflect
@@ -19,3 +21,5 @@ class asteroid: public object{
 	void recreate();
 };
 };
+
+#endif
