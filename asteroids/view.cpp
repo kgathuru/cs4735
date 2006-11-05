@@ -6,7 +6,7 @@ view::view(){
 }
 
 /** initialize OpenGL environment */
-void view::init(int *argc,char**argv){
+void view::initView(int *argc,char**argv){
 	glutInit (argc,argv);
 	glutInitDisplayMode (GLUT_RGB | GLUT_DOUBLE | GLUT_DEPTH);
 	glutInitWindowSize (640,480);

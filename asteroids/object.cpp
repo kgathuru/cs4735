@@ -5,6 +5,11 @@ model::object::object(){
 	Mesh();
 }
 
+/** object destructor */
+model::object::~object(){
+
+}
+
 /** speed mutator method */ 
 void model::object::setSpeed(float s){
 	speed = s;

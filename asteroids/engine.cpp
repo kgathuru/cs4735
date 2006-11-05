@@ -4,6 +4,11 @@ controller::engine::engine(){
 	
 }
 
+void controller::engine::init(int *argc,char**argv){
+	gameView.initView(argc, argv);
+	glutKeyboardFunc(keyboard);
+}
+
 void controller::engine::keyboard(unsigned char key, int x, int y){
 	switch (key){
 		case 'w':

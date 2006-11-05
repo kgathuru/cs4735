@@ -10,12 +10,14 @@ namespace controller{
 class engine{
 	public:
 	static void keyboard(unsigned char key, int x, int y);
+	void init(int *argc,char**argv);
 	bool start(bool finish);
 	bool end();
 	engine();	
 	model::world theWorld;
+	view gameView;
 };
-extern engine gameEngine;
-extern view gameView;
+
+engine gameEngine;
 };
 #endif

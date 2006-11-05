@@ -2,7 +2,12 @@
 
 /**world constructor*/
 model::world::world(){
- 
+	/** create asteroids */
+	/** \todo change to asteroid class */ 
+	for (int i=0; i<INITAL_NUM_ASTEROIDS; i++){
+		object *astr = new object;
+		asteroids.push_back(*astr);
+	}
 }
 
 /**world deconstructor*/
