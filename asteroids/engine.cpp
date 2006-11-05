@@ -7,6 +7,7 @@ controller::engine::engine(){
 void controller::engine::init(int *argc,char**argv){
 	gameView.initView(argc, argv);
 	glutKeyboardFunc(keyboard);
+	gameView.display();
 }
 
 void controller::engine::keyboard(unsigned char key, int x, int y){

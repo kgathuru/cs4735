@@ -3,16 +3,23 @@
 /**world constructor*/
 model::world::world(){
 	/** create asteroids */
-	/** \todo change to asteroid class */ 
 	for (int i=0; i<INITIAL_NUM_ASTEROIDS; i++){
-		object *astr = new object;
-		asteroids.push_back(*astr);
+		asteroid astr;
+		asteroids.push_back(astr);
 	}
 }
 
 /**world deconstructor*/
 model::world::~world(){
 	//this = NULL;
+}
+
+void model::world::render(){
+	/** render asteroids */
+	for (asteroid_iterator iter=asteroids.begin(); iter!=asteroids.end(); iter++){
+		iter->readFile("SIMPBARN.3VN");
+		iter->draw();
+	} 
 }
 
 /** starting point accessor method */ 
