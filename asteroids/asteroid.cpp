@@ -1,60 +1,19 @@
 #include "asteroid.h"
 #include "object.h"
+#include "game.h"
 #include "math.h"
 #include <cstdlib>
 #include <ctime>
 #include <iostream>
 #include "math.h"
 
-//Constructor
+//Constructor, assigns random values to fields
 model::asteroid::asteroid()
 {
 	//Size is radius of the sphere that represents the asteroid
 	int sizeLimitUpper = 100;	//Upper size limit of asteroid
 	int sizeLimitLower = 1; 	//Lower size limit of asteroid
 	int x,y,z;
-	int WIDTH, DEPTH, HEIGHT;
- 
-	//Set speed to be the same for every asteroid
-	speed = 10.0;
-	//Set direction to be the same for every asteroid
-	//Assuming direction is a Vector3
-	direction.set(1.0,0.0,0.0);	//All move in the positive x direction
-
-	//Generate random size between upper and lower limit
-	srand((unsigned)time(0));
-	size = (rand()%sizeLimitUpper)+sizeLimitLower; 
-
-	//Generate random spin for x, y, and z direction
-	//Value in degrees, between 0 and 360 degrees
-	x = (rand()%360);
-	y = (rand()%360);
-	z = (rand()%360);
-	spin.set(x,y,z);
-
-	//Set position randomly based on size of the world
-	//Assuming that world path is the x axis
-	z = (rand()%WIDTH);
-	if(z%2 == 0)
-		z = z*(-1);
-	y = (rand()%HEIGHT);
-	x = (rand()%DEPTH);
-	position.set(x,y,z);
-}
-
-//Deconstructor
-model::asteroid::~asteroid()
-{
-    //this = NULL;
-}
-
-void model::asteroid:: recreate()
-{
-	//Size is radius of the sphere that represents the asteroid
-	int sizeLimitUpper = 100;	//Upper size limit of asteroid
-	int sizeLimitLower = 1; 	//Lower size limit of asteroid
-	int x,y,z;
-	int WIDTH, DEPTH, HEIGHT;
  
 	//Set speed to be the same for every asteroid
 	speed = 10.0;
@@ -76,10 +35,50 @@ void model::asteroid:: recreate()
 	//Set position randomly based on size of the world
 	//Assuming that world path is the x axis
 	x = (rand()%WIDTH);
-	if(z%x == 0)
-		x = x*(-1);	
+	if(x%2 == 0)
+		x = x*(-1);
 	y = (rand()%HEIGHT);
-	z = (rand()%DEPTH);
+	z = (rand()%DEPTH) + DEPTH;
+	position.set(x,y,z);
+}
+
+//Deconstructor
+model::asteroid::~asteroid()
+{
+    //this = NULL;
+}
+
+void model::asteroid:: recreate()
+{
+	//Size is radius of the sphere that represents the asteroid
+	int sizeLimitUpper = 100;	//Upper size limit of asteroid
+	int sizeLimitLower = 1; 	//Lower size limit of asteroid
+	int x,y,z;
+ 
+	//Set speed to be the same for every asteroid
+	speed = 10.0;
+	//Set direction to be the same for every asteroid
+	//Assuming direction is a Vector3
+	direction.set(1.0,0.0,0.0);	//All move in the positive x direction
+
+	//Generate random size between upper and lower limit
+	srand((unsigned)time(0));
+	size = (rand()%sizeLimitUpper)+sizeLimitLower; 
+
+	//Generate random spin for x, y, and z direction
+	//Value in degrees, between 0 and 360 degrees
+	x = (rand()%360);
+	y = (rand()%360);
+	z = (rand()%360);
+	spin.set(x,y,z);
+
+	//Set position randomly based on size of the world
+	//Assuming that world path is the x axis
+	x = (rand()%WIDTH);
+	if(x%2 == 0)
+		x = x*(-1);
+	y = (rand()%HEIGHT);
+	z = (rand()%DEPTH) + DEPTH;
 	position.set(x,y,z);
 }
 

@@ -21,7 +21,7 @@ class world{
 	list<object> asteroids;
 	typedef list<object>::iterator asteroids_iter;
 	
-	asteroid asteroidArray[INITIAL_NUM_ASTEROIDS]; 
+	asteroid asteroidArray[INITIAL_NUM_ASTEROIDS];
 
 	/** \todo add more methods from UML */ 	
 	world();
