@@ -3,11 +3,11 @@
 
 //add all game constants here
 
-const int INITIAL_NUM_ASTEROIDS = 10;
+const int INITIAL_NUM_ASTEROIDS = 1;
 //Constants for screen size
 
 //Length of path followed by ship along the Z axis
-const int DEPTH = 5000;
+const int DEPTH = 50;
 //Upper limit of y axis
 const int HEIGHT = 500;
 //X axis goes from -WIDTH to WIDTH
