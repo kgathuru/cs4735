@@ -15,7 +15,7 @@ class object: public Mesh{
 	void setSize(float s);
 	float getSize();
 	object();
-	//~object();	
+	~object();	
 	protected:
 	Vector3 direction;
 	Point3 position;

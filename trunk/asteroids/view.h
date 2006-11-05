@@ -5,7 +5,7 @@
 
 class view{
 	public:
-	void init(int *argc,char**argv);
+	void initView(int *argc,char**argv);
 	static void display(void);
 	view();
 	private:
