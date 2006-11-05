@@ -6,16 +6,21 @@
 namespace model{
 class object: public Mesh{
 	public:
-	void setSpeed();
-	double getSpeed();
-	void setDirection();
-	double getDirection();
+	void setSpeed(float s);
+	float getSpeed();
+	void setDirection(float x, float y, float z);
+	Vector3 getDirection();
+	void setPosition(float x, float y, float z);
+	Point3 getPosition();
+	void setSize(float s);
+	float getSize();
 	object();
 	//~object();	
-	private:
+	protected:
 	Vector3 direction;
 	Point3 position;
 	float speed;
+	float size;
 	//model::world world;
 };
 //extern engine gameengine;

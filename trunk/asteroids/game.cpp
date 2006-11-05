@@ -2,6 +2,7 @@
 #include "world.cpp"
 #include "view.cpp"
 #include "engine.cpp"
+#include "asteroid.h"
 
 #include <GL/glut.h>
 
