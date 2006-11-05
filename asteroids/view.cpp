@@ -27,33 +27,30 @@ void view::display(void){
 	glMaterialfv(GL_FRONT, GL_SHININESS, mat_shininess);
 	// set the light source properties
 	GLfloat lightIntensity[] = {2.0f, 2.0f, 2.0f, 1.0f};
-	GLfloat light_position[] = {2.0f, 6.0f, 3.0f, 0.0f};
+	GLfloat light_position[] = {10.0f, 10.0f, 10.0f, 0.0f};
 	glLightfv(GL_LIGHT0, GL_POSITION, light_position);
 	glLightfv(GL_LIGHT0, GL_AMBIENT, lightIntensity);
+	
 	// set the camera
 	glMatrixMode(GL_PROJECTION);
 	glLoadIdentity();
 
-	
-	gluOrtho2D(-WIDTH/2, WIDTH/2, 0, HEIGHT);
-	glViewport(-WIDTH/2, 0, WIDTH, HEIGHT);
+	glOrtho(-WIDTH/2, WIDTH/2, 0, HEIGHT, 0, DEPTH);
 
-	double winHt = 10;  // half-height of the window
-	
-	gluPerspective(60,1,0.001,10000);
+	//glViewport(-WIDTH/2, 0, WIDTH, HEIGHT);
+	//gluPerspective(45,1,0,DEPTH);
 	
 	glMatrixMode(GL_MODELVIEW);
 	glLoadIdentity();
 	
+	gluLookAt(0, 5, -10, 0, 0, 0, 0.0, 1.0, 0.0);
 	
-
-	gluLookAt(2.3, 2.0, 2.5, 0, 0.5, 0, 0.0, 0.0, 1.0);
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT); // clear the screen
 
 
 	controller::gameEngine.theWorld.render();
 
-	glEnd();				// Done Drawing The Pyramid
+	glEnd();
 	glutSwapBuffers();
 }
 
