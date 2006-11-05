@@ -43,7 +43,7 @@ void view::display(void){
 	glMatrixMode(GL_MODELVIEW);
 	glLoadIdentity();
 	
-	gluLookAt(0, 5, -10, 0, 0, 0, 0.0, 1.0, 0.0);
+	gluLookAt(-10, -10, -10, 1, 1, 1, 0.0, 1.0, 0.0);
 	
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT); // clear the screen
 
