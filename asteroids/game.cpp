@@ -16,7 +16,6 @@ main(int argc, char * argv[]) {
 	//glutMotionFunc(MouseMotion);
 	//glutPassiveMotionFunc(MouseMotion);
 	//glutTimerFunc(FRAMETIME,Timer,0);
-	glViewport(0, 0, 640, 480);
 	glutMainLoop();
 	return 0;
 }

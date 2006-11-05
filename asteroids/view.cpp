@@ -34,7 +34,9 @@ void view::display(void){
 	glMatrixMode(GL_PROJECTION);
 	glLoadIdentity();
 
+	
 	gluOrtho2D(-WIDTH/2, WIDTH/2, 0, HEIGHT);
+	glViewport(-WIDTH/2, 0, WIDTH, HEIGHT);
 
 	double winHt = 10;  // half-height of the window
 	

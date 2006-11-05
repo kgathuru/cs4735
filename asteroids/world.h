@@ -16,6 +16,7 @@ class world{
 	Vector3 getEndPoint();
 	void setEndPoint(Point3 v);
 	void render();
+	void renderBackground();
 	void update();
 	
 	/** STL list of asteroids */

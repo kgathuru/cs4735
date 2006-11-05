@@ -14,6 +14,13 @@ model::world::~world(){
 	//this = NULL;
 }
 
+void model::world::renderBackground(){
+	//Set up space box
+
+	//Tile background
+
+}
+
 /** renders the objects in the world */
 void model::world::render(){
 	/** render axes */
