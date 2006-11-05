@@ -9,7 +9,7 @@ view::view(){
 void view::initView(int *argc,char**argv){
 	glutInit (argc,argv);
 	glutInitDisplayMode (GLUT_RGB | GLUT_DOUBLE | GLUT_DEPTH);
-	glutInitWindowSize (640,480);
+	glutInitWindowSize (WIDTH,HEIGHT);
 	glutCreateWindow ("Asteroids3D");
 	glutDisplayFunc(&(view::display));
 	//glutKeyboardFunc(&(gameEngine::keyboard));
@@ -33,13 +33,18 @@ void view::display(void){
 	// set the camera
 	glMatrixMode(GL_PROJECTION);
 	glLoadIdentity();
-	
+
+	gluOrtho2D(-WIDTH/2, WIDTH/2, 0, HEIGHT);
+
 	double winHt = 10;  // half-height of the window
 	
 	gluPerspective(60,1,0.001,10000);
 	
 	glMatrixMode(GL_MODELVIEW);
 	glLoadIdentity();
+	
+	
+
 	gluLookAt(2.3, 2.0, 2.5, 0, 0.5, 0, 0.0, 0.0, 1.0);
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT); // clear the screen
 

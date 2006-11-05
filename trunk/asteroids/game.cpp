@@ -3,7 +3,6 @@
 #include "view.cpp"
 #include "engine.cpp"
 #include "asteroid.h"
-
 #include <GL/glut.h>
 
 void keyboardFunc(unsigned char key, int x, int y){
