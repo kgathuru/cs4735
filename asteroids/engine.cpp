@@ -8,6 +8,14 @@ void controller::engine::init(int *argc,char**argv){
 	gameView.initView(argc, argv);
 	glutKeyboardFunc(keyboard);
 	gameView.display();
+
+	//glutKeyboardFunc(keyboardFunc);
+	//glutMouseFunc(MouseButtons);
+	//glutMotionFunc(MouseMotion);
+	//glutPassiveMotionFunc(MouseMotion);
+	//glutTimerFunc(FRAMETIME,Timer,0);
+
+	glutMainLoop();
 }
 
 void controller::engine::keyboard(unsigned char key, int x, int y){

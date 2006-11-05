@@ -44,7 +44,6 @@ void model::world::render(){
 	glEnd();
 	glEnable(GL_LIGHT0);
 
-	
 	/** render asteroids */
 	for (asteroid_iterator iter=asteroids.begin(); iter!=asteroids.end(); iter++){
 		iter->readFile("SIMPBARN.3VN");

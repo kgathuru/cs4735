@@ -10,7 +10,7 @@
 namespace model{
 
 class world{
-	public:
+  public:
 	Vector3 getStartPoint();
 	void setStartPoint(Point3 v);
 	Vector3 getEndPoint();
@@ -23,12 +23,10 @@ class world{
 	list<asteroid> asteroids;
 	typedef list<asteroid>::iterator asteroid_iterator;
 	
-	asteroid asteroidArray[INITIAL_NUM_ASTEROIDS];
-
 	/** \todo add more methods from UML */ 	
 	world();
 	~world();	
-	private:
+  private:
 	
 };
 
