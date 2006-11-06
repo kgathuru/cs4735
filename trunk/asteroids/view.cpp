@@ -13,7 +13,7 @@ void viewer::view::initView(int *argc,char**argv){
 	glutCreateWindow ("Asteroids3D");
 	glutDisplayFunc(&(view::display));
 	
-        Point3 eye(4.0, 4.0, 4.0); 
+        Point3 eye(WIDTH/2, HEIGHT/2, 0.0); 
         Point3 look(0.0, 0.0, 0.0); 
         Vector3 up(0.0, 1.0, 0.0);
 	controller::engine::camera1.setShape(30.0f, 64.0f/48.0f, 0.5f, 50.0f);
@@ -40,17 +40,16 @@ void viewer::view::display(void){
 	//Set the window
 	glMatrixMode(GL_PROJECTION);
 	glLoadIdentity();
-	glOrtho(-WIDTH/2, WIDTH/2, 0, HEIGHT, 0, DEPTH);
+	glOrtho(-WIDTH/2, WIDTH/2, 0, HEIGHT, 0, -DEPTH);
 	
 	//Set the camera
-	glMatrixMode(GL_MODELVIEW);
-	glLoadIdentity();
+	//glMatrixMode(GL_MODELVIEW);
+	//glLoadIdentity();
 	//gluLookAt(0, 0, -150, 0, HEIGHT/2, 0, 0.0, 1.0, 0.0);
 	
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT); // clear the screen
 
-	//controller::gameEngine.theWorld.render();
-	controller::gameEngine.theWorld.renderBackground();
+	controller::gameEngine.theWorld.render();
 
 	glEnd();
 	glutSwapBuffers();

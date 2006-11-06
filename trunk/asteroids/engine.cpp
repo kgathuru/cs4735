@@ -22,12 +22,12 @@ void controller::engine::keyboard(unsigned char key, int x, int y){
 	switch (key){
 		// slide controls for camera
 		case 'w':    cout << "w was pressed"; break;
-		case 'F':    camera1.slide(0,0,-0.2); break; // slide camera forward
-		case 'F'-64: camera1.slide(0,0, 0.2); break; //slide camera back	
-		case 'L':    camera1.slide(-0.2, 0, 0); break; // slide camera left
-		case 'L'-64: camera1.slide(0.2, 0, 0); break; //slide camera right
-		case 'U':    camera1.slide(0, 0.2, 0); break; // slide camera up
-		case 'U'-64: camera1.slide(0, -0.2, 0); break; //slide camera down	
+		case 'F':    camera1.slide(0,0,-1.0); break; // slide camera forward
+		case 'F'-64: camera1.slide(0,0, 1.0); break; //slide camera back	
+		case 'L':    camera1.slide(-1.0, 0, 0); break; // slide camera left
+		case 'L'-64: camera1.slide(1.0, 0, 0); break; //slide camera right
+		case 'U':    camera1.slide(0, 1.0, 0); break; // slide camera up
+		case 'U'-64: camera1.slide(0, -1.0, 0); break; //slide camera down	
 		case 'R':    camera1.roll(1.0); break;  // roll to right
 		case 'R'-64: camera1.roll(-1.0); break; // roll to left
 		case 'P':    camera1.pitch(1.0); break;  // pitch up

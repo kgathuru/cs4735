@@ -38,7 +38,7 @@ model::asteroid::asteroid()
 	if(x%2 == 0)
 		x = x*(-1);
 	y = (rand()%HEIGHT);
-	z = (rand()%DEPTH) + DEPTH;
+	z = -((rand()%DEPTH) + DEPTH);
 	position.set(x,y,z);
 }
 
@@ -78,7 +78,7 @@ void model::asteroid:: recreate()
 	if(x%2 == 0)
 		x = x*(-1);
 	y = (rand()%HEIGHT);
-	z = (rand()%DEPTH) + DEPTH;
+	z = -((rand()%DEPTH) + DEPTH);
 	position.set(x,y,z);
 }
 
