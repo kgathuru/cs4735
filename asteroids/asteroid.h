@@ -5,6 +5,7 @@
 #include "math.h"
 
 namespace model{
+
 class asteroid: public object{
    private:
 	Vector3 spin;
@@ -19,7 +20,9 @@ class asteroid: public object{
 	void destroy();	//Animation to destroy asteroid
 	bool checkCollision(Point3 shipPosition, float shipSize);
 	void recreate();
+	float getSize();
 };
+
 };
 
 #endif

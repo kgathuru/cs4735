@@ -13,7 +13,6 @@ model::object::~object(){
 /** speed mutator method */ 
 void model::object::setSpeed(float s){
 	speed = s;
-
 }
 
 /** speed accessor method */
@@ -29,7 +28,6 @@ void model::object::setDirection(float x, float y, float z){
 /** direction accessor method */
 Vector3 model::object::getDirection(){
 	return direction;
-
 }
 
 void model::object::setPosition(float x, float y, float z){

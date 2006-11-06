@@ -10,16 +10,16 @@ namespace controller{
 class engine{
   public:
 	static void keyboard(unsigned char key, int x, int y);
+	static void update(void);
 	void init(int *argc,char**argv);
 	bool start(bool finish);
 	bool end();
 	engine();	
 	model::world theWorld;
 	viewer::view gameView;
-	static viewer::camera camera1;
+	viewer::camera camera1;
 };
 
-viewer::camera controller::engine::camera1;
 engine gameEngine; //global engine
 };
 #endif
