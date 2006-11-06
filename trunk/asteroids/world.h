@@ -11,9 +11,9 @@ namespace model{
 
 class world{
   public:
-	Vector3 getStartPoint();
+	Point3 getStartPoint();
 	void setStartPoint(Point3 v);
-	Vector3 getEndPoint();
+	Point3 getEndPoint();
 	void setEndPoint(Point3 v);
 	void render();
 	void update();
@@ -27,6 +27,8 @@ class world{
 	~world();
   private:
 	double worldTime;
+	Point3 startPoint;
+	Point3 endPoint;
 };
 
 };

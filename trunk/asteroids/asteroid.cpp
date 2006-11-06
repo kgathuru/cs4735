@@ -13,7 +13,7 @@ model::asteroid::asteroid(){
 	speed = 10.0;
 
 	//Assuming direction is a Vector3
-	direction.set(1.0,0.0,0.0);	//All move in the positive x direction
+	direction.set(0.0,0.0,1.0);	//All move in the positive x direction
 }
 
 /** Deconstructor */
@@ -30,10 +30,10 @@ void model::asteroid:: recreate(){
 	int x,y,z;
  
 	//Set speed to be the same for every asteroid
-	speed = 1.0;
+	speed = 10.0;
 	//Set direction to be the same for every asteroid
 	//Assuming direction is a Vector3
-	direction.set(1.0,0.0,0.0);	//All move in the positive x direction
+	direction.set(0.0,0.0,1.0);	//All move in the positive x direction
 
 	//Generate random size between upper and lower limit
 	//srand((unsigned)time(0));
@@ -46,12 +46,14 @@ void model::asteroid:: recreate(){
 	z = (rand()%360);
 	spin.set(x,y,z);
 
+
 	//Set position randomly based on size of the world
 	//Assuming that world path is the x axis
-	x = (rand() % WORLD_WIDTH); if(x%2 == 0) x = x*(-1);
+	x = (rand() % (WORLD_WIDTH/2)); if(x%2 == 0) x = x*(-1);
 	y = (rand() % WORLD_HEIGHT);
-	z = -((rand() % WORLD_DEPTH));//-((rand() % WORLD_DEPTH) + WORLD_DEPTH);
-	position.set(x,y,z);
+	//z = -(rand() % WORLD_DEPTH);
+	z = -((rand() % WORLD_DEPTH) + WORLD_DEPTH);
+	setPosition(x,y,z);
 }
 
 void model::asteroid:: setSpin(float Sx, float Sy, float Sz){
@@ -97,9 +99,11 @@ void model::asteroid:: doStep(float t){
 	y = position.y + t * direction.y;
 	z = position.z + t * direction.z;
 	position.set(x,y,z);
+	//cout<< "X" << x << " Y" << y << " Z" << z << "\n";
 
-	if(position.z < 0.0)
+	if(position.z > 0.0)
 	{
+		//cout<<"\nRECREATE\n";
 		//Destroy asteroid
 		destroy();
 		//Reset fields and restart at end of path
