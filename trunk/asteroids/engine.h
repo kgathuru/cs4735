@@ -16,8 +16,10 @@ class engine{
 	engine();	
 	model::world theWorld;
 	viewer::view gameView;
+	static viewer::camera camera1;
 };
 
+viewer::camera controller::engine::camera1;
 engine gameEngine; //global engine
 };
 #endif
