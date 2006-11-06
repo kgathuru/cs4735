@@ -5,15 +5,6 @@
 
 namespace viewer {
 
-class view{
-  public:
-	void initView(int *argc,char**argv);
-	static void display(void);
-	view();
-  private:
-	camera camera1;
-};
-
 class camera{
   private:
 	Point3 eye;
@@ -29,6 +20,13 @@ class camera{
 	void yaw(float angle); // yaw it
 	void slide(float delU, float delV, float delN); // slide it
 	void setShape(float vAng, float asp, float nearD, float farD);
+};
+
+class view{
+  public:
+	void initView(int *argc,char**argv);
+	static void display(void);
+	view();
 };
 
 };
