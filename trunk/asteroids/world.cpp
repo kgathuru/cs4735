@@ -1,4 +1,5 @@
 #include "world.h"
+#include "game.h"
 
 /**world constructor*/
 model::world::world(){
@@ -15,9 +16,53 @@ model::world::~world(){
 }
 
 void model::world::renderBackground(){
+	int i,j;
 	//Set up space box
-	
-	//Tile background
+	glClear(GL_COLOR_BUFFER_BIT);
+	glDisable(GL_LIGHT0);
+	glColor3f(1.0, 1.0, 1.0);
+	glLineWidth(2);
+
+	glBegin(GL_LINE_STRIP);
+		glVertex3f(-(WIDTH/2), 0.0, 0.0);
+		glVertex3f(WIDTH/2, 0.0, 0.0);
+		glVertex3f(WIDTH/2, HEIGHT, 0.0);
+		glVertex3f(-(WIDTH/2), HEIGHT, 0.0);
+		glVertex3f(-(WIDTH/2), 0.0, 0.0);
+		glVertex3f(-(WIDTH/2), 0.0, DEPTH);
+		glVertex3f(WIDTH/2, 0.0, DEPTH);
+		glVertex3f(WIDTH/2, 0.0, 0.0);
+	glEnd();
+	glBegin(GL_LINE_STRIP);
+		glVertex3f(WIDTH/2, 0.0, DEPTH);
+		glVertex3f(WIDTH/2, HEIGHT, DEPTH);
+		glVertex3f(WIDTH/2, HEIGHT, 0.0);
+		glVertex3f(-(WIDTH/2), HEIGHT, 0.0);
+		glVertex3f(-(WIDTH/2), HEIGHT, DEPTH);
+		glVertex3f(WIDTH/2, HEIGHT, DEPTH);
+		glVertex3f(-(WIDTH/2), HEIGHT, DEPTH);
+		glVertex3f(-(WIDTH/2), 0.0, DEPTH);
+	glEnd();
+	glEnable(GL_LIGHT0);
+
+
+	//Tile top	
+
+
+	//Tile bottom
+
+	//Tile back
+
+	//Tile left
+	for(i = 0; i < HEIGHT/STARHEIGHT; i++)
+	{
+	  for(j = 0; j < DEPTH/STARWIDTH; j++)
+	  {
+		//glViewport(i * STARHEIGHT, j * STARWIDTH, 640/N, 640/N);	
+	  }
+	}
+
+	//Tile right
 
 }
 
@@ -29,8 +74,8 @@ void model::world::render(){
 	glColor3f(1.0, 0.0, 0.0);
 	glLineWidth(2);
 	glBegin(GL_LINES);  // X axis (red).
-		glVertex3f(-(WIDTH/2), 2.0, 0.0);
-		glVertex3f(WIDTH/2, 2.0, 0.0);
+		glVertex3f(-(WIDTH/2), 0.0, 0.0);
+		glVertex3f(WIDTH/2, 0.0, 0.0);
 	glEnd();
 	glColor3f(0.0, 1.0, 0.0);
 	glBegin(GL_LINES);  // Y axis (green).
@@ -40,7 +85,7 @@ void model::world::render(){
 	glColor3f(0.0, 0.0, 1.0);
 	glBegin(GL_LINES);  // Z axis (blue).
 		glVertex3f(0.0, 0.0, 0.0);
-		glVertex3f(0.0, 0.0, DEPTH);
+		glVertex3f(0.0, 0.0, -DEPTH);
 	glEnd();
 	glEnable(GL_LIGHT0);
 

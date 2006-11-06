@@ -13,4 +13,8 @@ const int HEIGHT = 500;
 //X axis goes from -WIDTH to WIDTH
 const int WIDTH = 500;
 
+const int STARHEIGHT = 500;
+
+const int STARWIDTH = 500;
+
 #endif
