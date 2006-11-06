@@ -26,7 +26,7 @@ void viewer::view::initView(int *argc,char**argv){
 	  zFar	  Specifies the	distance from the viewer to the	far
 		  clipping plane (always positive).
 	*/
-	controller::gameEngine.camera1.setShape(30.0f, 64.0f/48.0f, 1300.0f, 4000.0f);
+	controller::gameEngine.camera1.setShape(30.0f, 64.0f/48.0f, 100.0f, 4000.0f);
 	controller::gameEngine.camera1.set(eye, look, up); // make the initial camera
 	//glutKeyboardFunc(&(gameEngine::keyboard));
 }
