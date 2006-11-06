@@ -24,9 +24,9 @@ class world{
 	
 	/** \todo add more methods from UML */ 	
 	world();
-	~world();	
+	~world();
   private:
-	
+	double worldTime;
 };
 
 };

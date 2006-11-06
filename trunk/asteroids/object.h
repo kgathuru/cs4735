@@ -4,8 +4,9 @@
 #include "math.h"
 
 namespace model{
+
 class object: public Mesh{
-	public:
+  public:
 	void setSpeed(float s);
 	float getSpeed();
 	void setDirection(float x, float y, float z);
@@ -16,15 +17,13 @@ class object: public Mesh{
 	float getSize();
 	object();
 	~object();	
-	protected:
+  protected:
 	Vector3 direction;
 	Point3 position;
 	float speed;
 	float size;
-	//model::world world;
 };
-//extern engine gameengine;
-//extern view gameview;
+
 };
 
 #endif

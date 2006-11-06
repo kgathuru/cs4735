@@ -9,21 +9,31 @@ viewer::view::view(){
 void viewer::view::initView(int *argc,char**argv){
 	glutInit (argc,argv);
 	glutInitDisplayMode (GLUT_RGB | GLUT_DOUBLE | GLUT_DEPTH);
-	glutInitWindowSize (WIDTH,HEIGHT);
+	glutInitWindowSize (WINDOW_WIDTH,WINDOW_HEIGHT);
 	glutCreateWindow ("Asteroids3D");
 	glutDisplayFunc(&(view::display));
 	
-        Point3 eye(WIDTH/2, HEIGHT/2, 0.0); 
-        Point3 look(0.0, 0.0, 0.0); 
+        Point3 eye(0, WORLD_HEIGHT/2, -2000.0); 
+        Point3 look(0, WORLD_HEIGHT/2, 0.0); 
         Vector3 up(0.0, 1.0, 0.0);
-	controller::engine::camera1.setShape(30.0f, 64.0f/48.0f, 0.5f, 50.0f);
-	controller::engine::camera1.set(eye, look, up); // make the initial camera
+	/** setshape(float vAng , float asp, float nearD, float farD 
+	  vAng 	  field of view angle, in degrees, in the y	direction.
+	  aspect  Specifies the	aspect ratio that determines the field
+		  of view in the x direction.  The aspect ratio	is the
+		  ratio	of x (width) to	y (height).
+	  zNear	  Specifies the	distance from the viewer to the	near
+		  clipping plane (always positive).
+	  zFar	  Specifies the	distance from the viewer to the	far
+		  clipping plane (always positive).
+	*/
+	controller::gameEngine.camera1.setShape(30.0f, 64.0f/48.0f, 1300.0f, 4000.0f);
+	controller::gameEngine.camera1.set(eye, look, up); // make the initial camera
 	//glutKeyboardFunc(&(gameEngine::keyboard));
 }
 
 void viewer::view::display(void){
 	// set properties of the surface material
-	GLfloat mat_ambient[] = { 0.25f, 0.25f, 0.25f, 1.0f}; // copper
+	/*GLfloat mat_ambient[] = { 0.25f, 0.25f, 0.25f, 1.0f}; // copper
 	GLfloat mat_diffuse[] = { 0.4f, 0.4f, 0.4f, 1.0f}; 
 	GLfloat mat_specular[] = { 0.256777f, 0.137622f, 0.086014f, 1.0f};
 	GLfloat mat_shininess[] = { 128.0f }; 
@@ -35,12 +45,19 @@ void viewer::view::display(void){
 	GLfloat lightIntensity[] = {2.0f, 2.0f, 2.0f, 1.0f};
 	GLfloat light_position[] = {10.0f, 10.0f, 10.0f, 0.0f};
 	glLightfv(GL_LIGHT0, GL_POSITION, light_position);
-	glLightfv(GL_LIGHT0, GL_AMBIENT, lightIntensity);
+	glLightfv(GL_LIGHT0, GL_AMBIENT, lightIntensity);*/
+
+	glMatrixMode(GL_MODELVIEW);
+	glShadeModel(GL_SMOOTH);
+	glEnable(GL_LIGHTING);  // enable the light source
+	glEnable(GL_LIGHT0);
+	glEnable(GL_DEPTH_TEST); // for removal of hidden surfaces
+	glEnable(GL_NORMALIZE);  // normalize vectors for proper shading
 	
 	//Set the window
-	glMatrixMode(GL_PROJECTION);
-	glLoadIdentity();
-	glOrtho(-WIDTH/2, WIDTH/2, 0, HEIGHT, 0, -DEPTH*2);
+	//glMatrixMode(GL_PROJECTION);
+	//glLoadIdentity();
+	//glOrtho(-WIDTH/2, WIDTH/2, 0, HEIGHT, 0, -DEPTH*2);
 	
 	//Set the camera
 	//glMatrixMode(GL_MODELVIEW);
@@ -51,20 +68,19 @@ void viewer::view::display(void){
 
 	controller::gameEngine.theWorld.render();
 
-	glEnd();
 	glutSwapBuffers();
 }
 
 /** camera constructor */
 viewer::camera::camera() {
-	viewAngle = 0.0;
-	aspect = 1.0;
-	nearDist = 1.0;
-	farDist = 20.0;
-	eye.set(1.0, 1.0, 1.0);
-	u.set(0.0, 0.0, 1.0);
-	v.set(0.0, 1.0, 0.0);
-	n.set(-1.0, 0.0, 0.0);
+	//viewAngle = 0.0;
+	//aspect = 1.0;
+	//nearDist = 1.0;
+	//farDist = 20.0;
+	//eye.set(1.0, 1.0, 1.0);
+	//u.set(0.0, 0.0, 1.0);
+	//v.set(0.0, 1.0, 0.0);
+	//n.set(-1.0, 0.0, 0.0);
 }
 
 /** load modelview matrix with existing camera values */
