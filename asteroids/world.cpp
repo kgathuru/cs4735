@@ -29,7 +29,8 @@ model::world::world(){
 		//Assuming that world path is the x axis
 		x = (rand() % (WORLD_WIDTH/2)); if(x%2 == 0) x = x*(-1);
 		y = (rand() % WORLD_HEIGHT);
-		z = -(rand() % WORLD_DEPTH);//-((rand() % WORLD_DEPTH) + WORLD_DEPTH);
+		//z = (-1)*(rand() % WORLD_DEPTH);
+		z = -((rand() % WORLD_DEPTH) + WORLD_DEPTH);
 		astr.setPosition(x,y,z);
 		//cout<<x;cout<<"\n";cout<<y;cout<<"\n";cout<<z;cout<<"\n";
 		asteroids.push_back(astr);
@@ -100,22 +101,22 @@ void model::world::update(){
 }
 
 /** starting point accessor method */ 
-Vector3 model::world::getStartPoint(){
-
+Point3 model::world::getStartPoint(){
+	return startPoint;
 }
 
 /** starting point mutator method */
 void model::world::setStartPoint(Point3 v){
-	
+	startPoint.set(v);
 }
 
 /** ending point accessor method */
-Vector3 model::world::getEndPoint(){
-
+Point3 model::world::getEndPoint(){
+	return endPoint;
 }
 
 /** ending point mutator method */
 void model::world::setEndPoint(Point3 v){
-
+	endPoint.set(v);
 }
 
