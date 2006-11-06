@@ -40,7 +40,7 @@ void viewer::view::display(void){
 	//Set the window
 	glMatrixMode(GL_PROJECTION);
 	glLoadIdentity();
-	glOrtho(-WIDTH/2, WIDTH/2, 0, HEIGHT, 0, -DEPTH);
+	glOrtho(-WIDTH/2, WIDTH/2, 0, HEIGHT, 0, -DEPTH*2);
 	
 	//Set the camera
 	//glMatrixMode(GL_MODELVIEW);
@@ -60,7 +60,7 @@ viewer::camera::camera() {
 	viewAngle = 0.0;
 	aspect = 1.0;
 	nearDist = 1.0;
-	farDist = 2.0;
+	farDist = 20.0;
 	eye.set(1.0, 1.0, 1.0);
 	u.set(0.0, 0.0, 1.0);
 	v.set(0.0, 1.0, 0.0);
