@@ -31,24 +31,20 @@ void viewer::view::display(void){
 	glLightfv(GL_LIGHT0, GL_POSITION, light_position);
 	glLightfv(GL_LIGHT0, GL_AMBIENT, lightIntensity);
 	
-	// set the camera
+	//Set the window
 	glMatrixMode(GL_PROJECTION);
 	glLoadIdentity();
-
 	glOrtho(-WIDTH/2, WIDTH/2, 0, HEIGHT, 0, DEPTH);
-
-	//glViewport(-WIDTH/2, 0, WIDTH, HEIGHT);
-	//gluPerspective(45,1,0,DEPTH);
 	
+	//Set the camera
 	glMatrixMode(GL_MODELVIEW);
 	glLoadIdentity();
-	
-	gluLookAt(-10, -10, -10, 1, 1, 1, 0.0, 1.0, 0.0);
+	gluLookAt(0, 0, -150, 0, HEIGHT/2, 0, 0.0, 1.0, 0.0);
 	
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT); // clear the screen
 
-
-	controller::gameEngine.theWorld.render();
+	//controller::gameEngine.theWorld.render();
+	controller::gameEngine.theWorld.renderBackground();
 
 	glEnd();
 	glutSwapBuffers();
