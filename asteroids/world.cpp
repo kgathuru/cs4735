@@ -45,6 +45,7 @@ model::world::~world(){
 /** renders the objects in the world */
 void model::world::render(){
 	/** render axes */
+	glDisable(GL_LIGHTING);	//Allow colors to be drawn regardless of light
 	glColor3f(1.0, 0.0, 0.0);
 	glLineWidth(2);
 	glBegin(GL_LINES);  // X axis (red).
@@ -84,6 +85,7 @@ void model::world::render(){
 		glVertex3f(-(WORLD_WIDTH/2), WORLD_HEIGHT, -WORLD_DEPTH);
 		glVertex3f(-(WORLD_WIDTH/2), 0.0, -WORLD_DEPTH);
 	glEnd();
+	glEnable(GL_LIGHTING);	//Turn light back on, drawing done
 
 	/** render asteroids */
 	for (asteroid_iterator iter=asteroids.begin(); iter!=asteroids.end(); iter++){
