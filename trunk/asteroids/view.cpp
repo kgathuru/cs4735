@@ -13,8 +13,10 @@ void viewer::view::initView(int *argc,char**argv){
 	glutCreateWindow ("Asteroids3D");
 	glutDisplayFunc(&(view::display));
 	
-        Point3 eye(0, WORLD_HEIGHT/2, -2000.0); 
-        Point3 look(0, WORLD_HEIGHT/2, 0.0); 
+	//Make the world bigger so things don't get clipped moving around
+	glOrtho(-WORLD_WIDTH, WORLD_WIDTH, -WORLD_HEIGHT*2, WORLD_HEIGHT*2, WORLD_DEPTH, -WORLD_DEPTH*2);
+        Point3 eye(0, WORLD_HEIGHT/2, 1000.0); 
+        Point3 look(0, WORLD_HEIGHT/2, -2000.0); 
         Vector3 up(0.0, 1.0, 0.0);
 	/** setshape(float vAng , float asp, float nearD, float farD 
 	  vAng 	  field of view angle, in degrees, in the y	direction.
@@ -32,20 +34,22 @@ void viewer::view::initView(int *argc,char**argv){
 }
 
 void viewer::view::display(void){
+
 	// set properties of the surface material
-	/*GLfloat mat_ambient[] = { 0.25f, 0.25f, 0.25f, 1.0f}; // copper
-	GLfloat mat_diffuse[] = { 0.4f, 0.4f, 0.4f, 1.0f}; 
-	GLfloat mat_specular[] = { 0.256777f, 0.137622f, 0.086014f, 1.0f};
-	GLfloat mat_shininess[] = { 128.0f }; 
+	GLfloat mat_ambient[] = { 0.5f, 0.25f, 0.25f, 1.0f};
+	GLfloat mat_diffuse[] = { 0.75f, 0.5f, 0.15f, 1.0f}; 
+	GLfloat mat_specular[] = { 0.25f, 0.25f, 0.75f, 1.0f};
+	GLfloat mat_shininess[] = { 15.0f }; 
 	glMaterialfv(GL_FRONT, GL_AMBIENT, mat_ambient);
 	glMaterialfv(GL_FRONT, GL_DIFFUSE, mat_diffuse);
 	glMaterialfv(GL_FRONT, GL_SPECULAR, mat_specular);
 	glMaterialfv(GL_FRONT, GL_SHININESS, mat_shininess);
+
 	// set the light source properties
 	GLfloat lightIntensity[] = {2.0f, 2.0f, 2.0f, 1.0f};
 	GLfloat light_position[] = {10.0f, 10.0f, 10.0f, 0.0f};
 	glLightfv(GL_LIGHT0, GL_POSITION, light_position);
-	glLightfv(GL_LIGHT0, GL_AMBIENT, lightIntensity);*/
+	glLightfv(GL_LIGHT0, GL_AMBIENT, lightIntensity);
 
 	glMatrixMode(GL_MODELVIEW);
 	glShadeModel(GL_SMOOTH);
