@@ -2,7 +2,7 @@
 
 /** object constructor */
 model::object::object(){
-	Mesh();
+	//Mesh();
 }
 
 /** object destructor */

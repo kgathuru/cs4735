@@ -19,16 +19,6 @@ void viewer::view::initView(int *argc,char**argv){
         Point3 eye(0, WORLD_HEIGHT/2, 1500.0); 
         Point3 look(0, WORLD_HEIGHT/2, -2000.0); 
         Vector3 up(0.0, 1.0, 0.0);
-	/** setshape(float vAng , float asp, float nearD, float farD 
-	  vAng 	  field of view angle, in degrees, in the y	direction.
-	  aspect  Specifies the	aspect ratio that determines the field
-		  of view in the x direction.  The aspect ratio	is the
-		  ratio	of x (width) to	y (height).
-	  zNear	  Specifies the	distance from the viewer to the	near
-		  clipping plane (always positive).
-	  zFar	  Specifies the	distance from the viewer to the	far
-		  clipping plane (always positive).
-	*/
 	controller::gameEngine.camera1.setShape(30.0f, 64.0f/48.0f, 100.0f, 4000.0f);
 	controller::gameEngine.camera1.set(eye, look, up); // make the initial camera
 	//glutKeyboardFunc(&(gameEngine::keyboard));

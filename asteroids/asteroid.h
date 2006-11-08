@@ -21,7 +21,6 @@ class asteroid: public object{
 	bool checkCollision(Point3 shipPosition, float shipSize);
 	void initialize();
 	void recreate();
-	float getSize();
 };
 
 };

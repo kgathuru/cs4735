@@ -2,12 +2,12 @@
 #define SHIP_H
 
 namespace model{
-class ship{
+class ship: public object {
 	public:
 	void setHealth(int health);
 	int getHealth();
-	void setFacing(vector facing);
-	vector getFacing();
+	void setFacing(Vector3 facing);
+	Vector3 getFacing();
 	void setScore(int score);
 	int getScore();
 	void left();
@@ -15,15 +15,14 @@ class ship{
 	void up();
 	void down();
 	void fire();
+	void draw();
 
-	
 	ship();
 	~ship();	
 	private:
 	int health;
-	vector facing;
+	Vector3 facing;
 	int score; 
-
 };
 
 };

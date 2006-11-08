@@ -6,6 +6,7 @@
 #include "game.h"
 #include <list> 
 #include "asteroid.cpp"
+#include "ship.cpp"
 
 namespace model{
 
@@ -18,10 +19,11 @@ class world{
 	void render();
 	void update();
 	
-	/** STL list of asteroids */
 	list<asteroid> asteroids;
 	typedef list<asteroid>::iterator asteroid_iterator;
 	
+	ship serenity;
+
 	/** \todo add more methods from UML */ 	
 	world();
 	~world();
