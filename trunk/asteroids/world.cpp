@@ -14,25 +14,7 @@ model::world::world(){
 	int x,y,z;
 	for (int i=0; i<INITIAL_NUM_ASTEROIDS; i++){
 		asteroid astr;
-
-		//Generate random size between upper and lower limit
-		astr.setSize((rand() % ASTEROID_MAX_SIZE) + ASTEROID_MIN_SIZE); 
-
-		//Generate random spin for x, y, and z direction
-		//Value in degrees, between 0 and 360 degrees
-		x = (rand()%360);
-		y = (rand()%360);
-		z = (rand()%360);
-		astr.setSpin(x,y,z);
-
-		//Set position randomly based on size of the world
-		//Assuming that world path is the x axis
-		x = (rand() % (WORLD_WIDTH/2)); if(x%2 == 0) x = x*(-1);
-		y = (rand() % WORLD_HEIGHT);
-		//z = (-1)*(rand() % WORLD_DEPTH);
-		z = -((rand() % WORLD_DEPTH) + WORLD_DEPTH);
-		astr.setPosition(x,y,z);
-		//cout<<x;cout<<"\n";cout<<y;cout<<"\n";cout<<z;cout<<"\n";
+		astr.initialize();
 		asteroids.push_back(astr);
 	}
 }
@@ -95,6 +77,7 @@ void model::world::render(){
 
 /** updates the objects as time progresses */
 void model::world::update(){
+
 	/** update asteroids */
 	for (asteroid_iterator iter=asteroids.begin(); iter!=asteroids.end(); iter++){
 		iter->doStep(worldTime + 0.01);

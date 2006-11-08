@@ -10,7 +10,7 @@
 /** Constructor, assigns random values to fields */
 model::asteroid::asteroid(){
 	//Set speed to be the same for every asteroid
-	speed = 10.0;
+	speed = ASTEROID_SPEED;
 
 	//Assuming direction is a Vector3
 	direction.set(0.0,0.0,1.0);	//All move in the positive x direction
@@ -25,12 +25,42 @@ float model::asteroid::getSize(){
 	return size;
 }
 
+void model::asteroid:: initialize(){
+	//Size is radius of the sphere that represents the asteroid
+	int x,y,z;
+ 
+	//Set speed to be the same for every asteroid
+	speed = ASTEROID_SPEED;
+	//Set direction to be the same for every asteroid
+	//Assuming direction is a Vector3
+	direction.set(0.0,0.0,1.0);	//All move in the positive x direction
+
+	//Generate random size between upper and lower limit
+	//srand((unsigned)time(0));
+	size = (rand() % ASTEROID_MAX_SIZE) + ASTEROID_MIN_SIZE; 
+
+	//Generate random spin for x, y, and z direction
+	//Value in degrees, between 0 and 360 degrees
+	x = (rand()%360);
+	y = (rand()%360);
+	z = (rand()%360);
+	spin.set(x,y,z);
+
+	//Set position randomly based on size of the world
+	//Assuming that world path is the x axis
+	x = (rand() % (WORLD_WIDTH/2)); if(x%2 == 0) x = x*(-1);
+	y = (rand() % WORLD_HEIGHT);
+	//z = -(rand() % WORLD_DEPTH);
+	z = -((rand() % (WORLD_DEPTH*2)) + WORLD_DEPTH);
+	setPosition(x,y,z);
+}
+
 void model::asteroid:: recreate(){
 	//Size is radius of the sphere that represents the asteroid
 	int x,y,z;
  
 	//Set speed to be the same for every asteroid
-	speed = 10.0;
+	speed = ASTEROID_SPEED;
 	//Set direction to be the same for every asteroid
 	//Assuming direction is a Vector3
 	direction.set(0.0,0.0,1.0);	//All move in the positive x direction
@@ -52,7 +82,7 @@ void model::asteroid:: recreate(){
 	x = (rand() % (WORLD_WIDTH/2)); if(x%2 == 0) x = x*(-1);
 	y = (rand() % WORLD_HEIGHT);
 	//z = -(rand() % WORLD_DEPTH);
-	z = -((rand() % WORLD_DEPTH) + WORLD_DEPTH);
+	z = -((rand() % (WORLD_DEPTH*2)) + WORLD_DEPTH);
 	setPosition(x,y,z);
 }
 
