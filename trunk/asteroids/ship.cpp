@@ -4,6 +4,7 @@
 /** ship constructor */
 model::ship::ship(){
 	readFile("SIMPBARN.3VN");
+	speed = 50;
 }
 
 /** ship deconstructor */
@@ -58,7 +59,8 @@ void model::ship::up(){
 
 void model::ship::draw(){
 	glPushMatrix();
-	//draw position
+
+	//position
 	glRotated(-90, 1, 0, 0);
 	glRotated(90, 0, 0, 1);
 	glScaled(50, 50, 50);

@@ -39,7 +39,16 @@ void controller::engine::keyboard(unsigned char key, int x, int y){
 		case 'P'-64: controller::gameEngine.camera1.pitch(-1.0); break; // pitch down
 		case 'Y':    controller::gameEngine.camera1.yaw(1.0); break;  // yaw right
 		case 'Y'-64: controller::gameEngine.camera1.yaw(-1.0); break; // yaw left
-		// angular motion of the camera
+
+		// controls for ship
+		case 'a': 
+		controller::gameEngine.theWorld.serenity.setSpeed(
+			controller::gameEngine.theWorld.serenity.getSpeed()
+			+ 10.0); break; // accelerate ship
+		case 'z': 
+		controller::gameEngine.theWorld.serenity.setSpeed(
+			controller::gameEngine.theWorld.serenity.getSpeed()
+			- 10.0); break; // decellerate ship
 	}
 	glutPostRedisplay();
 }

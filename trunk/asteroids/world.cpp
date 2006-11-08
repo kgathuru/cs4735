@@ -17,6 +17,7 @@ model::world::world(){
 		astr.initialize();
 		asteroids.push_back(astr);
 	}
+
 }
 
 /**world deconstructor*/
@@ -70,9 +71,19 @@ void model::world::render(){
 	glEnable(GL_LIGHTING);	//Turn light back on, drawing done
 
 	/** render ship */
+	glMaterialfv(GL_FRONT, GL_SPECULAR, ship_specular);
+	glMaterialfv(GL_FRONT, GL_AMBIENT, ship_ambient);
+	glMaterialfv(GL_FRONT, GL_DIFFUSE, ship_diffuse);	
+	glMaterialfv(GL_FRONT, GL_SHININESS, ship_shininess);
+
 	serenity.draw();
 
 	/** render asteroids */
+	glMaterialfv(GL_FRONT, GL_SPECULAR, asteroid_specular);
+	glMaterialfv(GL_FRONT, GL_AMBIENT, asteroid_ambient);
+	glMaterialfv(GL_FRONT, GL_DIFFUSE, asteroid_diffuse);	
+	glMaterialfv(GL_FRONT, GL_SHININESS, asteroid_shininess);
+
 	for (asteroid_iterator iter=asteroids.begin(); iter!=asteroids.end(); iter++){
 		iter->draw();
 	} 
@@ -83,7 +94,7 @@ void model::world::update(){
 
 	/** update asteroids */
 	for (asteroid_iterator iter=asteroids.begin(); iter!=asteroids.end(); iter++){
-		iter->doStep(worldTime + 0.01);
+		iter->doStep(worldTime + 0.1);
 	} 
 	glutPostRedisplay();
 }
