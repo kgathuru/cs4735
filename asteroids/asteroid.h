@@ -19,6 +19,7 @@ class asteroid: public object{
 	void draw(); //Draws a solid sphere for now, may make mesh later
 	void destroy();	//Animation to destroy asteroid
 	bool checkCollision(Point3 shipPosition, float shipSize);
+	void initialize();
 	void recreate();
 	float getSize();
 };

@@ -10,12 +10,13 @@ void viewer::view::initView(int *argc,char**argv){
 	glutInit (argc,argv);
 	glutInitDisplayMode (GLUT_RGB | GLUT_DOUBLE | GLUT_DEPTH);
 	glutInitWindowSize (WINDOW_WIDTH,WINDOW_HEIGHT);
+
 	glutCreateWindow ("Asteroids3D");
 	glutDisplayFunc(&(view::display));
 	
 	//Make the world bigger so things don't get clipped moving around
 	glOrtho(-WORLD_WIDTH, WORLD_WIDTH, -WORLD_HEIGHT*2, WORLD_HEIGHT*2, WORLD_DEPTH, -WORLD_DEPTH*2);
-        Point3 eye(0, WORLD_HEIGHT/2, 1000.0); 
+        Point3 eye(0, WORLD_HEIGHT/2, 1500.0); 
         Point3 look(0, WORLD_HEIGHT/2, -2000.0); 
         Vector3 up(0.0, 1.0, 0.0);
 	/** setshape(float vAng , float asp, float nearD, float farD 
