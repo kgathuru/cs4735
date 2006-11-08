@@ -46,3 +46,10 @@ float model::object::getSize(){
 	return size;
 }
 
+void model::object:: doStep(float t){
+	position.set(
+		position.x + t * speed * direction.x,
+		position.y + t * speed * direction.y,
+		position.z + t * speed * direction.z
+	);
+}

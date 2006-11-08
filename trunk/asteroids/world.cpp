@@ -94,8 +94,12 @@ void model::world::update(){
 
 	/** update asteroids */
 	for (asteroid_iterator iter=asteroids.begin(); iter!=asteroids.end(); iter++){
-		iter->doStep(worldTime + 0.1);
+		iter->doStep(worldTime + GAME_SPEED);
 	} 
+
+	/** update ship */
+	serenity.doStep(worldTime + GAME_SPEED);
+	
 	glutPostRedisplay();
 }
 

@@ -15,6 +15,7 @@ class object: public Mesh{
 	Point3 getPosition();
 	void setSize(float s);
 	float getSize();
+	void doStep(float t);	//Change in time t in the simulation, change to reflect
 	object();
 	~object();	
   protected:
