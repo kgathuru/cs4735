@@ -85,16 +85,11 @@ void model::asteroid:: destroy(){
 }
 
 void model::asteroid:: doStep(float t){
-	float x,y,z;
+	//call super (parent) doStep method 
+	object::doStep(t);
 
-	//change position to reflect movement
-	x = position.x + t * speed * direction.x;
-	y = position.y + t * speed * direction.y;
-	z = position.z + t * speed * direction.z;
-	position.set(x,y,z);
-	//cout<< "X" << x << " Y" << y << " Z" << z << "\n";
-
-	if(position.z > 0.0)
+	//do additional work for asteroid
+	if (position.z > 0.0)
 	{
 		//cout<<"\nRECREATE\n";
 		//Destroy asteroid

@@ -6,14 +6,10 @@ class ship: public object {
 	public:
 	void setHealth(int health);
 	int getHealth();
-	void setFacing(Vector3 facing);
-	Vector3 getFacing();
 	void setScore(int score);
 	int getScore();
-	void left();
-	void right();
-	void up();
-	void down();
+	void yaw(float angle);
+	void pitch(float angle);
 	void fire();
 	void draw();
 
@@ -21,7 +17,7 @@ class ship: public object {
 	~ship();	
 	private:
 	int health;
-	Vector3 facing;
+	Vector3 x;
 	int score; 
 };
 

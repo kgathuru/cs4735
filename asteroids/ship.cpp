@@ -4,7 +4,9 @@
 /** ship constructor */
 model::ship::ship(){
 	readFile("SIMPBARN.3VN");
-	speed = 50;
+	speed = 0.05;
+	position.set(0.0, 0.0, 0.0);
+	direction.set(0.0,0.0,-1.0);
 }
 
 /** ship deconstructor */
@@ -22,16 +24,6 @@ int model::ship::getHealth(){
 
 }
 
-/** facing mutator method */ 
-void model::ship::setFacing(Vector3 facing){
-
-}
-
-/** facing accessor method */
-Vector3 model::ship::getFacing(){
-
-}
-
 /** score mutator method */ 
 void model::ship::setScore(int score){
 
@@ -42,25 +34,21 @@ int model::ship::getScore(){
 
 }
 
-/** method to move ship to the left*/ 
-void model::ship::left(){
-
+/** method to control ship rotation about its own y axis */ 
+void model::ship::yaw(float angle){
+	direction.x += angle;
 }
 
-/** method to move ship to the right*/
-void model::ship::right(){
-
-}
-
-/** method to move ship up*/
-void model::ship::up(){
-
+/** method to control ship rotation about its own x axis */
+void model::ship::pitch(float angle){
+	direction.z += angle;
 }
 
 void model::ship::draw(){
 	glPushMatrix();
 
 	//position
+	glTranslatef(position.x, position.y, position.z);//Move asteroid to position in space
 	glRotated(-90, 1, 0, 0);
 	glRotated(90, 0, 0, 1);
 	glScaled(50, 50, 50);
@@ -68,11 +56,6 @@ void model::ship::draw(){
 	//call super.draw()
 	Mesh::draw();
 	glPopMatrix();
-}
-
-/** method to move ship to down*/
-void model::ship::down(){
-
 }
 
 /** method to fire a projectile */
