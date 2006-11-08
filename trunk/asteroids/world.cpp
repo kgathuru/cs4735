@@ -69,6 +69,9 @@ void model::world::render(){
 	glEnd();
 	glEnable(GL_LIGHTING);	//Turn light back on, drawing done
 
+	/** render ship */
+	serenity.draw();
+
 	/** render asteroids */
 	for (asteroid_iterator iter=asteroids.begin(); iter!=asteroids.end(); iter++){
 		iter->draw();

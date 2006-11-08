@@ -3,7 +3,7 @@
 
 /** ship constructor */
 model::ship::ship(){
-
+	readFile("SIMPBARN.3VN");
 }
 
 /** ship deconstructor */
@@ -22,12 +22,12 @@ int model::ship::getHealth(){
 }
 
 /** facing mutator method */ 
-void model::ship::setFacing(vector facing){
+void model::ship::setFacing(Vector3 facing){
 
 }
 
 /** facing accessor method */
-vector model::ship::getFacing(){
+Vector3 model::ship::getFacing(){
 
 }
 
@@ -54,6 +54,18 @@ void model::ship::right(){
 /** method to move ship up*/
 void model::ship::up(){
 
+}
+
+void model::ship::draw(){
+	glPushMatrix();
+	//draw position
+	glRotated(-90, 1, 0, 0);
+	glRotated(90, 0, 0, 1);
+	glScaled(50, 50, 50);
+
+	//call super.draw()
+	Mesh::draw();
+	glPopMatrix();
 }
 
 /** method to move ship to down*/

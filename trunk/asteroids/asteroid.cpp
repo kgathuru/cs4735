@@ -21,10 +21,6 @@ model::asteroid::~asteroid(){
     //this = NULL;
 }
 
-float model::asteroid::getSize(){
-	return size;
-}
-
 void model::asteroid:: initialize(){
 	//Size is radius of the sphere that represents the asteroid
 	int x,y,z;
