@@ -19,28 +19,18 @@ void viewer::view::initView(int *argc,char**argv){
         Point3 eye(0, WORLD_HEIGHT/2, 1500.0); 
         Point3 look(0, WORLD_HEIGHT/2, -2000.0); 
         Vector3 up(0.0, 1.0, 0.0);
-	controller::gameEngine.camera1.setShape(30.0f, 64.0f/48.0f, 100.0f, 4000.0f);
+	/** \todo is aspect ratio based on world width or window width? */
+	controller::gameEngine.camera1.setShape(30.0f, WORLD_WIDTH/WORLD_HEIGHT, 100.0f, 4000.0f);
 	controller::gameEngine.camera1.set(eye, look, up); // make the initial camera
 	//glutKeyboardFunc(&(gameEngine::keyboard));
 }
 
 void viewer::view::display(void){
-
-	// set properties of the surface material
-	GLfloat mat_ambient[] = { 0.5f, 0.25f, 0.25f, 1.0f};
-	GLfloat mat_diffuse[] = { 0.75f, 0.5f, 0.15f, 1.0f}; 
-	GLfloat mat_specular[] = { 0.25f, 0.25f, 0.75f, 1.0f};
-	GLfloat mat_shininess[] = { 15.0f }; 
-	glMaterialfv(GL_FRONT, GL_AMBIENT, mat_ambient);
-	glMaterialfv(GL_FRONT, GL_DIFFUSE, mat_diffuse);
-	glMaterialfv(GL_FRONT, GL_SPECULAR, mat_specular);
-	glMaterialfv(GL_FRONT, GL_SHININESS, mat_shininess);
-
 	// set the light source properties
-	GLfloat lightIntensity[] = {2.0f, 2.0f, 2.0f, 1.0f};
+	GLfloat light_intensity[] = {0.5f, 0.5f, 0.5f, 0.5f};
 	GLfloat light_position[] = {10.0f, 10.0f, 10.0f, 0.0f};
 	glLightfv(GL_LIGHT0, GL_POSITION, light_position);
-	glLightfv(GL_LIGHT0, GL_AMBIENT, lightIntensity);
+	glLightfv(GL_LIGHT0, GL_AMBIENT, light_intensity);
 
 	glMatrixMode(GL_MODELVIEW);
 	glShadeModel(GL_SMOOTH);

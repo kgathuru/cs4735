@@ -52,34 +52,9 @@ void model::asteroid:: initialize(){
 }
 
 void model::asteroid:: recreate(){
-	//Size is radius of the sphere that represents the asteroid
-	int x,y,z;
- 
-	//Set speed to be the same for every asteroid
-	speed = ASTEROID_SPEED;
-	//Set direction to be the same for every asteroid
-	//Assuming direction is a Vector3
-	direction.set(0.0,0.0,1.0);	//All move in the positive x direction
-
-	//Generate random size between upper and lower limit
-	//srand((unsigned)time(0));
-	size = (rand() % ASTEROID_MAX_SIZE) + ASTEROID_MIN_SIZE; 
-
-	//Generate random spin for x, y, and z direction
-	//Value in degrees, between 0 and 360 degrees
-	x = (rand()%360);
-	y = (rand()%360);
-	z = (rand()%360);
-	spin.set(x,y,z);
-
-
-	//Set position randomly based on size of the world
-	//Assuming that world path is the x axis
-	x = (rand() % (WORLD_WIDTH/2)); if(x%2 == 0) x = x*(-1);
-	y = (rand() % WORLD_HEIGHT);
-	//z = -(rand() % WORLD_DEPTH);
-	z = -((rand() % (WORLD_DEPTH*2)) + WORLD_DEPTH);
-	setPosition(x,y,z);
+	//create asteroid anew and then initialize it
+	//sorry Kate for messing these up, the two functions did exactly the same thing.
+	initialize();
 }
 
 void model::asteroid:: setSpin(float Sx, float Sy, float Sz){
@@ -91,22 +66,14 @@ Vector3 model::asteroid:: getSpin(){
 }
 
 void model::asteroid:: draw(){
-	//save initial matrix
-	glPushMatrix();
-	//Rotate the asteroid by how much
-	float angleRot = 5;
-	//DRAW NEW ASTEROID
+	float angleRot = 5;//Rotate the asteroid by how much
 	glMatrixMode(GL_MODELVIEW);
-	//Rotate mesh based on movement
-	glRotatef(angleRot, spin.x, spin.y, spin.z);
-	//Move asteroid to position in space
-	glTranslatef(position.x, position.y, position.z);
-	//Asteroid mesh is within unit circle centered at origin, need to scale by size
-	glScalef(size, size, size);
-	//Asteroid is just a sphere for now, may make mesh later if time
-	glutSolidSphere(1,15,15);
-	//return default matrix
-	glPopMatrix();
+	glPushMatrix(); //save initial matrix
+	glRotatef(angleRot, spin.x, spin.y, spin.z);//Rotate mesh based on movement
+	glTranslatef(position.x, position.y, position.z);//Move asteroid to position in space
+	glScalef(size, size, size);//Asteroid mesh is within unit circle centered at origin, need to scale by size
+	glutSolidSphere(1,15,15);//Asteroid is just a sphere for now, may make mesh later if time
+	glPopMatrix();//return default matrix
 }
 
 void model::asteroid:: destroy(){
@@ -121,9 +88,9 @@ void model::asteroid:: doStep(float t){
 	float x,y,z;
 
 	//change position to reflect movement
-	x = position.x + t * direction.x;
-	y = position.y + t * direction.y;
-	z = position.z + t * direction.z;
+	x = position.x + t * speed * direction.x;
+	y = position.y + t * speed * direction.y;
+	z = position.z + t * speed * direction.z;
 	position.set(x,y,z);
 	//cout<< "X" << x << " Y" << y << " Z" << z << "\n";
 
