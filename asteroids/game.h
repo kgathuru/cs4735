@@ -16,6 +16,9 @@ const int ASTEROID_SPEED = 25;
 const int PANE_WIDTH = 50;
 const float GAME_SPEED = 0.1; //multiplied by speed * time to move objects 
 
+/** math constants */
+static const double PI = 3.14159265358979323846264338327950288419716939937510f;
+
 /** game colors, should we move this? */
 const GLfloat asteroid_ambient[] = { 0.5f, 0.25f, 0.25f, 1.0f};
 const GLfloat asteroid_specular[] = { 0.25f, 0.25f, 0.75f, 1.0f};
