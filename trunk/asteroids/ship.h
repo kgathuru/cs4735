@@ -12,6 +12,7 @@ class ship: public object {
 	void pitch(float angle);
 	void fire();
 	void draw();
+	void doStep(float t);
 
 	ship();
 	~ship();	

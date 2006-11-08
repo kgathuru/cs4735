@@ -49,6 +49,10 @@ void model::ship::draw(){
 
 	//position
 	glTranslatef(position.x, position.y, position.z);//Move asteroid to position in space
+	glRotated(direction.z, 0, 0, 1);
+	glRotated(direction.y, 0, 1, 0);
+	glRotated(direction.x, 1, 0, 0);
+	
 	glRotated(-90, 1, 0, 0);
 	glRotated(90, 0, 0, 1);
 	glScaled(50, 50, 50);
@@ -56,6 +60,14 @@ void model::ship::draw(){
 	//call super.draw()
 	Mesh::draw();
 	glPopMatrix();
+}
+
+void model::ship:: doStep(float t){
+	position.set(
+		position.x += t * speed * direction.x,
+		position.y += t * speed * direction.y,
+		position.z += t * speed * direction.z
+	);
 }
 
 /** method to fire a projectile */
