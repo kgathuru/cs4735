@@ -12,11 +12,12 @@ void viewer::view::initView(int *argc,char**argv){
 
 	glutCreateWindow ("Asteroids3D");
 	glutDisplayFunc(&(view::display));
+	glutOverlayDisplayFunc(displayFunc);
 	
 	//Make the world bigger so things don't get clipped moving around
 	glOrtho(-WORLD_WIDTH, WORLD_WIDTH, -WORLD_HEIGHT*2, WORLD_HEIGHT*2, WORLD_DEPTH, -WORLD_DEPTH*2);
 
-        Point3 eye(0, WORLD_HEIGHT/2, 1500.0); 
+        Point3 eye(0, WORLD_HEIGHT/2, 950.0); 
         Point3 look(0, WORLD_HEIGHT/2, -2000.0); 
         Vector3 up(0.0, 1.0, 0.0);
 	/** \todo is aspect ratio based on world width or window width? */
@@ -50,15 +51,34 @@ void viewer::view::display(void){
 	//glLoadIdentity();
 	//gluLookAt(0, 0, -150, 0, HEIGHT/2, 0, 0.0, 1.0, 0.0);
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT); // clear the screen
-
-	glViewport(0,0,WINDOW_WIDTH,WINDOW_HEIGHT);
-	//controller::gameEngine.theWorld.renderPane();
 	
 	glViewport((WINDOW_WIDTH - WORLD_WIDTH)/2,(WINDOW_HEIGHT-WORLD_HEIGHT)/2, WORLD_HEIGHT, WORLD_WIDTH);
-
 	controller::gameEngine.theWorld.render();
 
 	glutSwapBuffers();
+}
+
+void viewer::view::displayFunc(void){
+
+	glViewport(0, 0, WINDOW_WIDTH, WINDOW_HEIGHT);
+
+	glDisable(GL_LIGHTING);	//Allow colors to be drawn regardless of light
+	glDisable(GL_LIGHT0);
+	glColor3f(1.0, 1.0, 1.0);
+
+	//glViewport(0,0,WINDOW_WIDTH,(WINDOW_HEIGHT-WORLD_HEIGHT)/2);
+	glBegin(GL_POLYGON);
+		glVertex2d(0.0, 0.0);
+		glVertex2d(0.0, WINDOW_HEIGHT);
+		glVertex2d(WINDOW_WIDTH, WINDOW_HEIGHT);
+		glVertex2d(WINDOW_WIDTH, 0.0);
+		glVertex2d(0.0, 0.0);
+	glEnd();
+
+	glEnable(GL_LIGHTING);
+	glEnable(GL_LIGHT0);
+	glFlush();
+
 }
 
 /** camera constructor */

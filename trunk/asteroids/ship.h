@@ -6,9 +6,9 @@
 namespace model{
 class ship: public object {
   public:
-	void setHealth(int health);
+	void setHealth(int h);
 	int getHealth();
-	void setScore(int score);
+	void setScore(int s);
 	int getScore();
 	void yaw(float angle);
 	void pitch(float angle);
