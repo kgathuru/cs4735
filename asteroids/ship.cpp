@@ -3,7 +3,7 @@ model::ship::ship(){
 	readFile("SIMPBARN.3VN");
 	speed = 0.05;
 	position.set(0.0, 0.0, 0.0);
-	direction.set(0.0, 0.0, -1.0);
+	direction.set(0.0, 0.0, 0.0);
 }
 
 /** ship deconstructor */
@@ -64,18 +64,18 @@ void model::ship::draw(){
 }
 
 void model::ship::doStep(float t){
-	/** \todo this is where the problem is, it should be multiplying by a matrix somehow I guess 
-	ie it should move a step in the given direction, hmmm */
-	/*position.set(
-		position.x += t * speed * direction.x,
-		position.y += t * speed * direction.y,
-		position.z += t * speed * direction.z
-	);*/
-	//move in xy axis
+	//move in zy axis
 	position.set(
-		position.x += cos(direction.x) / (speed * t),
+		position.x,
+		position.y += sin(direction.y) * t * speed,
+		position.z += cos(direction.x) * t * speed
+	);
+
+	//move in xz axis
+	position.set(
+		position.x += sin(direction.x) * t * speed,
 		position.y,
-		position.z += sin(direction.x) / (speed * t)
+		position.z += cos(direction.y) * t * speed
 	);
 }
 
@@ -89,7 +89,7 @@ void model::ship::rubberBand(){
 	Vector3 targetdirection;
 	Vector3 targetposition;
 	float targetspeed;
-	targetdirection.set(0.0,0.0,-1.0);
+	targetdirection.set(0.0,0.0,1.0);
 	targetposition.set(0.0,0.0,0.0);
 	targetspeed = 0.05;
 	
