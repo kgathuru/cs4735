@@ -66,10 +66,16 @@ void model::ship::draw(){
 void model::ship::doStep(float t){
 	/** \todo this is where the problem is, it should be multiplying by a matrix somehow I guess 
 	ie it should move a step in the given direction, hmmm */
-	position.set(
+	/*position.set(
 		position.x += t * speed * direction.x,
 		position.y += t * speed * direction.y,
 		position.z += t * speed * direction.z
+	);*/
+	//move in xy axis
+	position.set(
+		position.x += cos(direction.x) / (speed * t),
+		position.y,
+		position.z += sin(direction.x) / (speed * t)
 	);
 }
 
@@ -78,6 +84,7 @@ void model::ship::rubberBand(){
 	//factor for smooth transition
 	float factor = 500;
 	
+	/** \todo move to better place and replace initialiser with target */
 	//course to snap to
 	Vector3 targetdirection;
 	Vector3 targetposition;
