@@ -20,6 +20,7 @@ class world{
 	Point3 getEndPoint();
 	void setEndPoint(Point3 v);
 	void render();
+	void renderPane();
 	void update();
 	
 	list<asteroid> asteroids;
