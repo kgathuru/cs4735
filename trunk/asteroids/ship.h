@@ -5,7 +5,7 @@
 
 namespace model{
 class ship: public object {
-	public:
+  public:
 	void setHealth(int health);
 	int getHealth();
 	void setScore(int score);
@@ -15,12 +15,12 @@ class ship: public object {
 	void fire();
 	void draw();
 	void doStep(float t);
+	void rubberBand();
 
 	ship();
 	~ship();	
-	private:
+  private:
 	int health;
-	Vector3 x;
 	int score; 
 };
 

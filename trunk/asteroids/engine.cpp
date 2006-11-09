@@ -45,11 +45,11 @@ void controller::engine::keyboard(unsigned char key, int x, int y){
 		case 'a': // accelerate ship
 		controller::gameEngine.theWorld.serenity.setSpeed(
 			controller::gameEngine.theWorld.serenity.getSpeed()
-			+ 10.0); break; 
-		case 'x': // decellerate ship
+			+ 1.0); break; 
+		case 'z': // decellerate ship
 		controller::gameEngine.theWorld.serenity.setSpeed(
 			controller::gameEngine.theWorld.serenity.getSpeed()
-			- 10.0); break; 
+			- 1.0); break; 
 	}
 	glutPostRedisplay();
 }
