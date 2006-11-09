@@ -1,6 +1,8 @@
 #ifndef SHIP_H
 #define SHIP_H
 
+#include "math.h"
+
 namespace model{
 class ship: public object {
 	public:

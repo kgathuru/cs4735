@@ -1,5 +1,4 @@
 #include "vector.h"
-#include "mathlib.h"
 
 vec3_t vec3_t::operator+=(vec3_t &pVec)
 {

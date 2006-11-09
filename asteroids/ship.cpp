@@ -1,12 +1,9 @@
-#include "ship.h"
-
-
 /** ship constructor */
 model::ship::ship(){
 	readFile("SIMPBARN.3VN");
 	speed = 0.05;
 	position.set(0.0, 0.0, 0.0);
-	direction.set(0.0,0.0,-1.0);
+	direction.set(0.0,0.0,0.0);
 }
 
 /** ship deconstructor */
@@ -47,12 +44,13 @@ void model::ship::pitch(float angle){
 void model::ship::draw(){
 	glPushMatrix();
 
-	//position
-	glTranslatef(position.x, position.y, position.z);//Move asteroid to position in space
+	//display the ship based on position and direction vector
 	glRotated(direction.z, 0, 0, 1);
 	glRotated(direction.y, 0, 1, 0);
 	glRotated(direction.x, 1, 0, 0);
+	glTranslatef(position.x, position.y, position.z);//Move asteroid to position in space
 	
+	//these three simply rotate the barn to be upright, delete for proper ship model
 	glRotated(-90, 1, 0, 0);
 	glRotated(90, 0, 0, 1);
 	glScaled(50, 50, 50);

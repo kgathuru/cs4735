@@ -3,6 +3,14 @@
 
 #include "object.h"
 #include "math.h"
+#include "asteroid.h"
+#include "object.h"
+#include "game.h"
+#include "math.h"
+#include <cstdlib>
+#include <ctime>
+#include <iostream>
+#include "math.h"
 
 namespace model{
 

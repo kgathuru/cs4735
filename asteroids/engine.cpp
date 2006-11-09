@@ -7,6 +7,7 @@ controller::engine::engine(){
 void controller::engine::init(int *argc,char**argv){
 	gameView.initView(argc, argv);
 	glutKeyboardFunc(keyboard);
+	glutSpecialFunc(keypad);
 	glutIdleFunc(update);
 	
 	gameView.display(); //show initial pic
@@ -41,7 +42,7 @@ void controller::engine::keyboard(unsigned char key, int x, int y){
 		case 'Y'-64: controller::gameEngine.camera1.yaw(-1.0); break; // yaw left
 
 		// controls for ship
-		case 'z': // accelerate ship
+		case 'a': // accelerate ship
 		controller::gameEngine.theWorld.serenity.setSpeed(
 			controller::gameEngine.theWorld.serenity.getSpeed()
 			+ 10.0); break; 
@@ -49,13 +50,21 @@ void controller::engine::keyboard(unsigned char key, int x, int y){
 		controller::gameEngine.theWorld.serenity.setSpeed(
 			controller::gameEngine.theWorld.serenity.getSpeed()
 			- 10.0); break; 
-		case 'w': //pitch down
+	}
+	glutPostRedisplay();
+}
+
+
+void controller::engine::keypad(int key, int x, int y){
+	switch (key){
+		// controls for ship
+		case GLUT_KEY_UP: //pitch down
 			controller::gameEngine.theWorld.serenity.pitch(-10); break;
-		case 's': //pitch up
+		case GLUT_KEY_DOWN: //pitch up
 			controller::gameEngine.theWorld.serenity.pitch(10); break;
-		case 'a': //yaw left
+		case GLUT_KEY_LEFT: //yaw left
 			controller::gameEngine.theWorld.serenity.yaw(-10); break;
-		case 'd': //yaw right
+		case GLUT_KEY_RIGHT: //yaw right
 			controller::gameEngine.theWorld.serenity.yaw(10); break;
 	}
 	glutPostRedisplay();
