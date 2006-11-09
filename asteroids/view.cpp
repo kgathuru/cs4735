@@ -15,11 +15,13 @@ void viewer::view::initView(int *argc,char**argv){
 	
 	//Make the world bigger so things don't get clipped moving around
 	glOrtho(-WORLD_WIDTH, WORLD_WIDTH, -WORLD_HEIGHT*2, WORLD_HEIGHT*2, WORLD_DEPTH, -WORLD_DEPTH*2);
+
         Point3 eye(0, WORLD_HEIGHT/2, 1500.0); 
         Point3 look(0, WORLD_HEIGHT/2, -2000.0); 
         Vector3 up(0.0, 1.0, 0.0);
 	/** \todo is aspect ratio based on world width or window width? */
 	controller::gameEngine.camera1.setShape(30.0f, WORLD_WIDTH/WORLD_HEIGHT, 100.0f, 4000.0f);
+
 	controller::gameEngine.camera1.set(eye, look, up); // make the initial camera
 	//glutKeyboardFunc(&(gameEngine::keyboard));
 }
@@ -47,8 +49,12 @@ void viewer::view::display(void){
 	//glMatrixMode(GL_MODELVIEW);
 	//glLoadIdentity();
 	//gluLookAt(0, 0, -150, 0, HEIGHT/2, 0, 0.0, 1.0, 0.0);
-	
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT); // clear the screen
+
+	glViewport(0,0,WINDOW_WIDTH,WINDOW_HEIGHT);
+	//controller::gameEngine.theWorld.renderPane();
+	
+	glViewport((WINDOW_WIDTH - WORLD_WIDTH)/2,(WINDOW_HEIGHT-WORLD_HEIGHT)/2, WORLD_HEIGHT, WORLD_WIDTH);
 
 	controller::gameEngine.theWorld.render();
 

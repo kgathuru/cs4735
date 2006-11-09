@@ -13,6 +13,7 @@ class engine{
   public:
 	static void keyboard(unsigned char key, int x, int y);
 	static void keypad(int key, int x, int y);
+	static void redrawOverlay();
 	static void update(void);
 	void init(int *argc,char**argv);
 	bool start(bool finish);

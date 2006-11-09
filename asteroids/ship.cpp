@@ -1,5 +1,6 @@
 /** ship constructor */
 model::ship::ship(){
+	//cout << "DRAW SHIP";
 	readFile("SIMPBARN.3VN");
 	speed = 0.05;
 	position.set(0.0, 0.0, 0.0);
