@@ -1,11 +1,4 @@
 #include "asteroid.h"
-#include "object.h"
-#include "game.h"
-#include "math.h"
-#include <cstdlib>
-#include <ctime>
-#include <iostream>
-#include "math.h"
 
 /** Constructor, assigns random values to fields */
 model::asteroid::asteroid(){

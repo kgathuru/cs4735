@@ -1,5 +1,4 @@
 #include "view.h"
-#include "engine.h"
 
 viewer::view::view(){
 	

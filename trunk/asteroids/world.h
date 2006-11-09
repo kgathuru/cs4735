@@ -1,12 +1,15 @@
 #ifndef WORLD_H
 #define WORLD_H
 
-#include "math.cpp"
-#include "object.cpp"
+#include "math.h"
+#include "object.h"
 #include "game.h"
 #include <list> 
-#include "asteroid.cpp"
-#include "ship.cpp"
+#include "asteroid.h"
+#include "ship.h"
+#include <stdio.h>
+#include <stdlib.h>
+#include <time.h>
 
 namespace model{
 
