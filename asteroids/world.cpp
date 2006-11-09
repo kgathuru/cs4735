@@ -21,26 +21,6 @@ model::world::~world(){
 	//this = NULL;
 }
 
-void model::world::renderPane(){
-
-// Status bar.
-glDisable(GL_LIGHTING);	//Allow colors to be drawn regardless of light
-glDisable(GL_LIGHT0);
-cout << "Draw Pane\n";
-glColor3f(1.0, 1.0, 0.0);
-glBegin(GL_POLYGON);
-	glVertex2d(0.0, 0.0);
-	glVertex2d(WINDOW_WIDTH, 0.0);
-	glVertex2d(WINDOW_WIDTH, WINDOW_HEIGHT);
-	glVertex2d(0.0, WINDOW_HEIGHT);
-	glVertex2d(0.0, 0.0);
-glEnd();
-glEnable(GL_LIGHTING);
-glEnable(GL_LIGHT0);
-glFlush();
-
-}
-
 /** renders the objects in the world */
 void model::world::render(){
 

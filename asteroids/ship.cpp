@@ -1,6 +1,5 @@
 /** ship constructor */
 model::ship::ship(){
-	//cout << "DRAW SHIP";
 	readFile("SIMPBARN.3VN");
 	speed = 0.05;
 	position.set(0.0, 0.0, 0.0);
@@ -13,23 +12,23 @@ model::ship::~ship(){
 }
 
 /** health mutator method */ 
-void model::ship::setHealth(int health){
-
+void model::ship::setHealth(int h){
+	health = h;
 }
 
 /** health accessor method */
 int model::ship::getHealth(){
-
+	return health;
 }
 
 /** score mutator method */ 
-void model::ship::setScore(int score){
-
+void model::ship::setScore(int s){
+	score = s;
 }
 
 /** score accessor method */
 int model::ship::getScore(){
-
+	return score;
 }
 
 /** method to control ship rotation about its own y axis */ 
@@ -43,8 +42,8 @@ void model::ship::pitch(float angle){
 }
 
 void model::ship::draw(){
+
 	glPushMatrix();
-	
 	//engage rubberband
 	rubberBand();
 	
@@ -57,7 +56,7 @@ void model::ship::draw(){
 	//these three simply rotate the barn to be upright, delete for proper ship model
 	glRotated(-90, 1, 0, 0);
 	glRotated(90, 0, 0, 1);
-	glScaled(50, 50, 50);
+	glScaled(100, 100, 100);
 
 	//call super.draw()
 	Mesh::draw();

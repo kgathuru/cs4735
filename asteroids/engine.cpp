@@ -10,6 +10,7 @@ void controller::engine::init(int *argc,char**argv){
 	glutSpecialFunc(keypad);
 	glutIdleFunc(update);
 	
+	gameView.displayFunc();
 	gameView.display(); //show initial pic
 
 	//glutKeyboardFunc(keyboardFunc);
@@ -72,6 +73,7 @@ void controller::engine::keypad(int key, int x, int y){
 
 bool controller::engine::start(bool finish){
 
+/*
 	float t = 0.0;
 	float increment = 0.1;
 	
@@ -88,6 +90,7 @@ bool controller::engine::start(bool finish){
 		t = t + increment;
 	}
 
+*/
 }
 
 bool controller::engine::end(){
