@@ -9,7 +9,7 @@ void controller::engine::init(int *argc,char**argv){
 	glutKeyboardFunc(keyboard);
 	glutSpecialFunc(keypad);
 	glutIdleFunc(update);
-	
+
 	gameView.displayFunc();
 	gameView.display(); //show initial pic
 
@@ -41,6 +41,14 @@ void controller::engine::keyboard(unsigned char key, int x, int y){
 		case 'P'-64: controller::gameEngine.camera1.pitch(-1.0); break; // pitch down
 		case 'Y':    controller::gameEngine.camera1.yaw(1.0); break;  // yaw right
 		case 'Y'-64: controller::gameEngine.camera1.yaw(-1.0); break; // yaw left
+
+		//game controls
+		case 'c': // change camera view
+		if (gameEngine.camera1.getView() == DEFAULT_CAM){
+			controller::gameEngine.camera1.setView(ONBOARD_CAM);
+		} else {
+			controller::gameEngine.camera1.setView(DEFAULT_CAM);
+		} break; 
 
 		// controls for ship
 		case 'a': // accelerate ship

@@ -16,6 +16,10 @@ const int ASTEROID_SPEED = 25;
 const int PANE_WIDTH = 50;
 const float GAME_SPEED = 0.1; //multiplied by speed * time to move objects 
 
+/** camera view */
+const int DEFAULT_CAM = 1;
+const int ONBOARD_CAM = 2;
+
 /** math constants */
 static const double PI = 3.14159265358979323846264338327950288419716939937510f;
 

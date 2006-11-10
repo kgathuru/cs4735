@@ -11,10 +11,13 @@ class camera{
 	Vector3 u,v,n;
 	double viewAngle, aspect, nearDist, farDist; // view volume shape
 	void setModelViewMatrix(); // tell OpenGL where the camera is
+	int cameraView;
 
   public:
 	camera();  // default constructor
 	void set(Point3 eye, Point3 look, Vector3 up); // like gluLookAt()
+	void setView(int view);
+	int getView();
 	void roll(float angle); // roll it
 	void pitch(float angle); // pitch it
 	void yaw(float angle); // yaw it

@@ -15,16 +15,17 @@ void viewer::view::initView(int *argc,char**argv){
 	glutOverlayDisplayFunc(displayFunc);
 	
 	//Make the world bigger so things don't get clipped moving around
-	glOrtho(-WORLD_WIDTH, WORLD_WIDTH, -WORLD_HEIGHT*2, WORLD_HEIGHT*2, WORLD_DEPTH, -WORLD_DEPTH*2);
-
+	/** sorry kate, when we use the camera it sets up its own glperspective */
+	//glOrtho(-WORLD_WIDTH, WORLD_WIDTH, -WORLD_HEIGHT*2, WORLD_HEIGHT*2, WORLD_DEPTH, -WORLD_DEPTH*2);
+	
         Point3 eye(0, WORLD_HEIGHT/2, 950.0); 
         Point3 look(0, WORLD_HEIGHT/2, -2000.0); 
         Vector3 up(0.0, 1.0, 0.0);
-	/** \todo is aspect ratio based on world width or window width? */
-	controller::gameEngine.camera1.setShape(30.0f, WORLD_WIDTH/WORLD_HEIGHT, 100.0f, 4000.0f);
 
+	/** \todo is aspect ratio based on world width or window width? */
+	controller::gameEngine.camera1.setView(DEFAULT_CAM);
+	controller::gameEngine.camera1.setShape(30.0f, WORLD_WIDTH/WORLD_HEIGHT, 100.0f, 4000.0f);
 	controller::gameEngine.camera1.set(eye, look, up); // make the initial camera
-	//glutKeyboardFunc(&(gameEngine::keyboard));
 }
 
 void viewer::view::display(void){
@@ -41,16 +42,19 @@ void viewer::view::display(void){
 	glEnable(GL_DEPTH_TEST); // for removal of hidden surfaces
 	glEnable(GL_NORMALIZE);  // normalize vectors for proper shading
 	
-	//Set the window
-	//glMatrixMode(GL_PROJECTION);
-	//glLoadIdentity();
-	//glOrtho(-WIDTH/2, WIDTH/2, 0, HEIGHT, 0, -DEPTH*2);
-	
-	//Set the camera
-	//glMatrixMode(GL_MODELVIEW);
-	//glLoadIdentity();
-	//gluLookAt(0, 0, -150, 0, HEIGHT/2, 0, 0.0, 1.0, 0.0);
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT); // clear the screen
+
+	//check camera view
+	if (controller::gameEngine.camera1.getView() == ONBOARD_CAM){
+		Point3 eye = controller::gameEngine.theWorld.serenity.getPosition();
+		/** \todo is it legal to turn a vector into a point like this? */
+		/** I want to tell the camera to look where the spaceship is looking, how do I do it? */
+		Vector3 lookv = controller::gameEngine.theWorld.serenity.getDirection();
+		Point3 look(eye.x + lookv.x, eye.y + lookv.y, look.z + lookv.z); 
+		Vector3 up(0.0, 1.0, 0.0);
+		controller::gameEngine.camera1.set(eye, look, up);//fix camera to ship
+	}
+	
 	
 	glViewport((WINDOW_WIDTH - WORLD_WIDTH)/2,(WINDOW_HEIGHT-WORLD_HEIGHT)/2, WORLD_HEIGHT, WORLD_WIDTH);
 	controller::gameEngine.theWorld.render();
@@ -78,7 +82,6 @@ void viewer::view::displayFunc(void){
 	glEnable(GL_LIGHTING);
 	glEnable(GL_LIGHT0);
 	glFlush();
-
 }
 
 /** camera constructor */
@@ -91,6 +94,16 @@ viewer::camera::camera() {
 	//u.set(0.0, 0.0, 1.0);
 	//v.set(0.0, 1.0, 0.0);
 	//n.set(-1.0, 0.0, 0.0);
+}
+
+/** change camera view, use constants in game.h */
+void viewer::camera::setView(int view){
+	cameraView = view;
+}
+
+/** change camera view, use constants in game.h */
+int viewer::camera::getView(){
+	return cameraView;
 }
 
 /** load modelview matrix with existing camera values */
