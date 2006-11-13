@@ -16,12 +16,19 @@ class ship: public object {
 	void draw();
 	void doStep(float t);
 	void rubberBand();
+	void setSecondaryDirection(float x, float y, float z);
+	Vector3 getSecondaryDirection();
+	void moveUp();
+	void moveDown();
+	void moveLeft();
+	void moveRight();
 
 	ship();
 	~ship();	
   private:
 	int health;
 	int score; 
+	Vector3 secondaryDirection;
 };
 
 };

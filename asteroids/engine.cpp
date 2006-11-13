@@ -54,11 +54,13 @@ void controller::engine::keyboard(unsigned char key, int x, int y){
 		case 'a': // accelerate ship
 		controller::gameEngine.theWorld.serenity.setSpeed(
 			controller::gameEngine.theWorld.serenity.getSpeed()
-			+ 1.0); break; 
-		case 'z': // decellerate ship
-		controller::gameEngine.theWorld.serenity.setSpeed(
-			controller::gameEngine.theWorld.serenity.getSpeed()
 			- 1.0); break; 
+		case 'z': // decellerate ship, only to stopping, not reverse
+			//if(controller::gameEngine.theWorld.serenity.getSpeed() > 0.0)
+			//{
+				controller::gameEngine.theWorld.serenity.setSpeed(controller::gameEngine.theWorld.serenity.getSpeed()+ 1.0); 
+			//}
+			break; 
 	}
 	glutPostRedisplay();
 }
@@ -68,13 +70,13 @@ void controller::engine::keypad(int key, int x, int y){
 	switch (key){
 		// controls for ship
 		case GLUT_KEY_UP: //pitch down
-			controller::gameEngine.theWorld.serenity.pitch(-10); break;
+			controller::gameEngine.theWorld.serenity.moveUp(); break;
 		case GLUT_KEY_DOWN: //pitch up
-			controller::gameEngine.theWorld.serenity.pitch(10); break;
+			controller::gameEngine.theWorld.serenity.moveDown(); break;
 		case GLUT_KEY_LEFT: //yaw left
-			controller::gameEngine.theWorld.serenity.yaw(-10); break;
+			controller::gameEngine.theWorld.serenity.moveLeft(); break;
 		case GLUT_KEY_RIGHT: //yaw right
-			controller::gameEngine.theWorld.serenity.yaw(10); break;
+			controller::gameEngine.theWorld.serenity.moveRight(); break;
 	}
 	glutPostRedisplay();
 }
