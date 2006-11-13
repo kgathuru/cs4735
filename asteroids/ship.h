@@ -22,6 +22,8 @@ class ship: public object {
 	void moveDown();
 	void moveLeft();
 	void moveRight();
+	void accelerate();
+	void deccelerate();
 
 	ship();
 	~ship();	
