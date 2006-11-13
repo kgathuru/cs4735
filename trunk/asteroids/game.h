@@ -15,6 +15,7 @@ const int ASTEROID_MIN_SIZE = 10;
 const int ASTEROID_SPEED = 25;
 const int PANE_WIDTH = 50;
 const float GAME_SPEED = 0.1; //multiplied by speed * time to move objects 
+const float SHIP_SPEED = 50.0;
 
 /** camera view */
 const int DEFAULT_CAM = 1;

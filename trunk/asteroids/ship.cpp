@@ -1,9 +1,10 @@
 /** ship constructor */
 model::ship::ship(){
 	readFile("SIMPBARN.3VN");
-	speed = 0.05;
-	position.set(0.0, 0.0, 0.0);
-	direction.set(0.0, 0.0, 1.0);
+	speed = 0.5;
+	position.set(0.0, WORLD_HEIGHT/2, 0.0);
+	direction.set(0.0, 0.0, -1.0);
+	size = 100.0;
 }
 
 /** ship deconstructor */
@@ -42,24 +43,34 @@ Vector3 model::ship::getSecondaryDirection(){
 
 void model::ship::moveUp(){
 	secondaryDirection.y = 1.0;
-	position.y = position.y + 0.1 * speed * secondaryDirection.y;
+	position.y = position.y + 0.1 * SHIP_SPEED * secondaryDirection.y;
 }
 
 void model::ship::moveDown(){
 	secondaryDirection.y = -1.0;
-	position.y = position.y + 0.1 * speed * secondaryDirection.y;
+	position.y = position.y + 0.1 * SHIP_SPEED * secondaryDirection.y;
+	
 }
 
 void model::ship::moveLeft(){
 	secondaryDirection.x = -1.0;
-	position.x = position.x + 0.1 * speed * secondaryDirection.x;
+	position.x = position.x + 0.1 * SHIP_SPEED * secondaryDirection.x;
 }
 
 void model::ship::moveRight(){
 	secondaryDirection.x = 1.0;
-	position.x = position.x + 0.1 * speed * secondaryDirection.x;
+	position.x = position.x + 0.1 * SHIP_SPEED * secondaryDirection.x;
 }
 
+void model::ship::accelerate(){
+	direction.z += -1.0;
+	position.z = position.z + 0.1 * SHIP_SPEED * direction.z;
+}
+
+void model::ship::deccelerate(){
+	direction.z += 1.0;
+	position.z = position.z + 0.1 * SHIP_SPEED * direction.z;
+}
 
 /** method to control ship rotation about its own y axis */ 
 void model::ship::yaw(float angle){
@@ -128,6 +139,7 @@ void model::ship::doStep(float t){
 }
 
 /** \brief this function acts as an autopilot to return the ship to its default course */
+//Return ship to the middle of the box anywhere along the z axis
 void model::ship::rubberBand(){
 	//factor for smooth transition
 	float factor = 500;
@@ -139,9 +151,9 @@ void model::ship::rubberBand(){
 	float targetspeed;
 	targetdirection.set(0.0,0.0,1.0);
 	targetposition.x = 0.0;
-	targetposition.y = 0.0;
+	targetposition.y =  WORLD_HEIGHT/2;
 	targetposition.z = position.z;
-	targetspeed = 10.0;
+	targetspeed = 0.5;
 
 	//Make secondary direction closer to (0,0,0)
 	if(secondaryDirection.x != 0.0)
