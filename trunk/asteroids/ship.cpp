@@ -3,7 +3,7 @@ model::ship::ship(){
 	readFile("SIMPBARN.3VN");
 	speed = 0.05;
 	position.set(0.0, 0.0, 0.0);
-	direction.set(0.0, 0.0, 0.0);
+	direction.set(0.0, 0.0, 1.0);
 }
 
 /** ship deconstructor */
@@ -31,6 +31,36 @@ int model::ship::getScore(){
 	return score;
 }
 
+/** Mutate secondary direction */
+void model::ship::setSecondaryDirection(float x, float y, float z){
+	secondaryDirection.set(x,y,z);
+}
+
+Vector3 model::ship::getSecondaryDirection(){
+	return secondaryDirection;
+}
+
+void model::ship::moveUp(){
+	secondaryDirection.y = 1.0;
+	position.y = position.y + 0.1 * speed * secondaryDirection.y;
+}
+
+void model::ship::moveDown(){
+	secondaryDirection.y = -1.0;
+	position.y = position.y + 0.1 * speed * secondaryDirection.y;
+}
+
+void model::ship::moveLeft(){
+	secondaryDirection.x = -1.0;
+	position.x = position.x + 0.1 * speed * secondaryDirection.x;
+}
+
+void model::ship::moveRight(){
+	secondaryDirection.x = 1.0;
+	position.x = position.x + 0.1 * speed * secondaryDirection.x;
+}
+
+
 /** method to control ship rotation about its own y axis */ 
 void model::ship::yaw(float angle){
 	direction.y += angle;
@@ -48,9 +78,9 @@ void model::ship::draw(){
 	rubberBand();
 	
 	//display the ship based on position and direction vector
-	glRotated(direction.z, 0, 0, 1);
-	glRotated(direction.y, 0, 1, 0);
-	glRotated(direction.x, 1, 0, 0);
+	//glRotated(direction.z, 0, 0, 1);
+	//glRotated(direction.y, 0, 1, 0);
+	//glRotated(direction.x, 1, 0, 0);
 	glTranslatef(position.x, position.y, position.z);//Move asteroid to position in space
 	
 	//these three simply rotate the barn to be upright, delete for proper ship model
@@ -64,19 +94,37 @@ void model::ship::draw(){
 }
 
 void model::ship::doStep(float t){
-	//move in zy axis
-	position.set(
-		position.x,
-		position.y += sin(direction.y) * t * speed,
-		position.z += cos(direction.x) * t * speed
-	);
 
-	//move in xz axis
+	//Only let ship go to 0 position, not before
 	position.set(
-		position.x += sin(direction.x) * t * speed,
-		position.y,
-		position.z += cos(direction.y) * t * speed
+		position.x + t * speed * secondaryDirection.x,
+		position.y + t * speed * secondaryDirection.y,
+		position.z + t * speed * direction.z
 	);
+	
+	//Don't let ship move out of the box
+	if(position.z > 0.0)
+	{
+		position.z = 0.0;
+	}
+	if(position.y < 0.0)
+	{
+		position.y = 0.0;
+	}
+	if(position.y > WORLD_HEIGHT)
+	{
+		position.y = WORLD_HEIGHT;
+	}
+	if(position.x < -WORLD_WIDTH/2)
+	{
+		position.x = -WORLD_WIDTH/2;
+	}
+	if(position.x > WORLD_WIDTH/2)
+	{
+		position.x = WORLD_WIDTH/2;
+	}
+
+
 }
 
 /** \brief this function acts as an autopilot to return the ship to its default course */
@@ -90,13 +138,30 @@ void model::ship::rubberBand(){
 	Vector3 targetposition;
 	float targetspeed;
 	targetdirection.set(0.0,0.0,1.0);
-	targetposition.set(0.0,0.0,0.0);
-	targetspeed = 0.05;
-	
+	targetposition.x = 0.0;
+	targetposition.y = 0.0;
+	targetposition.z = position.z;
+	targetspeed = 10.0;
+
+	//Make secondary direction closer to (0,0,0)
+	if(secondaryDirection.x != 0.0)
+	{
+		if(secondaryDirection.x < 0)
+			secondaryDirection.x += 0.1;
+		else
+			secondaryDirection.x += -0.1;	
+	}
+		//Make secondary direction closer to (0,0,0)
+	if(secondaryDirection.y != 0.0)
+	{
+		if(secondaryDirection.y < 0)
+			secondaryDirection.y += 0.1;
+		else
+			secondaryDirection.y += -0.1;	
+	}
+
 	//reset direction
-	direction.x += (targetdirection.x - direction.x)/factor;
-	direction.y += (targetdirection.y - direction.y)/factor;
-	direction.z += (targetdirection.z - direction.z)/factor;
+	secondaryDirection.z = 0.0;
 
 	//reset position
 	position.x += (targetposition.x - position.x)/factor;
