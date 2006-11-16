@@ -47,8 +47,12 @@ void viewer::view::display(void){
 	//check camera view
 	if (controller::gameEngine.camera1.getView() == ONBOARD_CAM){
 		Point3 eye = controller::gameEngine.theWorld.serenity.getPosition();
-		eye.z += controller::gameEngine.theWorld.serenity.getSize()*3;
-		eye.y += controller::gameEngine.theWorld.serenity.getSize()*2;
+		eye.z += controller::gameEngine.theWorld.serenity.getSize()*10;
+		//eye.y += controller::gameEngine.theWorld.serenity.getSize()*2;
+		//This way camera only moves in the z direction
+		//Is this what we want?
+		eye.y = WORLD_HEIGHT/2;
+		eye.x = 0;
 		/** \todo is it legal to turn a vector into a point like this? */
 		/** I want to tell the camera to look where the spaceship is looking, how do I do it? */
 		//Vector3 lookv =  controller::gameEngine.theWorld.serenity.getDirection();

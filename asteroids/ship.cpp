@@ -5,6 +5,7 @@ model::ship::ship(){
 	position.set(0.0, WORLD_HEIGHT/2, 0.0);
 	direction.set(0.0, 0.0, -1.0);
 	size = 100.0;
+	health = SHIP_START_HEALTH;
 }
 
 /** ship deconstructor */
@@ -135,7 +136,11 @@ void model::ship::doStep(float t){
 		position.x = WORLD_WIDTH/2;
 	}
 
-
+	//Check to see if ship is past finish line
+	if(position.z < -WORLD_DEPTH)
+	{
+		position.z = -WORLD_DEPTH;
+	}
 }
 
 /** \brief this function acts as an autopilot to return the ship to its default course */
@@ -189,3 +194,16 @@ void model::ship::rubberBand(){
 void model::ship::fire(){
 
 }
+
+
+//What do to when the ship dies, runs out of health
+void model::ship::death(){
+
+
+}
+
+//Make ship flash color when it's been hit to let player know
+void model::ship::hit(){
+
+}
+

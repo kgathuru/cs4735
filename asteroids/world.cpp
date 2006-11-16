@@ -96,6 +96,33 @@ void model::world::update(){
 
 	/** update ship */
 	serenity.doStep(worldTime + GAME_SPEED);
+
+	//CHECK COLLISIONS BETWEEN EVERY ASTEROID AND THE SHIP
+	for (asteroid_iterator iter=asteroids.begin(); iter!=asteroids.end(); iter++){
+		//Just in case asteroid isn't destroyed, don't count it if size is 0
+		if(iter->getSize() > 0)
+		{		
+			//returns true if there is a collision
+			if(iter->checkCollision(serenity.getPosition(), serenity.getSize()))
+			{
+				//cout << "ASTEROID HIT SHIP\n";
+				iter->destroy();
+				//Do we want to recreate asteroids when they hit the ship or not? Only destroy for good when laser hits them?
+				iter->recreate();
+				//Decrement ship health
+				serenity.setHealth(serenity.getHealth() - 1);
+				//Do something when the ship is hit to let player know
+				serenity.hit();
+				//Do something if the ship dies
+				if(serenity.getHealth() == 0)
+				{
+					serenity.death();
+				}
+
+			}
+		}
+	} 
+	
 	
 	glutPostRedisplay();
 }
