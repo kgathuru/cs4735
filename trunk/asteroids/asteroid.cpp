@@ -59,22 +59,29 @@ Vector3 model::asteroid:: getSpin(){
 }
 
 void model::asteroid:: draw(){
-	float angleRot = 5;//Rotate the asteroid by how much
-	glMatrixMode(GL_MODELVIEW);
-	glPushMatrix(); //save initial matrix
-	glRotatef(angleRot, spin.x, spin.y, spin.z);//Rotate mesh based on movement
-	glTranslatef(position.x, position.y, position.z);//Move asteroid to position in space
-	glScalef(size, size, size);//Asteroid mesh is within unit circle centered at origin, need to scale by size
-	glutSolidSphere(1,15,15);//Asteroid is just a sphere for now, may make mesh later if time
-	glPopMatrix();//return default matrix
+
+	if(size > 0)
+	{
+		float angleRot = 5;//Rotate the asteroid by how much
+		glMatrixMode(GL_MODELVIEW);
+		glPushMatrix(); //save initial matrix
+		glRotatef(angleRot, spin.x, spin.y, spin.z);//Rotate mesh based on movement
+		glTranslatef(position.x, position.y, position.z);//Move asteroid to position in space
+		glScalef(size, size, size);//Asteroid mesh is within unit circle centered at origin, need to scale by size
+		glutSolidSphere(1,15,15);//Asteroid is just a sphere for now, may make mesh later if time
+		glPopMatrix();//return default matrix
+	}
 }
+
 
 void model::asteroid:: destroy(){
 	//Animation to remove asteroid
-	for(float i = size; i > 0; i--);{
+	//Needs to be better so player knows they've been hit
+	for(float i = size; i >= 0; i--);{
 		size--;
 		draw();
 	}
+	size = 0;
 }
 
 void model::asteroid:: doStep(float t){
@@ -82,7 +89,7 @@ void model::asteroid:: doStep(float t){
 	object::doStep(t);
 
 	//do additional work for asteroid
-	if (position.z > 0.0)
+	if (position.z > 0.0 && size > 0)
 	{
 		//cout<<"\nRECREATE\n";
 		//Destroy asteroid
@@ -107,11 +114,9 @@ bool model::asteroid:: checkCollision(Point3 shipPosition, float shipSize){
 	dz = position.z - shipPosition.z;
 	distance = sqrt(dx*dx + dy*dy + dz*dz);
 
-	//See if it is less than the sum of the raduis of the ship and asteroid
+	//See if it is less than the sum of the radius of the ship and asteroid
 	if (distance <= shipSize + size){
 		//Need to destroy the asteroid if it's true
-		destroy();
-
 		return true;
 		//Call deconstructor outside of the method
 	} else { return false; }
