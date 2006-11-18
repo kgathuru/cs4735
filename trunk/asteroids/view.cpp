@@ -4,6 +4,7 @@ viewer::view::view(){
 	
 }
 
+
 /** initialize OpenGL environment */
 void viewer::view::initView(int *argc,char**argv){
 	glutInit (argc,argv);
@@ -28,6 +29,7 @@ void viewer::view::initView(int *argc,char**argv){
 	controller::gameEngine.camera1.set(eye, look, up); // make the initial camera
 }
 
+
 void viewer::view::display(void){
 	// set the light source properties
 	GLfloat light_intensity[] = {0.5f, 0.5f, 0.5f, 0.5f};
@@ -43,7 +45,7 @@ void viewer::view::display(void){
 	glEnable(GL_NORMALIZE);  // normalize vectors for proper shading
 	
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT); // clear the screen
-
+	
 	//check camera view
 	if (controller::gameEngine.camera1.getView() == ONBOARD_CAM){
 		Point3 eye = controller::gameEngine.theWorld.serenity.getPosition();
@@ -65,7 +67,6 @@ void viewer::view::display(void){
 	
 	glViewport((WINDOW_WIDTH - WORLD_WIDTH)/2,(WINDOW_HEIGHT-WORLD_HEIGHT)/2, WORLD_HEIGHT, WORLD_WIDTH);
 	controller::gameEngine.theWorld.render();
-
 	glutSwapBuffers();
 }
 
@@ -85,11 +86,14 @@ void viewer::view::displayFunc(void){
 		glVertex2d(WINDOW_WIDTH, 0.0);
 		glVertex2d(0.0, 0.0);
 	glEnd();
-
+	
 	glEnable(GL_LIGHTING);
 	glEnable(GL_LIGHT0);
 	glFlush();
 }
+
+
+
 
 /** camera constructor */
 viewer::camera::camera() {

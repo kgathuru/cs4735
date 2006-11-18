@@ -1,5 +1,5 @@
 CFLAGS= -I/usr/X11R6/include -I/usr/local/include
-LDFLAGS= -L/usr/X11R6/lib -L/usr/local/lib -lGL -lGLU -lm -lglut 
+LDFLAGS= -L/usr/X11R6/lib -L/usr/local/lib -lGL -lGLU -lm -lglut -lXmu -lX11
 
 BINARIES=game
 

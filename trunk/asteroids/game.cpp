@@ -8,6 +8,10 @@
 #include "asteroid.cpp"
 #include "math.cpp"
 
+
+
+
+
 main(int argc, char * argv[]) {
 	controller::gameEngine.init(&argc, argv);
 	return 0;
