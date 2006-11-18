@@ -1,5 +1,5 @@
 #include "engine.h"
-
+#define ESCAPE 27
 controller::engine::engine(){
 	
 }
@@ -62,6 +62,19 @@ void controller::engine::keyboard(unsigned char key, int x, int y){
 			}
 			break; 
 	}
+
+
+
+
+    /* If escape is pressed, kill everything. */
+    if (key == ESCAPE) 
+    { 
+	/* shut down our window */
+	glutDestroyWindow(1); 
+      /* exit the program...normal termination. */
+	exit(0);                   
+    }
+
 	glutPostRedisplay();
 }
 
