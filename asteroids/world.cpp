@@ -1,5 +1,6 @@
 #include "world.h"
-
+#include <sstream>
+#include <string>
 /**world constructor*/
 model::world::world(){
 	/** initialise variables */
@@ -210,8 +211,24 @@ void model::world::drawText(void){
    GLfloat x, y, ystep, yild;
 
    /* Set up some strings with the characters to draw. */
-  
-   char* myName[1] = {"testMessage"};
+   int health = serenity.getHealth();	
+   
+   char* myName[1] = {"Ship Health: "};
+
+string str;
+stringstream out;
+out << health;
+str = out.str();
+int j;
+int counter = 0;
+char c;
+char healthValue[2][3];
+for(j = 0; j < str.length(); j++){
+  c = str[j];
+  healthValue[1][j] = c;
+  counter++;
+}
+   healthValue[1][counter]= '\0';
 
    /* Draw the strings, according to the current mode and font. */
    glColor4f(0.0, 1.0, 0.0, 0.0);
@@ -221,12 +238,14 @@ void model::world::drawText(void){
   // yild   = 20.0;
 x = 0.0;
 y = 70.0;
-ystep = 60.0;
+ystep = 50.0;
 
     //  glRasterPos2f(-150, y+1.25*yild);
  //     print_bitmap_string(bitmap_fonts[font_index], bitmap_font_names[font_index]);
-   glRasterPos2f(-150, y - ystep);
+   glRasterPos2f(-190, y - ystep);
    print_bitmap_string(bitmap_fonts[font_index], myName[0]);
+   glRasterPos2f(-80, y- ystep);
+   print_bitmap_string(bitmap_fonts[font_index], healthValue[1]);
 }
 
 
