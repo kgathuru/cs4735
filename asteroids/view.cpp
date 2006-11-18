@@ -65,6 +65,9 @@ void viewer::view::display(void){
 	}
 	
 	
+
+
+
 	glViewport((WINDOW_WIDTH - WORLD_WIDTH)/2,(WINDOW_HEIGHT-WORLD_HEIGHT)/2, WORLD_HEIGHT, WORLD_WIDTH);
 	controller::gameEngine.theWorld.render();
 	glutSwapBuffers();
