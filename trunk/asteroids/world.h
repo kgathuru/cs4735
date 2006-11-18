@@ -29,6 +29,9 @@ class world{
 	void update();
 	void print_bitmap_string(void* font, char* s);
         void drawText(void);	
+	void setOrthographicProjection();
+
+
 
 	list<asteroid> asteroids;
 	typedef list<asteroid>::iterator asteroid_iterator;

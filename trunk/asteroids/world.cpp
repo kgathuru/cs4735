@@ -83,11 +83,76 @@ void model::world::render(){
 	for (asteroid_iterator iter=asteroids.begin(); iter!=asteroids.end(); iter++){
 		iter->draw();
 	} 
+
+//	setOrthographicProjection();
+//	glPushMatrix();
+//	glLoadIdentity();
+//	drawText();
+//	glPopMatrix();
+//	glMatrixMode(GL_PROJECTION);
+//	glPopMatrix();
+//	glMatrixMode(GL_MODELVIEW);
+	
+//	glutSwapBuffers();
+
+   drawText();
+   GLdouble size;
+   GLdouble aspect;
+
+   /* Use the whole window. */
+   glViewport(0, 0, WINDOW_WIDTH, WINDOW_HEIGHT);
+
+   /* We are going to do some 2-D orthographic drawing. */
+   glMatrixMode(GL_PROJECTION);
+   glPushMatrix();
+   glLoadIdentity();
+   size = (GLdouble)((WINDOW_WIDTH >= WINDOW_HEIGHT) ? WINDOW_WIDTH : WINDOW_HEIGHT) / 2.0;
+   if (WINDOW_WIDTH <= WINDOW_HEIGHT) {  
+  glPopMatrix(); 
+  glMatrixMode(GL_MODELVIEW);
+  glPushMatrix();
+   glLoadIdentity();
+      aspect = (GLdouble)WINDOW_HEIGHT/(GLdouble)WINDOW_WIDTH;
+      glOrtho(-size, size, -size*aspect, size*aspect, -100000.0, 100000.0);
+   }
+   else {
+      aspect = (GLdouble)WINDOW_WIDTH/(GLdouble)WINDOW_HEIGHT;
+      glOrtho(-size*aspect, size*aspect, -size, size, -100000.0, 100000.0);
+   }
+
+   /* Make the world and window coordinates coincide so that 1.0 in */
+   /* model space equals one pixel in window space.                 */
+   glScaled(aspect, aspect, 1.0);
+   /* Now determine where to draw things. */
+   glPopMatrix();
+   glMatrixMode(GL_MODELVIEW);
+   //glLoadIdentity();
+
 }
+
+void model::world::setOrthographicProjection() {
+
+	// switch to projection mode
+	glMatrixMode(GL_PROJECTION);
+	// save previous matrix which contains the 
+	//settings for the perspective projection
+	glPushMatrix();
+	// reset matrix
+	glLoadIdentity();
+	// set a 2D orthographic projection
+	gluOrtho2D(0, WORLD_WIDTH, 0, WORLD_HEIGHT);
+	// invert the y axis, down is positive
+	glScalef(1, -1, 1);
+	// mover the origin from the bottom left corner
+	// to the upper left corner
+	glTranslatef(0, -WORLD_HEIGHT, 0);
+	glMatrixMode(GL_MODELVIEW);
+}
+
+
 
 /** updates the objects as time progresses */
 void model::world::update(){
-	drawText();
 	/** update asteroids */
 	for (asteroid_iterator iter=asteroids.begin(); iter!=asteroids.end(); iter++){
 		iter->doStep(worldTime + GAME_SPEED);
@@ -138,29 +203,28 @@ void model::world::print_bitmap_string(void* font, char* s)
 
 void model::world::drawText(void){
 	static int font_index = 0;
- void* bitmap_fonts[1] = {
-      GLUT_BITMAP_9_BY_15,
-   };
+ void* bitmap_fonts[1] = {GLUT_BITMAP_9_BY_15};
 
-   char* bitmap_font_names[1] = {
-      "GLUT_BITMAP_9_BY_15",  
-   };
+   char* bitmap_font_names[1] = {"GLUT_BITMAP_9_BY_15"};
 
- 
    GLfloat x, y, ystep, yild;
 
    /* Set up some strings with the characters to draw. */
   
-   char* myName[1] = {"EMALOO"};
+   char* myName[1] = {"testMessage"};
 
    /* Draw the strings, according to the current mode and font. */
    glColor4f(0.0, 1.0, 0.0, 0.0);
-   x = -225.0;
-   y = 70.0;
-   ystep  = 100.0;
-   yild   = 20.0;
-      glRasterPos2f(-150, y+1.25*yild);
-      print_bitmap_string(bitmap_fonts[font_index], bitmap_font_names[font_index]);
+//   x = -225.0;
+ //  y = 70.0;
+  // ystep  = 100.0;
+  // yild   = 20.0;
+x = 0.0;
+y = 70.0;
+ystep = 60.0;
+
+    //  glRasterPos2f(-150, y+1.25*yild);
+ //     print_bitmap_string(bitmap_fonts[font_index], bitmap_font_names[font_index]);
    glRasterPos2f(-150, y - ystep);
    print_bitmap_string(bitmap_fonts[font_index], myName[0]);
 }
