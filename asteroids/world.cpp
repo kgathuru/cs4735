@@ -4,7 +4,6 @@
 model::world::world(){
 	/** initialise variables */
 	worldTime = 0.01;
-	
 	/** create asteroids */
 	srand((unsigned)time(0));
 	int x,y,z;
@@ -88,7 +87,7 @@ void model::world::render(){
 
 /** updates the objects as time progresses */
 void model::world::update(){
-
+	drawText();
 	/** update asteroids */
 	for (asteroid_iterator iter=asteroids.begin(); iter!=asteroids.end(); iter++){
 		iter->doStep(worldTime + GAME_SPEED);
@@ -126,6 +125,47 @@ void model::world::update(){
 	
 	glutPostRedisplay();
 }
+
+void model::world::print_bitmap_string(void* font, char* s)
+{
+   if (s && strlen(s)) {
+      while (*s) {
+         glutBitmapCharacter(font, *s);
+         s++;
+      }
+   }
+}
+
+void model::world::drawText(void){
+	static int font_index = 0;
+ void* bitmap_fonts[1] = {
+      GLUT_BITMAP_9_BY_15,
+   };
+
+   char* bitmap_font_names[1] = {
+      "GLUT_BITMAP_9_BY_15",  
+   };
+
+ 
+   GLfloat x, y, ystep, yild;
+
+   /* Set up some strings with the characters to draw. */
+  
+   char* myName[1] = {"EMALOO"};
+
+   /* Draw the strings, according to the current mode and font. */
+   glColor4f(0.0, 1.0, 0.0, 0.0);
+   x = -225.0;
+   y = 70.0;
+   ystep  = 100.0;
+   yild   = 20.0;
+      glRasterPos2f(-150, y+1.25*yild);
+      print_bitmap_string(bitmap_fonts[font_index], bitmap_font_names[font_index]);
+   glRasterPos2f(-150, y - ystep);
+   print_bitmap_string(bitmap_fonts[font_index], myName[0]);
+}
+
+
 
 /** starting point accessor method */ 
 Point3 model::world::getStartPoint(){

@@ -11,6 +11,11 @@
 #include <stdlib.h>
 #include <time.h>
 
+#include "iostream"
+#include "string"
+#include "GL/gl.h"
+#include "GL/glut.h"
+
 namespace model{
 
 class world{
@@ -22,7 +27,9 @@ class world{
 	void render();
 	void renderPane();
 	void update();
-	
+	void print_bitmap_string(void* font, char* s);
+        void drawText(void);	
+
 	list<asteroid> asteroids;
 	typedef list<asteroid>::iterator asteroid_iterator;
 	
