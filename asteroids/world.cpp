@@ -1,6 +1,4 @@
 #include "world.h"
-#include <sstream>
-#include <string>
 /**world constructor*/
 model::world::world(){
 	/** initialise variables */
@@ -85,7 +83,7 @@ void model::world::render(){
 		iter->draw();
 	} 
 
-	/** render projectile */
+	/** render projectiles */
 	glMaterialfv(GL_FRONT, GL_SPECULAR, projectile_specular);
 	glMaterialfv(GL_FRONT, GL_AMBIENT, projectile_ambient);
 	glMaterialfv(GL_FRONT, GL_DIFFUSE, projectile_diffuse);	
@@ -94,7 +92,6 @@ void model::world::render(){
 	for (projectile_iterator iter=projectiles.begin(); iter!=projectiles.end(); iter++){
 		iter->draw();
 	} 
-
 
 //	setOrthographicProjection();
 //	glPushMatrix();
@@ -107,43 +104,42 @@ void model::world::render(){
 	
 //	glutSwapBuffers();
 
-   drawText();
-   GLdouble size;
-   GLdouble aspect;
-
-   /* Use the whole window. */
-   glViewport(0, 0, WINDOW_WIDTH, WINDOW_HEIGHT);
-
-   /* We are going to do some 2-D orthographic drawing. */
-   glMatrixMode(GL_PROJECTION);
-   glPushMatrix();
-   glLoadIdentity();
-   size = (GLdouble)((WINDOW_WIDTH >= WINDOW_HEIGHT) ? WINDOW_WIDTH : WINDOW_HEIGHT) / 2.0;
-   if (WINDOW_WIDTH <= WINDOW_HEIGHT) {  
-  glPopMatrix(); 
-  glMatrixMode(GL_MODELVIEW);
-  glPushMatrix();
-   glLoadIdentity();
-      aspect = (GLdouble)WINDOW_HEIGHT/(GLdouble)WINDOW_WIDTH;
-      glOrtho(-size, size, -size*aspect, size*aspect, -100000.0, 100000.0);
-   }
-   else {
-      aspect = (GLdouble)WINDOW_WIDTH/(GLdouble)WINDOW_HEIGHT;
-      glOrtho(-size*aspect, size*aspect, -size, size, -100000.0, 100000.0);
-   }
-
-   /* Make the world and window coordinates coincide so that 1.0 in */
-   /* model space equals one pixel in window space.                 */
-   glScaled(aspect, aspect, 1.0);
-   /* Now determine where to draw things. */
-   glPopMatrix();
-   glMatrixMode(GL_MODELVIEW);
-   //glLoadIdentity();
-
+	drawText();
+	GLdouble size;
+	GLdouble aspect;
+	
+	/* Use the whole window. */
+	glViewport(0, 0, WINDOW_WIDTH, WINDOW_HEIGHT);
+	
+	/* We are going to do some 2-D orthographic drawing. */
+	glMatrixMode(GL_PROJECTION);
+	glPushMatrix();
+	glLoadIdentity();
+	size = (GLdouble)((WINDOW_WIDTH >= WINDOW_HEIGHT) ? WINDOW_WIDTH : WINDOW_HEIGHT) / 2.0;
+	
+	if (WINDOW_WIDTH <= WINDOW_HEIGHT) {  
+		glPopMatrix(); 
+		glMatrixMode(GL_MODELVIEW);
+		glPushMatrix();
+		glLoadIdentity();
+		aspect = (GLdouble)WINDOW_HEIGHT/(GLdouble)WINDOW_WIDTH;
+		glOrtho(-size, size, -size*aspect, size*aspect, -100000.0, 100000.0);
+	}
+	else {
+		aspect = (GLdouble)WINDOW_WIDTH/(GLdouble)WINDOW_HEIGHT;
+		glOrtho(-size*aspect, size*aspect, -size, size, -100000.0, 100000.0);
+	}
+	
+	/* Make the world and window coordinates coincide so that 1.0 in */
+	/* model space equals one pixel in window space.                 */
+	glScaled(aspect, aspect, 1.0);
+	/* Now determine where to draw things. */
+	glPopMatrix();
+	glMatrixMode(GL_MODELVIEW);
+	//glLoadIdentity();
 }
 
 void model::world::setOrthographicProjection() {
-
 	// switch to projection mode
 	glMatrixMode(GL_PROJECTION);
 	// save previous matrix which contains the 
@@ -188,7 +184,8 @@ void model::world::update(){
 			{
 				//cout << "ASTEROID HIT SHIP\n";
 				iter->destroy();
-				//Do we want to recreate asteroids when they hit the ship or not? Only destroy for good when laser hits them?
+				//Do we want to recreate asteroids when they hit the ship or not? 
+				//Only destroy for good when laser hits them?
 				iter->recreate();
 				//Decrement ship health
 				if(serenity.getHealth() - 1 == 0)
@@ -221,51 +218,47 @@ void model::world::print_bitmap_string(void* font, char* s)
 
 void model::world::drawText(void){
 	static int font_index = 0;
- void* bitmap_fonts[1] = {GLUT_BITMAP_9_BY_15};
-
-   char* bitmap_font_names[1] = {"GLUT_BITMAP_9_BY_15"};
-
-   GLfloat x, y, ystep, yild;
-
-   /* Set up some strings with the characters to draw. */
-   int health = serenity.getHealth();	
-   
-   char* myName[1] = {"Ship Health: "};
-
-string str;
-stringstream out;
-out << health;
-str = out.str();
-int j;
-int counter = 0;
-char c;
-char healthValue[2][3];
-for(j = 0; j < str.length(); j++){
-  c = str[j];
-  healthValue[1][j] = c;
-  counter++;
+	void* bitmap_fonts[1] = {GLUT_BITMAP_9_BY_15};
+	char* bitmap_font_names[1] = {"GLUT_BITMAP_9_BY_15"};
+	
+	GLfloat x, y, ystep, yild;
+	
+	/* Set up some strings with the characters to draw. */
+	int health = serenity.getHealth();
+	char* myName[1] = {"Ship Health: "};
+	
+	string str;
+	stringstream out;
+	out << health;
+	str = out.str();
+	int j;
+	int counter = 0;
+	char c;
+	char healthValue[2][3];
+	for (j = 0; j < str.length(); j++){
+		c = str[j];
+		healthValue[1][j] = c;
+		counter++;
+	}
+	healthValue[1][counter]= '\0';
+	
+	/* Draw the strings, according to the current mode and font. */
+	glColor4f(0.0, 1.0, 0.0, 0.0);
+	//   x = -225.0;
+	//  y = 70.0;
+	// ystep  = 100.0;
+	// yild   = 20.0;
+	x = 0.0;
+	y = 70.0;
+	ystep = 50.0;
+	
+	//  glRasterPos2f(-150, y+1.25*yild);
+	//  print_bitmap_string(bitmap_fonts[font_index], bitmap_font_names[font_index]);
+	glRasterPos2f(-190, y - ystep);
+	print_bitmap_string(bitmap_fonts[font_index], myName[0]);
+	glRasterPos2f(-80, y- ystep);
+	print_bitmap_string(bitmap_fonts[font_index], healthValue[1]);
 }
-   healthValue[1][counter]= '\0';
-
-   /* Draw the strings, according to the current mode and font. */
-   glColor4f(0.0, 1.0, 0.0, 0.0);
-//   x = -225.0;
- //  y = 70.0;
-  // ystep  = 100.0;
-  // yild   = 20.0;
-x = 0.0;
-y = 70.0;
-ystep = 50.0;
-
-    //  glRasterPos2f(-150, y+1.25*yild);
- //     print_bitmap_string(bitmap_fonts[font_index], bitmap_font_names[font_index]);
-   glRasterPos2f(-190, y - ystep);
-   print_bitmap_string(bitmap_fonts[font_index], myName[0]);
-   glRasterPos2f(-80, y- ystep);
-   print_bitmap_string(bitmap_fonts[font_index], healthValue[1]);
-}
-
-
 
 /** starting point accessor method */ 
 Point3 model::world::getStartPoint(){

@@ -4,18 +4,19 @@
 #include "math.h"
 #include "object.h"
 #include "game.h"
-#include <list> 
 #include "asteroid.h"
 #include "projectile.h"
 #include "ship.h"
-#include <stdio.h>
-#include <stdlib.h>
-#include <time.h>
-
 #include "iostream"
 #include "string"
 #include "GL/gl.h"
 #include "GL/glut.h"
+#include <list> 
+#include <stdio.h>
+#include <stdlib.h>
+#include <time.h>
+#include <sstream>
+#include <string>
 
 namespace model{
 
@@ -31,8 +32,6 @@ class world{
 	void print_bitmap_string(void* font, char* s);
         void drawText(void);	
 	void setOrthographicProjection();
-
-
 
 	list<asteroid> asteroids;
 	typedef list<asteroid>::iterator asteroid_iterator;
