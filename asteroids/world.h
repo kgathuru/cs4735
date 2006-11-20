@@ -6,6 +6,7 @@
 #include "game.h"
 #include <list> 
 #include "asteroid.h"
+#include "projectile.h"
 #include "ship.h"
 #include <stdio.h>
 #include <stdlib.h>
@@ -35,6 +36,9 @@ class world{
 
 	list<asteroid> asteroids;
 	typedef list<asteroid>::iterator asteroid_iterator;
+
+	list<projectile> projectiles;
+	typedef list<projectile>::iterator projectile_iterator;
 	
 	ship serenity;
 

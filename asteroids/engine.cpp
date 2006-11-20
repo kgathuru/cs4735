@@ -53,14 +53,19 @@ void controller::engine::keyboard(unsigned char key, int x, int y){
 		// controls for ship
 		//Changes speed only
 		case 'a': // accelerate ship
-		controller::gameEngine.theWorld.serenity.setSpeed(controller::gameEngine.theWorld.serenity.getSpeed() + 1.0); 
-			break; 
+		controller::gameEngine.theWorld.serenity.setSpeed(
+			controller::gameEngine.theWorld.serenity.getSpeed() + 1.0
+		); break; 
 		case 'z': // decellerate ship, only to stopping, not reverse
-			if(controller::gameEngine.theWorld.serenity.getSpeed() > 0.0)
-			{
-				controller::gameEngine.theWorld.serenity.setSpeed(controller::gameEngine.theWorld.serenity.getSpeed() - 1.0); 
-			}
-			break; 
+			if(controller::gameEngine.theWorld.serenity.getSpeed() > 0.0){
+				controller::gameEngine.theWorld.serenity.setSpeed(
+					controller::gameEngine.theWorld.serenity.getSpeed() - 1.0
+				); 
+			} break; 
+
+		case ' ': //spacebar, fire projectile 
+			controller::gameEngine.theWorld.serenity.fire(); 
+			break;
 	}
 
 

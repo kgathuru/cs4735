@@ -85,6 +85,17 @@ void model::world::render(){
 		iter->draw();
 	} 
 
+	/** render projectile */
+	glMaterialfv(GL_FRONT, GL_SPECULAR, projectile_specular);
+	glMaterialfv(GL_FRONT, GL_AMBIENT, projectile_ambient);
+	glMaterialfv(GL_FRONT, GL_DIFFUSE, projectile_diffuse);	
+	glMaterialfv(GL_FRONT, GL_SHININESS, projectile_shininess);
+
+	for (projectile_iterator iter=projectiles.begin(); iter!=projectiles.end(); iter++){
+		iter->draw();
+	} 
+
+
 //	setOrthographicProjection();
 //	glPushMatrix();
 //	glLoadIdentity();
@@ -156,6 +167,11 @@ void model::world::setOrthographicProjection() {
 void model::world::update(){
 	/** update asteroids */
 	for (asteroid_iterator iter=asteroids.begin(); iter!=asteroids.end(); iter++){
+		iter->doStep(worldTime + GAME_SPEED);
+	} 
+
+	/** update projectiles */
+	for (projectile_iterator iter=projectiles.begin(); iter!=projectiles.end(); iter++){
 		iter->doStep(worldTime + GAME_SPEED);
 	} 
 

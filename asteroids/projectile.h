@@ -2,13 +2,15 @@
 #define PROJECTILE_H
 
 namespace model{
-class projectile{
+class projectile: public object{
 	public:
 	void setLifetime();
 	int getLifetime();
+	void initialize(float spd, Vector3 dir, Point3 pos);
+	void draw();
 	
 	projectile();
-	~projectile();	
+	//~projectile();	
 	private:
 	int lifetime;
 
