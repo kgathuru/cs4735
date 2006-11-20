@@ -14,6 +14,13 @@ void viewer::view::initView(int *argc,char**argv){
 	glutCreateWindow ("Asteroids3D");
 	glutDisplayFunc(&(view::display));
 	glutOverlayDisplayFunc(displayFunc);
+
+
+         int overlaySupport = glutLayerGet(GLUT_OVERLAY_POSSIBLE);
+         if (!overlaySupport) {
+           cout << "Sorry, overlay not supported\n";
+         }
+
 	
 	//Make the world bigger so things don't get clipped moving around
 	/** sorry kate, when we use the camera it sets up its own glperspective */
@@ -63,10 +70,6 @@ void viewer::view::display(void){
 		Vector3 up(0.0, 1.0, 0.0);
 		controller::gameEngine.camera1.set(eye, look, up);//fix camera to ship
 	}
-	
-	
-
-
 
 	glViewport((WINDOW_WIDTH - WORLD_WIDTH)/2,(WINDOW_HEIGHT-WORLD_HEIGHT)/2, WORLD_HEIGHT, WORLD_WIDTH);
 	controller::gameEngine.theWorld.render();
@@ -74,7 +77,6 @@ void viewer::view::display(void){
 }
 
 void viewer::view::displayFunc(void){
-
 	glViewport(0, 0, WINDOW_WIDTH, WINDOW_HEIGHT);
 
 	glDisable(GL_LIGHTING);	//Allow colors to be drawn regardless of light
@@ -94,9 +96,6 @@ void viewer::view::displayFunc(void){
 	glEnable(GL_LIGHT0);
 	glFlush();
 }
-
-
-
 
 /** camera constructor */
 viewer::camera::camera() {

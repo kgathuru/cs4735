@@ -50,7 +50,6 @@ void model::ship::moveUp(){
 void model::ship::moveDown(){
 	secondaryDirection.y = -1.0;
 	position.y = position.y + 0.1 * SHIP_SPEED * secondaryDirection.y;
-	
 }
 
 void model::ship::moveLeft(){
@@ -84,7 +83,6 @@ void model::ship::pitch(float angle){
 }
 
 void model::ship::draw(){
-
 	glPushMatrix();
 	//engage rubberband
 	rubberBand();
@@ -115,32 +113,15 @@ void model::ship::doStep(float t){
 	);
 	
 	//Don't let ship move out of the box
-	if(position.z > 0.0)
-	{
-		position.z = 0.0;
-	}
-	if(position.y < 0.0)
-	{
-		position.y = 0.0;
-	}
-	if(position.y > WORLD_HEIGHT)
-	{
-		position.y = WORLD_HEIGHT;
-	}
-	if(position.x < -WORLD_WIDTH/2)
-	{
-		position.x = -WORLD_WIDTH/2;
-	}
-	if(position.x > WORLD_WIDTH/2)
-	{
-		position.x = WORLD_WIDTH/2;
-	}
+	if (position.z > 0.0){ position.z = 0.0; }
+	if (position.y < 0.0){ position.y = 0.0; }
+	if (position.y > WORLD_HEIGHT){ position.y = WORLD_HEIGHT; }
+	if (position.x < -WORLD_WIDTH/2){ position.x = -WORLD_WIDTH/2; }
+	if (position.x > WORLD_WIDTH/2){ position.x = WORLD_WIDTH/2; }
 
 	//Check to see if ship is past finish line
-	if(position.z < -WORLD_DEPTH)
-	{
-		position.z = -WORLD_DEPTH;
-	}
+	/** \todo put "you won" code? */
+	if (position.z < -WORLD_DEPTH) { position.z = -WORLD_DEPTH; }
 }
 
 /** \brief this function acts as an autopilot to return the ship to its default course */
@@ -161,16 +142,14 @@ void model::ship::rubberBand(){
 	targetspeed = 0.5;
 
 	//Make secondary direction closer to (0,0,0)
-	if(secondaryDirection.x != 0.0)
-	{
-		if(secondaryDirection.x < 0)
+	if(secondaryDirection.x != 0.0) {
+		if (secondaryDirection.x < 0)
 			secondaryDirection.x += 0.1;
 		else
 			secondaryDirection.x += -0.1;	
 	}
 		//Make secondary direction closer to (0,0,0)
-	if(secondaryDirection.y != 0.0)
-	{
+	if(secondaryDirection.y != 0.0) {
 		if(secondaryDirection.y < 0)
 			secondaryDirection.y += 0.1;
 		else
@@ -196,7 +175,6 @@ void model::ship::fire(){
 	prot.initialize(speed, direction, position);
 	controller::gameEngine.theWorld.projectiles.push_back(prot);
 }
-
 
 //What do to when the ship dies, runs out of health
 void model::ship::death(){
