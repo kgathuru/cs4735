@@ -6,6 +6,7 @@
 #include "object.cpp"
 #include "ship.cpp"
 #include "asteroid.cpp"
+#include "projectile.cpp"
 #include "math.cpp"
 
 

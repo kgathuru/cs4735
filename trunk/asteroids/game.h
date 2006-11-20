@@ -42,4 +42,9 @@ const GLfloat ship_specular[] = { 0.25f, 0.25f, 0.75f, 1.0f};
 const GLfloat ship_diffuse[] = { 0.7, 0.0, 0.7, 1.0 };
 const GLfloat ship_shininess[] = { 315.0f };
 
+const GLfloat projectile_ambient[] = { 0.0f, 1.0f, 0.0f, 1.0f};
+const GLfloat projectile_specular[] = { 0.25f, 0.25f, 0.75f, 1.0f};
+const GLfloat projectile_diffuse[] = { 0.7, 0.0, 0.7, 1.0 };
+const GLfloat projectile_shininess[] = { 315.0f };
+
 #endif
