@@ -175,14 +175,15 @@ void model::world::update(){
 				//Do we want to recreate asteroids when they hit the ship or not? Only destroy for good when laser hits them?
 				iter->recreate();
 				//Decrement ship health
+				if(serenity.getHealth() - 1 == 0)
+				{
+					serenity.death();
+					//Restart the game??
+				}
 				serenity.setHealth(serenity.getHealth() - 1);
 				//Do something when the ship is hit to let player know
 				serenity.hit();
 				//Do something if the ship dies
-				if(serenity.getHealth() == 0)
-				{
-					serenity.death();
-				}
 
 			}
 		}

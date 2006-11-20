@@ -39,6 +39,7 @@ void model::asteroid:: initialize(){
 	//Assuming that world path is the x axis
 	x = (rand() % (WORLD_WIDTH/2)); if(x%2 == 0) x = x*(-1);
 	y = (rand() % WORLD_HEIGHT);
+	//cout << "X:" << x << "\n";
 	//z = -(rand() % WORLD_DEPTH);
 	z = -((rand() % (WORLD_DEPTH*2)) + WORLD_DEPTH);
 	setPosition(x,y,z);

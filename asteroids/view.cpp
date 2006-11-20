@@ -25,7 +25,7 @@ void viewer::view::initView(int *argc,char**argv){
 
 	/** \todo is aspect ratio based on world width or window width? */
 	controller::gameEngine.camera1.setView(DEFAULT_CAM);
-	controller::gameEngine.camera1.setShape(30.0f, WORLD_WIDTH/WORLD_HEIGHT, 100.0f, 4000.0f);
+	controller::gameEngine.camera1.setShape(30.0f, WORLD_WIDTH/WORLD_HEIGHT, 50.0f, WORLD_DEPTH);
 	controller::gameEngine.camera1.set(eye, look, up); // make the initial camera
 }
 

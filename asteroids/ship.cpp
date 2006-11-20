@@ -198,7 +198,8 @@ void model::ship::fire(){
 
 //What do to when the ship dies, runs out of health
 void model::ship::death(){
-
+	//reset health
+	health = SHIP_START_HEALTH;
 
 }
 
