@@ -31,7 +31,6 @@ class view{
   public:
 	void initView(int *argc,char**argv);
 	static void display(void);
-	static void displayFunc(void);
 	view();
 };
 

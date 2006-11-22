@@ -2,13 +2,14 @@
 #include <GL/glu.h>
 #include <GL/glut.h>
 #include <GL/glx.h>
-#include <iostream.h>
 #include <string>
-#include <fstream.h>
+#include <iostream>
+#include <fstream>
 
+using namespace std;
 using std::string;
 
-class RGB{ // holds a color triple – each with 256 possible intensities
+class RGB{ // holds a color triple  each with 256 possible intensities
     public: unsigned char r,g,b;
 };
 

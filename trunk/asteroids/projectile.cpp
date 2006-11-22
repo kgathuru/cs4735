@@ -25,7 +25,7 @@ void model::projectile::draw(){
 	{
 		glPushMatrix(); //save initial matrix
 		glTranslatef(position.x, position.y, position.z);//Move asteroid to position in space
-		glutSolidTeapot(size); 
+		glutSolidSphere(size, 10, 10);
 		glPopMatrix(); //regain initial matrix
 	}
 }
@@ -38,8 +38,7 @@ void model::projectile::initialize(float spd, Vector3 dir, Point3 pos){
 	position.z = position.z - size;
 }
 
-void model::projectile::destroy()
-{
+void model::projectile::destroy(){
 	size = 0;
 	draw();
 }

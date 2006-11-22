@@ -10,7 +10,6 @@ void controller::engine::init(int *argc,char**argv){
 	glutSpecialFunc(keypad);
 	glutIdleFunc(update);
 
-	gameView.displayFunc();
 	gameView.display(); //show initial pic
 
 	//glutKeyboardFunc(keyboardFunc);
@@ -96,8 +95,10 @@ void controller::engine::keypad(int key, int x, int y){
 		case GLUT_KEY_DOWN: //pitch up
 			controller::gameEngine.theWorld.serenity.moveDown(); break;
 		case GLUT_KEY_LEFT: //yaw left
+			//controller::gameEngine.theWorld.serenity.yaw(-1.0); break;
 			controller::gameEngine.theWorld.serenity.moveLeft(); break;
 		case GLUT_KEY_RIGHT: //yaw right
+			//controller::gameEngine.theWorld.serenity.yaw(1.0); break;
 			controller::gameEngine.theWorld.serenity.moveRight(); break;
 	}
 	glutPostRedisplay();

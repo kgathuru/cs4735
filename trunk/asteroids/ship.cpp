@@ -4,7 +4,7 @@ model::ship::ship(){
 	speed = 0.5;
 	position.set(0.0, WORLD_HEIGHT/2, 0.0);
 	direction.set(0.0, 0.0, -1.0);
-	size = 100.0;
+	size = SHIP_SIZE;
 	health = SHIP_START_HEALTH;
 	reload = 0;
 }
@@ -100,12 +100,12 @@ void model::ship::draw(){
 	//glRotated(direction.z, 0, 0, 1);
 	//glRotated(direction.y, 0, 1, 0);
 	//glRotated(direction.x, 1, 0, 0);
-	glTranslatef(position.x, position.y, position.z);//Move asteroid to position in space
+	glTranslatef(position.x+(size/2), position.y-(size/2), position.z);//Move asteroid to position in space
 	
 	//these three simply rotate the barn to be upright, delete for proper ship model
 	glRotated(-90, 1, 0, 0);
 	glRotated(90, 0, 0, 1);
-	glScaled(100, 100, 100);
+	glScaled(size, size, size);
 
 	//call super.draw()
 	Mesh::draw();
