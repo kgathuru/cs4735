@@ -13,42 +13,23 @@ void viewer::view::initView(int *argc,char**argv){
 
 	glutCreateWindow ("Asteroids3D");
 	glutDisplayFunc(&(view::display));
-	glutOverlayDisplayFunc(displayFunc);
 
-
-         int overlaySupport = glutLayerGet(GLUT_OVERLAY_POSSIBLE);
-         if (!overlaySupport) {
-           cout << "Sorry, overlay not supported\n";
-         }
-
-	
-	//Make the world bigger so things don't get clipped moving around
-	/** sorry kate, when we use the camera it sets up its own glperspective */
-	//glOrtho(-WORLD_WIDTH, WORLD_WIDTH, -WORLD_HEIGHT*2, WORLD_HEIGHT*2, WORLD_DEPTH, -WORLD_DEPTH*2);
-	
         Point3 eye(0, WORLD_HEIGHT/2, 950.0); 
         Point3 look(0, WORLD_HEIGHT/2, -2000.0); 
         Vector3 up(0.0, 1.0, 0.0);
 
 	/** \todo is aspect ratio based on world width or window width? */
 	controller::gameEngine.camera1.setView(DEFAULT_CAM);
-	controller::gameEngine.camera1.setShape(30.0f, WORLD_WIDTH/WORLD_HEIGHT, 50.0f, WORLD_DEPTH);
+	controller::gameEngine.camera1.setShape(30.0f, WORLD_WIDTH/WORLD_HEIGHT, CAMERA_NEAR_DIST, CAMERA_FAR_DIST);
 	controller::gameEngine.camera1.set(eye, look, up); // make the initial camera
 
-	glEnable(GL_DEPTH_TEST);
-	glEnable(GL_TEXTURE_2D);
-        glHint(GL_PERSPECTIVE_CORRECTION_HINT, GL_NICEST);
 	string s = "spaceScene.bmp";
 	int ret = pix[1].readBMPFile(s);  // make pixmap from image
         pix[1].setTexture(2001);
-        glDisable(GL_TEXTURE_2D);
-
-
 }
 
 
 void viewer::view::display(void){
-
 	// set the light source properties
 	GLfloat light_intensity[] = {0.5f, 0.5f, 0.5f, 0.5f};
 	GLfloat light_position[] = {10.0f, 10.0f, 10.0f, 0.0f};
@@ -61,6 +42,7 @@ void viewer::view::display(void){
 	glEnable(GL_LIGHT0);
 	glEnable(GL_DEPTH_TEST); // for removal of hidden surfaces
 	glEnable(GL_NORMALIZE);  // normalize vectors for proper shading
+        glHint(GL_PERSPECTIVE_CORRECTION_HINT, GL_NICEST); //for nice perpective
 	
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT); // clear the screen
 	
@@ -68,11 +50,12 @@ void viewer::view::display(void){
 	if (controller::gameEngine.camera1.getView() == ONBOARD_CAM){
 		Point3 eye = controller::gameEngine.theWorld.serenity.getPosition();
 		eye.z += controller::gameEngine.theWorld.serenity.getSize()*10;
+		eye.y += 100;
 		//eye.y += controller::gameEngine.theWorld.serenity.getSize()*2;
 		//This way camera only moves in the z direction
 		//Is this what we want?
-		eye.y = WORLD_HEIGHT/2;
-		eye.x = 0;
+		//eye.y = WORLD_HEIGHT/2;
+		//eye.x = 0;
 		/** \todo is it legal to turn a vector into a point like this? */
 		/** I want to tell the camera to look where the spaceship is looking, how do I do it? */
 		//Vector3 lookv =  controller::gameEngine.theWorld.serenity.getDirection();
@@ -87,29 +70,6 @@ void viewer::view::display(void){
 	
 
 	glutSwapBuffers();
-}
-
-void viewer::view::displayFunc(void){
-	glViewport(0, 0, WINDOW_WIDTH, WINDOW_HEIGHT);
-
-	glDisable(GL_LIGHTING);	//Allow colors to be drawn regardless of light
-	glDisable(GL_LIGHT0);
-	glColor3f(1.0, 1.0, 1.0);
-
-	//glViewport(0,0,WINDOW_WIDTH,(WINDOW_HEIGHT-WORLD_HEIGHT)/2);
-	glBegin(GL_POLYGON);
-		glVertex2d(0.0, 0.0);
-		glVertex2d(0.0, WINDOW_HEIGHT);
-		glVertex2d(WINDOW_WIDTH, WINDOW_HEIGHT);
-		glVertex2d(WINDOW_WIDTH, 0.0);
-		glVertex2d(0.0, 0.0);
-	glEnd();
-	
-	glEnable(GL_LIGHTING);
-	glEnable(GL_LIGHT0);
-
-	glFlush();
-
 }
 
 /** camera constructor */
@@ -177,8 +137,8 @@ void viewer::camera::slide(float delU, float delV, float delN){
 
 /** roll the camera through angle degrees */
 void viewer::camera::roll(float angle){ 
-	float cs = cos(3.141592653589793/180 * angle);
-	float sn = sin(3.141592653589793/180 * angle);
+	float cs = cos(PI/180 * angle);
+	float sn = sin(PI/180 * angle);
 	Vector3 t = u;  // remember u
 	u.set(cs*t.x - sn*v.x, cs*t.y - sn*v.y, cs*t.z - sn*v.z);
 	v.set(sn*t.x + cs*v.x, sn*t.y + cs*v.y, sn*t.z + cs*v.z);
@@ -187,8 +147,8 @@ void viewer::camera::roll(float angle){
 
 /** roll the camera through angle degrees */
 void viewer::camera::pitch(float angle){ 
-	float cs = cos(3.141592653589793/180 * angle);
-	float sn = sin(3.141592653589793/180 * angle);
+	float cs = cos(angle);
+	float sn = sin(angle);
 	Vector3 t = v;  // remember u
 	v.set(cs*t.x - sn*n.x, cs*t.y - sn*n.y, cs*t.z - sn*n.z);
 	n.set(sn*t.x + cs*n.x, sn*t.y + cs*n.y, sn*t.z + cs*n.z);
@@ -197,8 +157,8 @@ void viewer::camera::pitch(float angle){
 
 /** roll the camera through angle degrees */
 void viewer::camera::yaw(float angle) {
-	float cs = cos(3.141592653589793/180 * angle);
-	float sn = sin(3.141592653589793/180 * angle);
+	float cs = cos(PI/180 * angle);
+	float sn = sin(PI/180 * angle);
 	Vector3 t = n;  // remember u
 	n.set(cs*t.x - sn*u.x, cs*t.y - sn*u.y, cs*t.z - sn*u.z);
 	u.set(sn*t.x + cs*u.x, sn*t.y + cs*u.y, sn*t.z + cs*u.z);
