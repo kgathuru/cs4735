@@ -79,10 +79,11 @@ void model::asteroid:: destroy(){
 	//Animation to remove asteroid
 	//Needs to be better so player knows they've been hit
 	for(float i = size; i >= 0; i--);{
-		size--;
+		size = size - 0.5;
 		draw();
 	}
 	size = 0;
+	draw();
 }
 
 void model::asteroid:: doStep(float t){
@@ -120,5 +121,9 @@ bool model::asteroid:: checkCollision(Point3 shipPosition, float shipSize){
 		//Need to destroy the asteroid if it's true
 		return true;
 		//Call deconstructor outside of the method
-	} else { return false; }
+	} 
+	else 
+	{ 
+		return false;
+	}
 }

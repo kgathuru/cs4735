@@ -27,12 +27,15 @@ class ship: public object {
 	void deccelerate();
 	void death();
 	void hit();
+	void setReload(int r);
+	int getReload();
 
 	ship();
 	~ship();	
   private:
 	int health;
 	int score; 
+	int reload;
 	Vector3 secondaryDirection;
 };
 

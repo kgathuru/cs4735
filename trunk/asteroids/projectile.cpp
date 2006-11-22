@@ -21,26 +21,26 @@ int model::projectile::getLifetime(){
 }
 
 void model::projectile::draw(){
-	glPushMatrix(); //save initial matrix
-	glTranslatef(position.x, position.y, position.z);//Move asteroid to position in space
-	glutSolidTeapot(size); 
-	glPopMatrix(); //regain initial matrix
+	if(size > 0)
+	{
+		glPushMatrix(); //save initial matrix
+		glTranslatef(position.x, position.y, position.z);//Move asteroid to position in space
+		glutSolidTeapot(size); 
+		glPopMatrix(); //regain initial matrix
+	}
 }
 
 void model::projectile::initialize(float spd, Vector3 dir, Point3 pos){
-	speed = spd * 5;
+	speed = PROJECTILE_SPEED;
 	direction = dir;
 	position = pos;
+	size = PROJECTILE_SIZE;
 	position.z = position.z - size;
 }
 
 void model::projectile::destroy()
 {
-	//Animation to remove asteroid
-	//Needs to be better so player knows they've been hit
-	for(float i = size; i >= 0; i--);{
-		size--;
-		draw();
-	}
 	size = 0;
+	draw();
 }
+

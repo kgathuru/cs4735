@@ -64,7 +64,11 @@ void controller::engine::keyboard(unsigned char key, int x, int y){
 			} break; 
 
 		case ' ': //spacebar, fire projectile 
-			controller::gameEngine.theWorld.serenity.fire(); 
+			if(controller::gameEngine.theWorld.serenity.getReload() == 0)
+			{
+				controller::gameEngine.theWorld.serenity.fire(); 
+				controller::gameEngine.theWorld.serenity.setReload(RELOAD_WAIT);
+			}
 			break;
 	}
 
