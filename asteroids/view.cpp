@@ -43,6 +43,7 @@ void viewer::view::initView(int *argc,char**argv){
         pix[1].setTexture(2001);
         glDisable(GL_TEXTURE_2D);
 
+
 }
 
 
