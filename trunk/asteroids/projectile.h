@@ -8,6 +8,7 @@ class projectile: public object{
 	int getLifetime();
 	void initialize(float spd, Vector3 dir, Point3 pos);
 	void draw();
+	void destroy();
 	
 	projectile();
 	//~projectile();	

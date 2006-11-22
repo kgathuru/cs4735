@@ -172,7 +172,8 @@ void model::ship::rubberBand(){
 /** creates a projectile object*/
 void model::ship::fire(){
 	projectile prot;
-	prot.initialize(speed, direction, position);
+	prot.setSize(15);
+	prot.initialize(speed * 2, direction, position);
 	controller::gameEngine.theWorld.projectiles.push_back(prot);
 }
 
