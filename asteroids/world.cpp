@@ -201,7 +201,34 @@ void model::world::update(){
 			}
 		}
 	} 
-	
+
+	/*
+	//CHECK COLLISIONS BETWEEN EVERY ASTEROID AND EVERY PROJECTILE
+	for (asteroid_iterator iter=asteroids.begin(); iter!=asteroids.end(); iter++)
+	{
+		//Just in case asteroid isn't destroyed, don't count it if size is 0
+		if(iter->getSize() > 0)
+		{
+			for (projectile_iterator projIter=projectiles.begin(); projIter!=projectiles.end(); iter++)	
+			{
+				if(projIter->getSize() > 0)
+				{
+					//returns true if there is a collision
+					if(iter->checkCollision(projIter->getPosition(),projIter->getSize()))
+					{
+						
+						//Projectile hits asteroid, destroy both
+						//Destroy Asteroid
+						iter->destroy();
+						//Destroy Projectile
+						projIter->destroy();
+					}
+				}
+
+			}
+		}
+	} 
+	*/
 	
 	glutPostRedisplay();
 }
