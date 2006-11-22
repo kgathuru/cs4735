@@ -21,7 +21,18 @@ model::world::~world(){
 
 /** renders the objects in the world */
 void model::world::render(){
+	glEnable(GL_DEPTH_TEST);
+	glEnable(GL_TEXTURE_2D);
+	glTexEnvf(GL_TEXTURE_ENV, GL_TEXTURE_ENV_MODE, GL_DECAL);
+	glBindTexture(GL_TEXTURE_2D, 2001);   // choose the texture to use.
 
+    glBegin(GL_QUADS);		                // begin drawing a square   
+	glTexCoord2f(0.0, 0.0); glVertex3f(-WINDOW_WIDTH*2, WINDOW_HEIGHT*2, -WORLD_DEPTH -1000);
+	glTexCoord2f(0.0, 1.0); glVertex3f(-WINDOW_WIDTH*2, -WINDOW_HEIGHT*2, -WORLD_DEPTH-1000);
+	glTexCoord2f(1.0, 1.0); glVertex3f( WINDOW_WIDTH*2, -WINDOW_HEIGHT*2,  -WORLD_DEPTH-1000);
+	glTexCoord2f(1.0, 0.0); glVertex3f( WINDOW_WIDTH*2, WINDOW_HEIGHT*2, -WORLD_DEPTH-1000);
+    glEnd();
+glDisable(GL_TEXTURE_2D);
 	/** render axes */
 	glDisable(GL_LIGHTING);	//Allow colors to be drawn regardless of light
 	glColor3f(1.0, 0.0, 0.0);
@@ -229,6 +240,9 @@ void model::world::update(){
 		}
 	} 
 	*/
+
+
+
 	
 	glutPostRedisplay();
 }
