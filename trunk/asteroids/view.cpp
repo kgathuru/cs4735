@@ -1,10 +1,10 @@
 #include "view.h"
-
+#include "RGBpixmap.h"
 viewer::view::view(){
 	
 }
 
-
+RGBpixmap pix[1];
 /** initialize OpenGL environment */
 void viewer::view::initView(int *argc,char**argv){
 	glutInit (argc,argv);
@@ -34,10 +34,20 @@ void viewer::view::initView(int *argc,char**argv){
 	controller::gameEngine.camera1.setView(DEFAULT_CAM);
 	controller::gameEngine.camera1.setShape(30.0f, WORLD_WIDTH/WORLD_HEIGHT, 50.0f, WORLD_DEPTH);
 	controller::gameEngine.camera1.set(eye, look, up); // make the initial camera
+
+	glEnable(GL_DEPTH_TEST);
+	glEnable(GL_TEXTURE_2D);
+        glHint(GL_PERSPECTIVE_CORRECTION_HINT, GL_NICEST);
+	string s = "spaceScene.bmp";
+	int ret = pix[1].readBMPFile(s);  // make pixmap from image
+        pix[1].setTexture(2001);
+        glDisable(GL_TEXTURE_2D);
+
 }
 
 
 void viewer::view::display(void){
+
 	// set the light source properties
 	GLfloat light_intensity[] = {0.5f, 0.5f, 0.5f, 0.5f};
 	GLfloat light_position[] = {10.0f, 10.0f, 10.0f, 0.0f};
@@ -73,6 +83,8 @@ void viewer::view::display(void){
 
 	glViewport((WINDOW_WIDTH - WORLD_WIDTH)/2,(WINDOW_HEIGHT-WORLD_HEIGHT)/2, WORLD_HEIGHT, WORLD_WIDTH);
 	controller::gameEngine.theWorld.render();
+	
+
 	glutSwapBuffers();
 }
 
@@ -94,7 +106,9 @@ void viewer::view::displayFunc(void){
 	
 	glEnable(GL_LIGHTING);
 	glEnable(GL_LIGHT0);
+
 	glFlush();
+
 }
 
 /** camera constructor */
