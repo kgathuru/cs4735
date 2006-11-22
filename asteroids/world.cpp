@@ -172,13 +172,70 @@ void model::world::setOrthographicProjection() {
 
 /** updates the objects as time progresses */
 void model::world::update(){
-	/** update asteroids */
-	for (asteroid_iterator iter=asteroids.begin(); iter!=asteroids.end(); iter++){
+
+	bool hit = false;
+	/** update projectiles */
+	projectile_iterator iter=projectiles.begin();
+	while(iter!=projectiles.end())
+	{
 		iter->doStep(worldTime + GAME_SPEED);
+		if(iter->getPosition().z <= -WORLD_DEPTH * 2)
+		{
+			//Destroy the projectile when it goes off screen
+			iter->destroy();
+			iter = projectiles.erase(iter);
+		}
+		else
+		{
+			iter++;
+		}
 	} 
 
-	/** update projectiles */
-	for (projectile_iterator iter=projectiles.begin(); iter!=projectiles.end(); iter++){
+	if(projectiles.size() > 0)
+	{
+	//CHECK COLLISIONS BETWEEN EVERY ASTEROID AND EVERY PROJECTILE
+	asteroid_iterator iter=asteroids.begin();
+	while(iter!=asteroids.end())
+	{
+		//cout << "NUMPROJECTILES" << projectiles.size() << "\n";
+		projectile_iterator projIter=projectiles.begin();
+		projectile_iterator projIter2;
+		while(projIter!=projectiles.end())	
+		{
+			//cout << "CHECK EACH PROJECTILE\n";
+			//returns true if there is a collision
+			if(iter->checkCollision(projIter->getPosition(),projIter->getSize()))
+			{
+						
+				//Projectile hits asteroid, destroy both
+				//Destroy Asteroid
+				iter->destroy();
+				iter = asteroids.erase(iter);
+				hit = true;
+				cout << "Projectile and asteroid destroyed\n";
+				//cout << "NewNumAsteroids:" << projectiles.size() << "\n";
+
+				//Destroy Projectile
+				projIter->destroy();
+				projIter = projectiles.erase(projIter);
+			}
+			else
+			{
+				projIter++;
+			}
+		}
+		if(!hit)
+		{
+			iter++;
+		}
+		hit = false;
+	} //end while
+
+	}//end if
+
+
+	/** update asteroids */
+	for (asteroid_iterator iter=asteroids.begin(); iter!=asteroids.end(); iter++){
 		iter->doStep(worldTime + GAME_SPEED);
 	} 
 
@@ -186,60 +243,26 @@ void model::world::update(){
 	serenity.doStep(worldTime + GAME_SPEED);
 
 	//CHECK COLLISIONS BETWEEN EVERY ASTEROID AND THE SHIP
-	for (asteroid_iterator iter=asteroids.begin(); iter!=asteroids.end(); iter++){
-		//Just in case asteroid isn't destroyed, don't count it if size is 0
-		if(iter->getSize() > 0)
-		{		
-			//returns true if there is a collision
-			if(iter->checkCollision(serenity.getPosition(), serenity.getSize()))
-			{
-				//cout << "ASTEROID HIT SHIP\n";
-				iter->destroy();
-				//Do we want to recreate asteroids when they hit the ship or not? 
-				//Only destroy for good when laser hits them?
-				iter->recreate();
-				//Decrement ship health
-				if(serenity.getHealth() - 1 == 0)
-				{
-					serenity.death();
-					//Restart the game??
-				}
-				serenity.setHealth(serenity.getHealth() - 1);
-				//Do something when the ship is hit to let player know
-				serenity.hit();
-				//Do something if the ship dies
-
-			}
-		}
-	} 
-
-	/*
-	//CHECK COLLISIONS BETWEEN EVERY ASTEROID AND EVERY PROJECTILE
-	for (asteroid_iterator iter=asteroids.begin(); iter!=asteroids.end(); iter++)
-	{
-		//Just in case asteroid isn't destroyed, don't count it if size is 0
-		if(iter->getSize() > 0)
+	for (asteroid_iterator iter=asteroids.begin(); iter!=asteroids.end(); iter++){	
+		//returns true if there is a collision
+		if(iter->checkCollision(serenity.getPosition(), serenity.getSize()))
 		{
-			for (projectile_iterator projIter=projectiles.begin(); projIter!=projectiles.end(); iter++)	
+			//cout << "ASTEROID HIT PROJECTILE\n";
+			iter->destroy();
+			//Only destroy for good when laser hits them
+			iter->recreate();
+			//Decrement ship health
+			if(serenity.getHealth() - 1 == 0)
 			{
-				if(projIter->getSize() > 0)
-				{
-					//returns true if there is a collision
-					if(iter->checkCollision(projIter->getPosition(),projIter->getSize()))
-					{
-						
-						//Projectile hits asteroid, destroy both
-						//Destroy Asteroid
-						iter->destroy();
-						//Destroy Projectile
-						projIter->destroy();
-					}
-				}
-
+				serenity.death();
+				//Restart the game??
 			}
+			serenity.setHealth(serenity.getHealth() - 1);
+			//Do something when the ship is hit to let player know
+			serenity.hit();
+
 		}
 	} 
-	*/
 
 
 

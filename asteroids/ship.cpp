@@ -6,6 +6,7 @@ model::ship::ship(){
 	direction.set(0.0, 0.0, -1.0);
 	size = 100.0;
 	health = SHIP_START_HEALTH;
+	reload = 0;
 }
 
 /** ship deconstructor */
@@ -31,6 +32,14 @@ void model::ship::setScore(int s){
 /** score accessor method */
 int model::ship::getScore(){
 	return score;
+}
+
+void model::ship::setReload(int r){
+	reload = r;
+}
+
+int model::ship::getReload(){
+	return reload;
 }
 
 /** Mutate secondary direction */
@@ -119,6 +128,9 @@ void model::ship::doStep(float t){
 	if (position.x < -WORLD_WIDTH/2){ position.x = -WORLD_WIDTH/2; }
 	if (position.x > WORLD_WIDTH/2){ position.x = WORLD_WIDTH/2; }
 
+	if(reload > 0)
+		reload--;
+
 	//Check to see if ship is past finish line
 	/** \todo put "you won" code? */
 	if (position.z < -WORLD_DEPTH) { position.z = -WORLD_DEPTH; }
@@ -180,6 +192,9 @@ void model::ship::fire(){
 //What do to when the ship dies, runs out of health
 void model::ship::death(){
 	//reset health
+	//Reset position back to start
+	position.set(0.0, WORLD_HEIGHT/2, 0.0);
+	direction.set(0.0, 0.0, -1.0);
 	health = SHIP_START_HEALTH;
 
 }
