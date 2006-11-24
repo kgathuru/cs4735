@@ -1,3 +1,4 @@
+
 /** ship constructor */
 model::ship::ship(){
 	readFile("SIMPBARN.3VN");
@@ -204,3 +205,17 @@ void model::ship::hit(){
 
 }
 
+/**
+void model::ship::rocketShip(){
+	glPushMatrix();
+	glScaled(0.2, 0.2, 1.0);
+	glutSolidSphere(1,15, 15);
+	glPopMatrix();
+	glPushMatrix();
+	glTranslated(0.0, 0.0, 1.2);
+	glutSolidSphere(0.2, 15, 15);
+	glTranslated(0.0, 0.0, -2.4);
+	glutSolidSphere(0.2, 15, 15);
+	glPopMatrix();
+}
+*/
