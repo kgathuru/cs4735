@@ -26,6 +26,7 @@ void viewer::view::initView(int *argc,char**argv){
 	string s = "spaceScene.bmp";
 	int ret = pix[1].readBMPFile(s);  // make pixmap from image
         pix[1].setTexture(2001);
+	
 }
 
 
@@ -67,8 +68,12 @@ void viewer::view::display(void){
 
 	glViewport((WINDOW_WIDTH - WORLD_WIDTH)/2,(WINDOW_HEIGHT-WORLD_HEIGHT)/2, WORLD_HEIGHT, WORLD_WIDTH);
 	controller::gameEngine.theWorld.render();
-	
-
+//	glPushMatrix();
+//glTranslated(0, WORLD_HEIGHT/2, 0);
+//glScaled(10, 10, 10);
+//controller::gameEngine.theWorld.serenity.rocketShip();
+//cout<<"DRAW ROCKET SHIP";
+//glPopMatrix();
 	glutSwapBuffers();
 }
 

@@ -1,4 +1,5 @@
 #include "world.h"
+
 /**world constructor*/
 model::world::world(){
 	/** initialise variables */
@@ -28,10 +29,10 @@ void model::world::render(){
 	glTexEnvf(GL_TEXTURE_ENV, GL_TEXTURE_ENV_MODE, GL_DECAL);
 	glBindTexture(GL_TEXTURE_2D, 2001);   // choose the texture to use.
 	glBegin(GL_QUADS);		                // begin drawing a square   
-		glTexCoord2f(0.0, 0.0); glVertex3f(-WINDOW_WIDTH*2, WINDOW_HEIGHT*2, -WORLD_DEPTH -1000);
-		glTexCoord2f(0.0, 1.0); glVertex3f(-WINDOW_WIDTH*2, -WINDOW_HEIGHT*2, -WORLD_DEPTH-1000);
-		glTexCoord2f(1.0, 1.0); glVertex3f( WINDOW_WIDTH*2, -WINDOW_HEIGHT*2,  -WORLD_DEPTH-1000);
-		glTexCoord2f(1.0, 0.0); glVertex3f( WINDOW_WIDTH*2, WINDOW_HEIGHT*2, -WORLD_DEPTH-1000);
+		glTexCoord2f(0.0, 0.0); glVertex3f(-WINDOW_WIDTH*4, WINDOW_HEIGHT*5, -WORLD_DEPTH -1000);
+		glTexCoord2f(0.0, 1.0); glVertex3f(-WINDOW_WIDTH*4,-WINDOW_HEIGHT*5,-WORLD_DEPTH-1000);
+		glTexCoord2f(1.0, 1.0); glVertex3f( WINDOW_WIDTH*4, -WINDOW_HEIGHT*5,  -WORLD_DEPTH-1000);
+		glTexCoord2f(1.0, 0.0); glVertex3f( WINDOW_WIDTH*4, WINDOW_HEIGHT*5, -WORLD_DEPTH-1000);
 	glEnd();
 	glDisable(GL_TEXTURE_2D);
 
@@ -118,7 +119,7 @@ void model::world::render(){
 	
 //	glutSwapBuffers();
 
-	drawText();
+		drawText();
 	GLdouble size;
 	GLdouble aspect;
 	
@@ -130,7 +131,7 @@ void model::world::render(){
 	glPushMatrix();
 	glLoadIdentity();
 	size = (GLdouble)((WINDOW_WIDTH >= WINDOW_HEIGHT) ? WINDOW_WIDTH : WINDOW_HEIGHT) / 2.0;
-	
+
 	if (WINDOW_WIDTH <= WINDOW_HEIGHT) {  
 		glPopMatrix(); 
 		glMatrixMode(GL_MODELVIEW);
@@ -285,9 +286,15 @@ void model::world::print_bitmap_string(void* font, char* s)
 
 void model::world::drawText(void){
 	static int font_index = 0;
-	void* bitmap_fonts[1] = {GLUT_BITMAP_9_BY_15};
-	char* bitmap_font_names[1] = {"GLUT_BITMAP_9_BY_15"};
-	
+	//void* bitmap_fonts[1] = {GLUT_BITMAP_9_BY_15};
+	//char* bitmap_font_names[1] = {"GLUT_BITMAP_9_BY_15"};
+   void* bitmap_fonts[1] = {
+      GLUT_BITMAP_HELVETICA_12,    
+   };
+
+   char* bitmap_font_names[1] = {
+      "GLUT_BITMAP_HELVETICA_12",    
+   };
 	GLfloat x, y, ystep, yild;
 	
 	/* Set up some strings with the characters to draw. */
