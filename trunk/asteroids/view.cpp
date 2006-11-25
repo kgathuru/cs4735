@@ -4,7 +4,7 @@ viewer::view::view(){
 	
 }
 
-RGBpixmap pix[1];
+RGBpixmap pix[4];
 /** initialize OpenGL environment */
 void viewer::view::initView(int *argc,char**argv){
 	glutInit (argc,argv);
@@ -26,7 +26,16 @@ void viewer::view::initView(int *argc,char**argv){
 	string s = "spaceScene.bmp";
 	int ret = pix[1].readBMPFile(s);  // make pixmap from image
         pix[1].setTexture(2001);
+
+	string explode = "explodeSmall.bmp";
+	ret = pix[2].readBMPFile(explode);
+	pix[2].setTexture(2002);
 	
+	string explode2 = "explodeBig.bmp";
+
+	string progress = "progressBar.bmp";
+	ret = pix[3].readBMPFile(progress);
+	pix[3].setTexture(2003);
 }
 
 
