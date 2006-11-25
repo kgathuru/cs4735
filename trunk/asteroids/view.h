@@ -32,6 +32,7 @@ class view{
 	void initView(int *argc,char**argv);
 	static void display(void);
 	view();
+
 };
 
 };

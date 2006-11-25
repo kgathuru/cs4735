@@ -1,5 +1,6 @@
 #include "engine.h"
 #define ESCAPE 27
+int menIdMain;
 controller::engine::engine(){
 	
 }
@@ -9,6 +10,11 @@ void controller::engine::init(int *argc,char**argv){
 	glutKeyboardFunc(keyboard);
 	glutSpecialFunc(keypad);
 	glutIdleFunc(update);
+	
+  menIdMain = glutCreateMenu(mainMenu);
+  glutAddMenuEntry("New Game", 1);
+  glutAddMenuEntry("Quit", 4);
+  glutAttachMenu(GLUT_LEFT_BUTTON);
 
 	gameView.display(); //show initial pic
 
@@ -102,6 +108,22 @@ void controller::engine::keypad(int key, int x, int y){
 			controller::gameEngine.theWorld.serenity.moveRight(); break;
 	}
 	glutPostRedisplay();
+}
+
+void controller::engine::mainMenu(int value){
+switch(value){
+
+  case 1:
+	//new game
+    break;
+
+  case 2:
+	//quit game
+	glutDestroyWindow(1);
+    break;
+  };
+
+
 }
 
 bool controller::engine::start(bool finish){

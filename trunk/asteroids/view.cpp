@@ -3,8 +3,8 @@
 viewer::view::view(){
 	
 }
-
-RGBpixmap pix[4];
+                                     
+RGBpixmap pix[5];
 /** initialize OpenGL environment */
 void viewer::view::initView(int *argc,char**argv){
 	glutInit (argc,argv);
@@ -17,6 +17,9 @@ void viewer::view::initView(int *argc,char**argv){
         Point3 eye(0, WORLD_HEIGHT/2, 950.0); 
         Point3 look(0, WORLD_HEIGHT/2, -2000.0); 
         Vector3 up(0.0, 1.0, 0.0);
+
+	
+
 
 	/** \todo is aspect ratio based on world width or window width? */
 	controller::gameEngine.camera1.setView(DEFAULT_CAM);
@@ -33,9 +36,13 @@ void viewer::view::initView(int *argc,char**argv){
 	
 	string explode2 = "explodeBig.bmp";
 
-	string progress = "progressBar.bmp";
+	string progress = "progressBar1.bmp";
 	ret = pix[3].readBMPFile(progress);
 	pix[3].setTexture(2003);
+	
+	string moreProgress = "progressOuter.bmp";
+	ret = pix[4].readBMPFile(moreProgress);
+	pix[4].setTexture(2004);
 }
 
 
@@ -85,6 +92,8 @@ void viewer::view::display(void){
 //glPopMatrix();
 	glutSwapBuffers();
 }
+
+
 
 /** camera constructor */
 viewer::camera::camera() {
@@ -178,5 +187,6 @@ void viewer::camera::yaw(float angle) {
 	u.set(sn*t.x + cs*u.x, sn*t.y + cs*u.y, sn*t.z + cs*u.z);
 	setModelViewMatrix(); // tell OpenGL
 }
+
 
 

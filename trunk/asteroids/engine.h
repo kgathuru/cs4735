@@ -15,6 +15,7 @@ class engine{
 	static void keypad(int key, int x, int y);
 	static void redrawOverlay();
 	static void update(void);
+	static void mainMenu(int value);
 	void init(int *argc, char**argv);
 	bool start(bool finish);
 	bool end();
