@@ -1,5 +1,5 @@
 #include "world.h"
-
+ 
 /**world constructor*/
 model::world::world(){
 	/** initialise variables */
@@ -29,26 +29,37 @@ void model::world::render(){
 	glTexEnvf(GL_TEXTURE_ENV, GL_TEXTURE_ENV_MODE, GL_DECAL);
 	glBindTexture(GL_TEXTURE_2D, 2001);   // choose the texture to use.
 	glBegin(GL_QUADS);		                // begin drawing a square   
-	  glTexCoord2f(0.0, 0.0); glVertex3f(-WINDOW_WIDTH*4, -WINDOW_HEIGHT*5, -WORLD_DEPTH-1000);
-  	  glTexCoord2f(0.0, 1.0); glVertex3f(-WINDOW_WIDTH*4,WINDOW_HEIGHT*5,-WORLD_DEPTH-1000);
- 	  glTexCoord2f(1.0, 1.0); glVertex3f( WINDOW_WIDTH*4,WINDOW_HEIGHT*5, -WORLD_DEPTH-1000);
-	  glTexCoord2f(1.0, 0.0); glVertex3f( WINDOW_WIDTH*4, -WINDOW_HEIGHT*5, -WORLD_DEPTH-1000);
+	  glTexCoord2f(0.0, 0.0); glVertex3f(-WORLD_WIDTH*6, -WORLD_HEIGHT*6, -WORLD_DEPTH-1000);
+  	  glTexCoord2f(0.0, 1.0); glVertex3f(-WORLD_WIDTH*6,WORLD_HEIGHT*6,-WORLD_DEPTH-1000);
+ 	  glTexCoord2f(1.0, 1.0); glVertex3f( WORLD_WIDTH*6,WORLD_HEIGHT*6, -WORLD_DEPTH-1000);
+	  glTexCoord2f(1.0, 0.0); glVertex3f( WORLD_WIDTH*6, -WORLD_HEIGHT*6, -WORLD_DEPTH-1000);
 	glEnd();
 	glDisable(GL_TEXTURE_2D);
 	
 	Point3 pos = serenity.getPosition();
-	float progress = pos.z / -WORLD_DEPTH * 100;
-//cout << progress;
-//cout << "\n";
+	float progress = (pos.z / -WORLD_DEPTH) * 100;
+
 	/** render progress bar */
 	glEnable(GL_TEXTURE_2D);
 	glTexEnvf(GL_TEXTURE_ENV, GL_TEXTURE_ENV_MODE, GL_DECAL);
 	glBindTexture(GL_TEXTURE_2D, 2003);   // choose the texture to use.
 	glBegin(GL_QUADS);		                // begin drawing a square   
-	  glTexCoord2f(0.0, 0.0); glVertex3f(0, -128, -WORLD_DEPTH+1000);
-  	  glTexCoord2f(0.0, 1.0); glVertex3f(0,128,-WORLD_DEPTH+1000);
- 	  glTexCoord2f(1.0, 1.0); glVertex3f( progress*10,128, -WORLD_DEPTH+1000);
-	  glTexCoord2f(1.0, 0.0); glVertex3f( progress*10, -128, -WORLD_DEPTH+1000);
+	  glTexCoord2f(-1.0, -1.0); glVertex3f(0, -64, -WORLD_DEPTH+1000);
+  	  glTexCoord2f(-1.0, 1.0); glVertex3f(0,64,-WORLD_DEPTH+1000);
+ 	  glTexCoord2f(1.0, 1.0); glVertex3f( progress*10,64, -WORLD_DEPTH+1000);
+	  glTexCoord2f(1.0, -1.0); glVertex3f( progress*10, -64, -WORLD_DEPTH+1000);
+	glEnd();
+	glDisable(GL_TEXTURE_2D);
+	
+	/** render outer progress bar */
+	glEnable(GL_TEXTURE_2D);
+	glTexEnvf(GL_TEXTURE_ENV, GL_TEXTURE_ENV_MODE, GL_DECAL);
+	glBindTexture(GL_TEXTURE_2D, 2004);   // choose the texture to use.
+	glBegin(GL_QUADS);		                // begin drawing a square   
+	  glTexCoord2f(-1.0, -1.0); glVertex3f(-0, -64, -WORLD_DEPTH+1000);
+  	  glTexCoord2f(-1.0, 1.0); glVertex3f(-0,64,-WORLD_DEPTH+1000);
+ 	  glTexCoord2f(1.0, 1.0); glVertex3f( 1000,64, -WORLD_DEPTH+1000);
+	  glTexCoord2f(1.0, -1.0); glVertex3f( 1000, -64, -WORLD_DEPTH+1000);
 	glEnd();
 	glDisable(GL_TEXTURE_2D);
 
@@ -408,6 +419,10 @@ void model:: world:: drawWinner(){
 	glRasterPos2f(-50, WINDOW_HEIGHT/2 -60);
 	print_bitmap_string(bitmap_fonts[font_index], winner[0]);
 }
+
+
+
+
 
 /** starting point accessor method */ 
 Point3 model::world::getStartPoint(){

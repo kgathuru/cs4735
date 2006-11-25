@@ -33,6 +33,7 @@ class world{
         void drawText(void);	
 	void drawGameOver(void);
 	void drawWinner(void);
+
 	list<asteroid> asteroids;
 	typedef list<asteroid>::iterator asteroid_iterator;
 
