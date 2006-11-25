@@ -17,6 +17,7 @@ namespace model{
 class asteroid: public object{
    private:
 	Vector3 spin;
+	bool destruct;
 	
    public:
 	asteroid(); 		// constructor
@@ -25,6 +26,8 @@ class asteroid: public object{
 	Vector3 getSpin();	//Return spin
 	void doStep(float t);	//Change in time t in the simulation, change to reflect
 	void draw(); //Draws a solid sphere for now, may make mesh later
+	void setDestroy(bool d);
+	bool getDestroy();
 	void destroy();	//Animation to destroy asteroid
 	bool checkCollision(Point3 shipPosition, float shipSize);
 	void initialize();

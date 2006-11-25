@@ -4,7 +4,7 @@
 model::asteroid::asteroid(){
 	//Set speed to be the same for every asteroid
 	speed = ASTEROID_SPEED;
-
+	destruct = false;
 	//Assuming direction is a Vector3
 	direction.set(0.0,0.0,1.0);	//All move in the positive x direction
 }
@@ -74,16 +74,39 @@ void model::asteroid:: draw(){
 	}
 }
 
-
+void model::asteroid:: setDestroy(bool d){
+	destruct = d;
+}
+bool model::asteroid:: getDestroy(){
+	return destruct;
+}
 void model::asteroid:: destroy(){
 	//Animation to remove asteroid
 	//Needs to be better so player knows they've been hit
+
+	//these files aren't right, need to be updated
+	/** render explosion bitmap */
+	glEnable(GL_TEXTURE_2D);
+	glTexEnvf(GL_TEXTURE_ENV, GL_TEXTURE_ENV_MODE, GL_DECAL);
+	glBindTexture(GL_TEXTURE_2D, 2002);   // choose the texture to use.
+	glBegin(GL_QUADS);		                // begin drawing a square   
+	  glTexCoord2f(-position.x, -position.y); glVertex3f(-position.x, position.y,-6000);
+  	  glTexCoord2f(-position.x, position.y); glVertex3f(-position.x,-position.y,-6000);
+ 	  glTexCoord2f(position.x, position.y); glVertex3f( position.x, -position.y,-6000);
+	  glTexCoord2f(position.x, -position.y); glVertex3f( position.x, position.y,-6000);
+	glEnd();
+	cout << "Size is: ";
+       cout << size;
+	cout << "\n";
+//	cout << position.y;
+	glDisable(GL_TEXTURE_2D);
 	for(float i = size; i >= 0; i--);{
 		size = size - 0.5;
 		draw();
 	}
 	size = 0;
 	draw();
+
 }
 
 void model::asteroid:: doStep(float t){

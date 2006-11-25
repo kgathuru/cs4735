@@ -31,8 +31,8 @@ class world{
 	void update();
 	void print_bitmap_string(void* font, char* s);
         void drawText(void);	
-	void setOrthographicProjection();
-
+	void drawGameOver(void);
+	void drawWinner(void);
 	list<asteroid> asteroids;
 	typedef list<asteroid>::iterator asteroid_iterator;
 
