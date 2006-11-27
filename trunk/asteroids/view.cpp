@@ -33,8 +33,6 @@ void viewer::view::initView(int *argc,char**argv){
 	string explode = "explodeSmall.bmp";
 	ret = pix[2].readBMPFile(explode);
 	pix[2].setTexture(2002);
-	
-	string explode2 = "explodeBig.bmp";
 
 	string progress = "progressBar1.bmp";
 	ret = pix[3].readBMPFile(progress);

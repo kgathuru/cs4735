@@ -44,10 +44,10 @@ void model::world::render(){
 	glTexEnvf(GL_TEXTURE_ENV, GL_TEXTURE_ENV_MODE, GL_DECAL);
 	glBindTexture(GL_TEXTURE_2D, 2003);   // choose the texture to use.
 	glBegin(GL_QUADS);		                // begin drawing a square   
-	  glTexCoord2f(-1.0, -1.0); glVertex3f(0, -64, -WORLD_DEPTH+1000);
-  	  glTexCoord2f(-1.0, 1.0); glVertex3f(0,64,-WORLD_DEPTH+1000);
- 	  glTexCoord2f(1.0, 1.0); glVertex3f( progress*10,64, -WORLD_DEPTH+1000);
-	  glTexCoord2f(1.0, -1.0); glVertex3f( progress*10, -64, -WORLD_DEPTH+1000);
+	  glTexCoord2f(-1.0, -1.0); glVertex3f(0, -64, -WORLD_DEPTH+500);
+  	  glTexCoord2f(-1.0, 1.0); glVertex3f(0,64,-WORLD_DEPTH+500);
+ 	  glTexCoord2f(1.0, 1.0); glVertex3f( progress*10,64, -WORLD_DEPTH+500);
+	  glTexCoord2f(1.0, -1.0); glVertex3f( progress*10, -64, -WORLD_DEPTH+500);
 	glEnd();
 	glDisable(GL_TEXTURE_2D);
 	
@@ -56,10 +56,10 @@ void model::world::render(){
 	glTexEnvf(GL_TEXTURE_ENV, GL_TEXTURE_ENV_MODE, GL_DECAL);
 	glBindTexture(GL_TEXTURE_2D, 2004);   // choose the texture to use.
 	glBegin(GL_QUADS);		                // begin drawing a square   
-	  glTexCoord2f(-1.0, -1.0); glVertex3f(-0, -64, -WORLD_DEPTH+1000);
-  	  glTexCoord2f(-1.0, 1.0); glVertex3f(-0,64,-WORLD_DEPTH+1000);
- 	  glTexCoord2f(1.0, 1.0); glVertex3f( 1000,64, -WORLD_DEPTH+1000);
-	  glTexCoord2f(1.0, -1.0); glVertex3f( 1000, -64, -WORLD_DEPTH+1000);
+	  glTexCoord2f(-1.0, -1.0); glVertex3f(-0, -64, -WORLD_DEPTH+500);
+  	  glTexCoord2f(-1.0, 1.0); glVertex3f(-0,64,-WORLD_DEPTH+500);
+ 	  glTexCoord2f(1.0, 1.0); glVertex3f( 1000,64, -WORLD_DEPTH+500);
+	  glTexCoord2f(1.0, -1.0); glVertex3f( 1000, -64, -WORLD_DEPTH+500);
 	glEnd();
 	glDisable(GL_TEXTURE_2D);
 
