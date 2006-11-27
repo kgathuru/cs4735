@@ -90,10 +90,10 @@ void model::asteroid:: destroy(){
 	glTexEnvf(GL_TEXTURE_ENV, GL_TEXTURE_ENV_MODE, GL_DECAL);
 	glBindTexture(GL_TEXTURE_2D, 2002);   // choose the texture to use.
 	glBegin(GL_QUADS);		                // begin drawing a square   
-	  glTexCoord2f(-position.x, -position.y); glVertex3f(-position.x, position.y,-6000);
-  	  glTexCoord2f(-position.x, position.y); glVertex3f(-position.x,-position.y,-6000);
- 	  glTexCoord2f(position.x, position.y); glVertex3f( position.x, -position.y,-6000);
-	  glTexCoord2f(position.x, -position.y); glVertex3f( position.x, position.y,-6000);
+	  glTexCoord2f(0.0,0.0); glVertex3f(-position.x, -position.y,position.z -50);
+  	  glTexCoord2f(0.0,1.0); glVertex3f(-position.x,position.y,position.z-50);
+ 	  glTexCoord2f(1.0, 1.0); glVertex3f( position.x,position.y,position.z-50);
+	  glTexCoord2f(1.0, 0.0); glVertex3f( position.x, -position.y,position.z-50);
 	glEnd();
 	cout << "Size is: ";
        cout << size;
