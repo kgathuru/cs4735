@@ -11,11 +11,12 @@ void controller::engine::init(int *argc,char**argv){
 	glutSpecialFunc(keypad);
 	glutIdleFunc(update);
 	
+  glutSetWindow(2);//should use variable or constant
   menIdMain = glutCreateMenu(mainMenu);
   glutAddMenuEntry("New Game", 1);
-  glutAddMenuEntry("Quit", 4);
+  glutAddMenuEntry("Quit", 2);
   glutAttachMenu(GLUT_LEFT_BUTTON);
-
+  glutSetWindow(1);//should use variable or constant
 	gameView.display(); //show initial pic
 
 	//glutKeyboardFunc(keyboardFunc);
@@ -111,17 +112,16 @@ void controller::engine::keypad(int key, int x, int y){
 }
 
 void controller::engine::mainMenu(int value){
+static int is_quit = 0;   
 switch(value){
-
   case 1:
 	//new game
     break;
-
   case 2:
 	//quit game
 	glutDestroyWindow(1);
-    break;
-  };
+	break;	
+  }
 
 
 }

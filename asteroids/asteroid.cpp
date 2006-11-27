@@ -95,10 +95,7 @@ void model::asteroid:: destroy(){
  	  glTexCoord2f(1.0, 1.0); glVertex3f( position.x,position.y,position.z-50);
 	  glTexCoord2f(1.0, 0.0); glVertex3f( position.x, -position.y,position.z-50);
 	glEnd();
-	cout << "Size is: ";
-       cout << size;
-	cout << "\n";
-//	cout << position.y;
+
 	glDisable(GL_TEXTURE_2D);
 	for(float i = size; i >= 0; i--);{
 		size = size - 0.5;

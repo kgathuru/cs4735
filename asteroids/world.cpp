@@ -22,6 +22,7 @@ model::world::~world(){
 
 /** renders the objects in the world */
 void model::world::render(){
+	static int count =0;
 	glMaterialfv(GL_FRONT, GL_EMISSION, default_emissive); //default light emission
 
 	/** render spacebackground */
@@ -39,15 +40,18 @@ void model::world::render(){
 	Point3 pos = serenity.getPosition();
 	float progress = (pos.z / -WORLD_DEPTH) * 100;
 
+
+Point3 position = controller::gameEngine.theWorld.serenity.getPosition();
+
 	/** render progress bar */
 	glEnable(GL_TEXTURE_2D);
 	glTexEnvf(GL_TEXTURE_ENV, GL_TEXTURE_ENV_MODE, GL_DECAL);
 	glBindTexture(GL_TEXTURE_2D, 2003);   // choose the texture to use.
 	glBegin(GL_QUADS);		                // begin drawing a square   
-	  glTexCoord2f(-1.0, -1.0); glVertex3f(0, -64, -WORLD_DEPTH+500);
-  	  glTexCoord2f(-1.0, 1.0); glVertex3f(0,64,-WORLD_DEPTH+500);
- 	  glTexCoord2f(1.0, 1.0); glVertex3f( progress*10,64, -WORLD_DEPTH+500);
-	  glTexCoord2f(1.0, -1.0); glVertex3f( progress*10, -64, -WORLD_DEPTH+500);
+	  glTexCoord2f(-1.0, -1.0); glVertex3f(0, -64, -position.z+10);//-WORLD_DEPTH+500);
+  	  glTexCoord2f(-1.0, 1.0); glVertex3f(0,64,-position.z+10);
+ 	  glTexCoord2f(1.0, 1.0); glVertex3f( progress*10,64, -position.z+10);
+	  glTexCoord2f(1.0, -1.0); glVertex3f( progress*10, -64, -position.z+10);
 	glEnd();
 	glDisable(GL_TEXTURE_2D);
 	
@@ -56,10 +60,10 @@ void model::world::render(){
 	glTexEnvf(GL_TEXTURE_ENV, GL_TEXTURE_ENV_MODE, GL_DECAL);
 	glBindTexture(GL_TEXTURE_2D, 2004);   // choose the texture to use.
 	glBegin(GL_QUADS);		                // begin drawing a square   
-	  glTexCoord2f(-1.0, -1.0); glVertex3f(-0, -64, -WORLD_DEPTH+500);
-  	  glTexCoord2f(-1.0, 1.0); glVertex3f(-0,64,-WORLD_DEPTH+500);
- 	  glTexCoord2f(1.0, 1.0); glVertex3f( 1000,64, -WORLD_DEPTH+500);
-	  glTexCoord2f(1.0, -1.0); glVertex3f( 1000, -64, -WORLD_DEPTH+500);
+	  glTexCoord2f(-1.0, -1.0); glVertex3f(-0, -64, -position.z+10);
+  	  glTexCoord2f(-1.0, 1.0); glVertex3f(-0,64,-position.z+10);
+ 	  glTexCoord2f(1.0, 1.0); glVertex3f( 1000,64, -position.z+10);
+	  glTexCoord2f(1.0, -1.0); glVertex3f( 1000, -64, -position.z+10);
 	glEnd();
 	glDisable(GL_TEXTURE_2D);
 
@@ -151,8 +155,7 @@ void model::world::render(){
 		drawGameOver();
 			
 	}
-
-	drawText();
+ 
 	GLdouble size;
 	GLdouble aspect;
 	
@@ -177,14 +180,24 @@ void model::world::render(){
 		aspect = (GLdouble)WINDOW_WIDTH/(GLdouble)WINDOW_HEIGHT;
 		glOrtho(-size*aspect, size*aspect, -size, size, -100000.0, 100000.0);
 	}
-	
+
 	/* Make the world and window coordinates coincide so that 1.0 in */
 	/* model space equals one pixel in window space.                 */
 	glScaled(aspect, aspect, 1.0);
 	/* Now determine where to draw things. */
+glColor4f(0.0, 1.0, 0.0, 0.0);
+//	controller::gameEngine.theWorld.drawText();
+
 	glPopMatrix();
 	glMatrixMode(GL_MODELVIEW);
-	//glLoadIdentity();
+
+	//if(count == 500){
+	//int mainWin = glutGetWindow();
+//		viewer::view::subDisplay();
+//		count = 0;
+//		glutSetWindow (mainWin); 
+//	}
+//	count++;
 }
 
 
@@ -291,9 +304,6 @@ void model::world::update(){
 
 		}
 	} 
-
-
-
 	
 	glutPostRedisplay();
 }
@@ -321,7 +331,7 @@ void model::world::drawText(void){
    };
 	GLfloat x, y, ystep, yild;
 	
-	/* Set up some strings with the characters to draw. */
+	/* Set up the strings with the characters to draw. */
 	int health = serenity.getHealth();
 	char* shipHealth[1] = {"Health: "};
 	char* shipScore[1] = {"Score: "};
@@ -368,16 +378,10 @@ void model::world::drawText(void){
 
 	/* Draw the strings, according to the current mode and font. */
 	glColor4f(0.0, 1.0, 0.0, 0.0);
-	//   x = -225.0;
-	//  y = 70.0;
-	// ystep  = 100.0;
-	// yild   = 20.0;
 	x = 0.0;
-	y = 70.0;
+	y = 70;
 	ystep = 50.0;
-	
-	//  glRasterPos2f(-150, y+1.25*yild);
-	//  print_bitmap_string(bitmap_fonts[font_index], bitmap_font_names[font_index]);
+/**	
 	glRasterPos2f(-200, y - ystep);
 	print_bitmap_string(bitmap_fonts[font_index], shipHealth[0]);
 	glRasterPos2f(-160, y- ystep);
@@ -389,6 +393,19 @@ void model::world::drawText(void){
 	glRasterPos2f(80, y - ystep);
 	print_bitmap_string(bitmap_fonts[font_index], shipSpeed[0]);
 	glRasterPos2f(120, y- ystep);
+	print_bitmap_string(bitmap_fonts[font_index], speedValue[1]);
+*/
+	glRasterPos2f(1.0,0.0);
+	print_bitmap_string(bitmap_fonts[font_index], shipHealth[0]);
+	glRasterPos2f(3.0, 0);
+	print_bitmap_string(bitmap_fonts[font_index], healthValue[1]);
+	glRasterPos2f(6,0);
+	print_bitmap_string(bitmap_fonts[font_index], shipScore[0]);
+	glRasterPos2f(8,0);
+	print_bitmap_string(bitmap_fonts[font_index], scoreValue[1]);
+	glRasterPos2f(11,0);
+	print_bitmap_string(bitmap_fonts[font_index], shipSpeed[0]);
+	glRasterPos2f(13, 0);
 	print_bitmap_string(bitmap_fonts[font_index], speedValue[1]);
 }
 

@@ -3,22 +3,33 @@
 viewer::view::view(){
 	
 }
-                                     
+
+    int winIdSub;   
+ int winIdSub2;
+	int winIdMain;                                 
 RGBpixmap pix[5];
 /** initialize OpenGL environment */
 void viewer::view::initView(int *argc,char**argv){
+
 	glutInit (argc,argv);
 	glutInitDisplayMode (GLUT_RGB | GLUT_DOUBLE | GLUT_DEPTH);
 	glutInitWindowSize (WINDOW_WIDTH,WINDOW_HEIGHT);
 
-	glutCreateWindow ("Asteroids3D");
+	winIdMain = glutCreateWindow ("Asteroids3D");
 	glutDisplayFunc(&(view::display));
-
+	
         Point3 eye(0, WORLD_HEIGHT/2, 950.0); 
         Point3 look(0, WORLD_HEIGHT/2, -2000.0); 
         Vector3 up(0.0, 1.0, 0.0);
 
+	winIdSub2 = glutCreateSubWindow (winIdMain, 0, 0, 50, WINDOW_HEIGHT / 20);
+	glutDisplayFunc(&(view::subDisplay2));
+	glutSetWindow(winIdMain);
 	
+	  /* Sub window creation and setup */ 
+  	//winIdSub = glutCreateSubWindow (winIdMain, 0, 550, WINDOW_WIDTH, WINDOW_HEIGHT / 20);
+	//glutDisplayFunc(&(view::subDisplay));
+	//glutSetWindow(winIdMain);
 
 
 	/** \todo is aspect ratio based on world width or window width? */
@@ -78,6 +89,8 @@ void viewer::view::display(void){
 		Point3 look(eye.x, eye.y, eye.z - 500); 
 		Vector3 up(0.0, 1.0, 0.0);
 		controller::gameEngine.camera1.set(eye, look, up);//fix camera to ship
+
+
 	}
 
 	glViewport((WINDOW_WIDTH - WORLD_WIDTH)/2,(WINDOW_HEIGHT-WORLD_HEIGHT)/2, WORLD_HEIGHT, WORLD_WIDTH);
@@ -91,8 +104,63 @@ void viewer::view::display(void){
 	glutSwapBuffers();
 }
 
+void viewer::view::subDisplay () 
+{ 
+//	cout << "in subdisplay";
+  /* Clear subwindow */ 
+  glutSetWindow (winIdSub); 
+ // glClearColor (1.0, 1.0, 1.0, 1.0); 
+  glClear (GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT); 
+  
+  /* Draw border */ 
+  glColor3f (0.0F, 1.0F, 0.0F); 
+  glBegin (GL_LINE_LOOP); 
+  glVertex2f (0.0F, 0.0F); 
+  glVertex2f (0.0F, 0.99F); 
+  glVertex2f (0.999F, 0.99F); 
+  glVertex2f (0.999F, 0.0F); 
+  glEnd (); 
+glColor3f (0.0F, 1.0F, 0.0F); 
 
+glViewport (0, 0, WINDOW_WIDTH, WINDOW_HEIGHT/10); 
+  glMatrixMode (GL_PROJECTION); 
+  glLoadIdentity (); 
+  gluOrtho2D (0.0F, 30.0F, 0.0F, 30.0F); 
+ 
+//controller::gameEngine.theWorld.drawGameOver();
+ controller::gameEngine.theWorld.drawText();
+   
+  glutSwapBuffers (); 
+}
+void viewer::view::subDisplay2 () 
+{ 
+	cout << "in subdisplay2";
+  /* Clear subwindow */ 
+ // glutSetWindow (winIdSub2); 
+ // glClearColor (1.0, 1.0, 1.0, 1.0); 
+  glClear (GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT); 
+  
 
+glViewport (0, 0, WINDOW_WIDTH, WINDOW_HEIGHT/10); 
+  glMatrixMode (GL_PROJECTION); 
+  glLoadIdentity (); 
+  gluOrtho2D (0.0F, 30.0F, 0.0F, 30.0F); 
+ 
+
+   void* bitmap_fonts[1] = {
+      GLUT_BITMAP_TIMES_ROMAN_24,    
+   };
+
+   char* bitmap_font_names[1] = {
+      "GLUT_BITMAP_TIMES_ROMAN_24",    
+   };
+  char* fileMenu[1] = {"File "};
+glRasterPos2f(0, 0);
+   controller::gameEngine.theWorld.print_bitmap_string(bitmap_fonts[0], fileMenu[0]);
+ 
+  glutSwapBuffers (); 
+ glutSetWindow (winIdMain); 
+}
 /** camera constructor */
 viewer::camera::camera() {
 	//viewAngle = 0.0;
