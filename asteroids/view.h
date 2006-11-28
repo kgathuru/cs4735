@@ -18,6 +18,7 @@ class camera{
 	void set(Point3 eye, Point3 look, Vector3 up); // like gluLookAt()
 	void setView(int view);
 	int getView();
+	float getEyeZ(void);
 	void roll(float angle); // roll it
 	void pitch(float angle); // pitch it
 	void yaw(float angle); // yaw it
