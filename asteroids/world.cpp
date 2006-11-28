@@ -39,9 +39,7 @@ void model::world::render(){
 	
 	Point3 pos = serenity.getPosition();
 	float progress = (pos.z / -WORLD_DEPTH) * 100;
-
-
-Point3 position = controller::gameEngine.theWorld.serenity.getPosition();
+	Point3 position = controller::gameEngine.theWorld.serenity.getPosition();
 
 	/** render progress bar */
 	glEnable(GL_TEXTURE_2D);

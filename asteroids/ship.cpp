@@ -97,19 +97,21 @@ void model::ship::draw(){
 	//engage rubberband
 	rubberBand();
 	
-	//display the ship based on position and direction vector
-	//glRotated(direction.z, 0, 0, 1);
-	//glRotated(direction.y, 0, 1, 0);
-	//glRotated(direction.x, 1, 0, 0);
-	glTranslatef(position.x+(size/2), position.y-(size/2), position.z);//Move asteroid to position in space
-	
+	//glTranslatef(position.x+(size/2), position.y-(size/2), position.z);//Move ship to position in space
+	glTranslatef(position.x , position.y +15, position.z);
 	//these three simply rotate the barn to be upright, delete for proper ship model
-	glRotated(-90, 1, 0, 0);
-	glRotated(90, 0, 0, 1);
+	//glRotated(-90, 1, 0, 0);
+	//glRotated(90, 0,0, 1);
+	
+	glRotated(30, 1, 0, 0);
+	glRotated(90, 0, 0,1);
+	glRotated(-190, 0,1,0);
 	glScaled(size, size, size);
 
 	//call super.draw()
-	Mesh::draw();
+//	Mesh::draw();
+
+	rocketShip();
 	glPopMatrix();
 }
 
@@ -205,17 +207,27 @@ void model::ship::hit(){
 
 }
 
-/**
+
 void model::ship::rocketShip(){
+
 	glPushMatrix();
-	glScaled(0.2, 0.2, 1.0);
-	glutSolidSphere(1,15, 15);
+	glutSolidCone(0.5, 1, 10, 10);
 	glPopMatrix();
 	glPushMatrix();
-	glTranslated(0.0, 0.0, 1.2);
-	glutSolidSphere(0.2, 15, 15);
-	glTranslated(0.0, 0.0, -2.4);
-	glutSolidSphere(0.2, 15, 15);
+	glScaled(0.5, 0.5, 0.5);
+	glTranslated(0.0, 0.0, -1.4);
+	GLUquadricObj *qobj = gluNewQuadric();
+	gluQuadricDrawStyle(qobj, GLU_FILL);	
+	gluCylinder(qobj, 1, 1, 1.4, 10, 10);
 	glPopMatrix();
+	glPushMatrix();
+	glTranslated(0, -0.5, -0.8);
+	glutSolidCone(0.4, 0.4, 5, 5);
+	glPopMatrix();
+	glPushMatrix();
+	glTranslated(0, 0.5, -0.8);
+	glutSolidCone(0.4, 0.4, 5, 5);
+	glPopMatrix();
+	
 }
-*/
+
