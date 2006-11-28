@@ -40,16 +40,17 @@ void model::world::render(){
 	Point3 pos = serenity.getPosition();
 	float progress = (pos.z / -WORLD_DEPTH) * 100;
 	Point3 position = controller::gameEngine.theWorld.serenity.getPosition();
-
+glPushMatrix();
+glTranslated(-250, 0,0);
 	/** render progress bar */
 	glEnable(GL_TEXTURE_2D);
 	glTexEnvf(GL_TEXTURE_ENV, GL_TEXTURE_ENV_MODE, GL_DECAL);
 	glBindTexture(GL_TEXTURE_2D, 2003);   // choose the texture to use.
 	glBegin(GL_QUADS);		                // begin drawing a square   
-	  glTexCoord2f(-1.0, -1.0); glVertex3f(0, -64, -position.z+10);//-WORLD_DEPTH+500);
-  	  glTexCoord2f(-1.0, 1.0); glVertex3f(0,64,-position.z+10);
- 	  glTexCoord2f(1.0, 1.0); glVertex3f( progress*10,64, -position.z+10);
-	  glTexCoord2f(1.0, -1.0); glVertex3f( progress*10, -64, -position.z+10);
+	  glTexCoord2f(-1.0, -1.0); glVertex3f(0, -32, -controller::gameEngine.camera1.getEyeZ()+1000);//-position.z+10);
+  	  glTexCoord2f(-1.0, 1.0); glVertex3f(0,32,-controller::gameEngine.camera1.getEyeZ()+1000);
+ 	  glTexCoord2f(1.0, 1.0); glVertex3f( progress*10,32, -controller::gameEngine.camera1.getEyeZ()+1000);
+	  glTexCoord2f(1.0, -1.0); glVertex3f( progress*10, -32,-controller::gameEngine.camera1.getEyeZ()+1000);
 	glEnd();
 	glDisable(GL_TEXTURE_2D);
 	
@@ -58,13 +59,13 @@ void model::world::render(){
 	glTexEnvf(GL_TEXTURE_ENV, GL_TEXTURE_ENV_MODE, GL_DECAL);
 	glBindTexture(GL_TEXTURE_2D, 2004);   // choose the texture to use.
 	glBegin(GL_QUADS);		                // begin drawing a square   
-	  glTexCoord2f(-1.0, -1.0); glVertex3f(-0, -64, -position.z+10);
-  	  glTexCoord2f(-1.0, 1.0); glVertex3f(-0,64,-position.z+10);
- 	  glTexCoord2f(1.0, 1.0); glVertex3f( 1000,64, -position.z+10);
-	  glTexCoord2f(1.0, -1.0); glVertex3f( 1000, -64, -position.z+10);
+	  glTexCoord2f(-1.0, -1.0); glVertex3f(-0, -32, -controller::gameEngine.camera1.getEyeZ()+1000);
+  	  glTexCoord2f(-1.0, 1.0); glVertex3f(-0,32,-controller::gameEngine.camera1.getEyeZ()+1000);
+ 	  glTexCoord2f(1.0, 1.0); glVertex3f( WINDOW_WIDTH,32, -controller::gameEngine.camera1.getEyeZ()+1000);
+	  glTexCoord2f(1.0, -1.0); glVertex3f( WINDOW_WIDTH, -32, -controller::gameEngine.camera1.getEyeZ()+1000);
 	glEnd();
 	glDisable(GL_TEXTURE_2D);
-
+glPopMatrix();
 	/** render axes */
 	glDisable(GL_LIGHTING);	//Allow colors to be drawn regardless of light
 	glColor3f(1.0, 0.0, 0.0);
@@ -108,6 +109,7 @@ void model::world::render(){
 	glEnd();
 	glEnable(GL_LIGHTING);	//Turn light back on, drawing done
 
+
 	/** render ship */
 	glMaterialfv(GL_FRONT, GL_SPECULAR, ship_specular);
 	glMaterialfv(GL_FRONT, GL_AMBIENT, ship_ambient);
@@ -115,7 +117,7 @@ void model::world::render(){
 	glMaterialfv(GL_FRONT, GL_SHININESS, ship_shininess);
 
 	serenity.draw();
-
+                                                                                                                                                                                                             
 	/** render asteroids */
 	glMaterialfv(GL_FRONT, GL_SPECULAR, asteroid_specular);
 	glMaterialfv(GL_FRONT, GL_AMBIENT, asteroid_ambient);
@@ -130,7 +132,6 @@ void model::world::render(){
 			iter->destroy();
 		}
 	} 
-
 
 
 	/** render projectiles */
@@ -280,7 +281,6 @@ void model::world::update(){
 
 	/** update ship */
 	serenity.doStep(worldTime + GAME_SPEED);
-
 	//CHECK COLLISIONS BETWEEN EVERY ASTEROID AND THE SHIP
 	for (asteroid_iterator iter=asteroids.begin(); iter!=asteroids.end(); iter++){	
 		//returns true if there is a collision
@@ -299,8 +299,8 @@ void model::world::update(){
 			serenity.setHealth(serenity.getHealth() - 1);
 			//Do something when the ship is hit to let player know
 			serenity.hit();
-
 		}
+	
 	} 
 	
 	glutPostRedisplay();

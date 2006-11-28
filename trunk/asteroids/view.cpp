@@ -254,5 +254,7 @@ void viewer::camera::yaw(float angle) {
 	setModelViewMatrix(); // tell OpenGL
 }
 
-
+float viewer::camera::getEyeZ(){
+	return eye.z;
+}
 
