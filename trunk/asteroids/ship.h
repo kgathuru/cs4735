@@ -29,7 +29,7 @@ class ship: public object {
 	void hit();
 	void setReload(int r);
 	int getReload();
-	//void rocketShip();
+	void rocketShip();
 
 	ship();
 	~ship();	
