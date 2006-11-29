@@ -73,6 +73,7 @@ void model::world::render(){
 	
 	
 	/** render axes */
+	/*
 	glDisable(GL_LIGHTING);	//Allow colors to be drawn regardless of light
 	glColor3f(1.0, 0.0, 0.0);
 	glLineWidth(2);
@@ -90,6 +91,7 @@ void model::world::render(){
 		glVertex3f(0.0, 0.0, 0.0);
 		glVertex3f(0.0, 0.0, -WORLD_DEPTH);
 	glEnd();
+	*/
 
 	/** render world box */
 	glColor3f(1.0, 1.0, 1.0);
@@ -125,14 +127,15 @@ void model::world::render(){
 	serenity.draw();
 
 	/** render asteroids */
-	glMaterialfv(GL_FRONT, GL_SPECULAR, asteroid_specular);
-	glMaterialfv(GL_FRONT, GL_AMBIENT, asteroid_ambient);
-	glMaterialfv(GL_FRONT, GL_DIFFUSE, asteroid_diffuse);	
-	glMaterialfv(GL_FRONT, GL_SHININESS, asteroid_shininess);
+	//glMaterialfv(GL_FRONT, GL_SPECULAR, asteroid_specular);
+	//glMaterialfv(GL_FRONT, GL_AMBIENT, asteroid_ambient);
+	//glMaterialfv(GL_FRONT, GL_DIFFUSE, asteroid_diffuse);	
+	//glMaterialfv(GL_FRONT, GL_SHININESS, asteroid_shininess);
 
 	for (asteroid_iterator iter=asteroids.begin(); iter!=asteroids.end(); iter++){
-		
+
 		iter->draw();
+
 	//	if(iter->getDestroy() == true){
 		//cout << "IS TRUE";
 		//	iter->destroy();

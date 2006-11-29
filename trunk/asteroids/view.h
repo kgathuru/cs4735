@@ -41,7 +41,7 @@ class view{
 	view();
 	int winIdSub, winIdSub2, winIdMain;
   private:
-	RGBpixmap pix[5];
+	RGBpixmap pix[6];
 };
 
 }; //namespace viewer
