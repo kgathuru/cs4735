@@ -93,6 +93,7 @@ void model::world::render(){
 	glEnd();
 	*/
 
+	glDisable(GL_LIGHTING);	//Allow colors to be drawn regardless of light
 	/** render world box */
 	glColor3f(1.0, 1.0, 1.0);
 	glBegin(GL_LINE_STRIP);
