@@ -2,10 +2,12 @@
 
 using controller::gameEngine;
 
+/** constructor for the engine class */
 controller::engine::engine(){
 	
 }
 
+/** initialises the game */
 void controller::engine::init(int *argc,char**argv){
 	gameView.initView(argc, argv);
 	glutKeyboardFunc(keyboard);
@@ -26,6 +28,7 @@ void controller::engine::init(int *argc,char**argv){
 	glutMainLoop();
 }
 
+/** adds menus to the display */
 void controller::engine::addMenus(){
 	int mainMenuID = glutCreateMenu(mainMenu);
 	glutAddMenuEntry("New Game", MENU_NEW_GAME);
@@ -33,10 +36,12 @@ void controller::engine::addMenus(){
 	glutAttachMenu(GLUT_LEFT_BUTTON);
 }
 
+/** updates the game at regular intervals */
 void controller::engine::update(void) {
 	gameEngine.theWorld.update();
 }
 
+/** deals with input from keyboard */
 void controller::engine::keyboard(unsigned char key, int x, int y){
 	switch (key){
 		// slide controls for camera
@@ -90,6 +95,7 @@ void controller::engine::keyboard(unsigned char key, int x, int y){
 	glutPostRedisplay();
 }
 
+/** deals with special keys */
 void controller::engine::keypad(int key, int x, int y){
 	switch (key){
 		// controls for ship
@@ -107,6 +113,7 @@ void controller::engine::keypad(int key, int x, int y){
 	glutPostRedisplay();
 }
 
+/** deals with selections on the main menu */
 void controller::engine::mainMenu(int value){
 	static int is_quit = 0;
 	switch(value){
@@ -120,10 +127,12 @@ void controller::engine::mainMenu(int value){
 	}
 }
 
+/** this method is called to start the entire game */
 bool controller::engine::start(bool finish){
 
 }
 
+/** this method is called when the game is over */
 bool controller::engine::end(){
 
 }

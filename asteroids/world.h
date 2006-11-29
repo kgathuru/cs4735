@@ -18,8 +18,12 @@
 #include <sstream>
 #include <string>
 
+using namespace math;
+
+/** the model namespace contains classes that describe the objects in the game */
 namespace model{
 
+/** the world is the main object in the game, it contains the other objects */
 class world{
   public:
 	Point3 getStartPoint();

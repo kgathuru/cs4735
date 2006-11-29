@@ -12,8 +12,11 @@
 #include <iostream>
 #include "math.h"
 
+using namespace math;
+
 namespace model{
 
+/** the asteroid class models an asteroid in space */
 class asteroid: public object{
    private:
 	Vector3 spin;
