@@ -60,6 +60,7 @@ Vector3 model::asteroid:: getSpin(){
 }
 
 void model::asteroid:: draw(){
+	GLUquadricObj*	qobj;
 
 	if(size > 0)
 	{
@@ -69,7 +70,18 @@ void model::asteroid:: draw(){
 		glRotatef(angleRot, spin.x, spin.y, spin.z);//Rotate mesh based on movement
 		glTranslatef(position.x, position.y, position.z);//Move asteroid to position in space
 		glScalef(size, size, size);//Asteroid mesh is within unit circle centered at origin, need to scale by size
-		glutSolidSphere(1,15,15);//Asteroid is just a sphere for now, may make mesh later if time
+
+		glEnable(GL_TEXTURE_2D);
+		glTexEnvf(GL_TEXTURE_ENV, GL_TEXTURE_ENV_MODE, GL_DECAL);
+		glBindTexture(GL_TEXTURE_2D, 2005);   // choose the texture to use.
+		qobj = gluNewQuadric();	
+		gluQuadricDrawStyle(qobj, GLU_FILL);
+        	gluQuadricNormals(qobj, GLU_SMOOTH);
+        	gluQuadricTexture(qobj, GL_TRUE);
+		gluSphere(qobj, 1, 15, 15);
+		glDisable(GL_TEXTURE_2D);
+
+		//glutSolidSphere(1,15,15);//Asteroid is just a sphere for now
 		glPopMatrix();//return default matrix
 	}
 }

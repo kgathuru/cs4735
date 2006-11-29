@@ -51,6 +51,11 @@ void viewer::view::initView(int *argc,char**argv){
 	string moreProgress = "progressOuter.bmp";
 	ret = pix[4].readBMPFile(moreProgress);
 	pix[4].setTexture(2004);
+
+	string asteroidTexture = "ast.bmp";
+	ret = pix[5].readBMPFile(asteroidTexture);
+	pix[5].setTexture(2005);
+
 }
 
 /** display the objects in the world */
