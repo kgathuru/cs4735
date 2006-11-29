@@ -2,6 +2,7 @@
 #define VIEW_H
 
 #include <GL/glut.h>
+#include "RGBpixmap.h"
 
 namespace viewer {
 
@@ -27,17 +28,17 @@ class camera{
 };
 
 class view{
-
-
   public:
 	void initView(int *argc,char**argv);
 	static void display(void);
 	static void subDisplay(void);
 	static void subDisplay2(void);
 	view();
-
+	int winIdSub, winIdSub2, winIdMain;
+  private:
+	RGBpixmap pix[5];
 };
 
-};
+}; //namespace viewer
 
 #endif

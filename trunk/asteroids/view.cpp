@@ -1,41 +1,39 @@
 #include "view.h"
-#include "RGBpixmap.h"
+
+using controller::gameEngine;
+
 viewer::view::view(){
 	
 }
 
-    int winIdSub;   
- int winIdSub2;
-	int winIdMain;                                 
-RGBpixmap pix[5];
 /** initialize OpenGL environment */
 void viewer::view::initView(int *argc,char**argv){
-
 	glutInit (argc,argv);
 	glutInitDisplayMode (GLUT_RGB | GLUT_DOUBLE | GLUT_DEPTH);
 	glutInitWindowSize (WINDOW_WIDTH,WINDOW_HEIGHT);
 
-	winIdMain = glutCreateWindow ("Asteroids3D");
+	gameEngine.gameView.winIdMain = glutCreateWindow("Asteroids3D");
 	glutDisplayFunc(&(view::display));
 	
         Point3 eye(0, WORLD_HEIGHT/2, 950.0); 
         Point3 look(0, WORLD_HEIGHT/2, -2000.0); 
         Vector3 up(0.0, 1.0, 0.0);
 
-	winIdSub2 = glutCreateSubWindow (winIdMain, 0, 0, 50, WINDOW_HEIGHT / 20);
+	gameEngine.gameView.winIdSub2 = 
+		glutCreateSubWindow (gameEngine.gameView.winIdMain, 0, 0, 50, WINDOW_HEIGHT / 20);
 	glutDisplayFunc(&(view::subDisplay2));
-	glutSetWindow(winIdMain);
+	glutSetWindow(gameEngine.gameView.winIdMain);
 	
-	  /* Sub window creation and setup */ 
-  	//winIdSub = glutCreateSubWindow (winIdMain, 0, 550, WINDOW_WIDTH, WINDOW_HEIGHT / 20);
+	/* Sub window creation and setup */ 
+	//gameEngine.gameView.winIdSub = 
+	//	glutCreateSubWindow (gameEngine.gameView.winIdMain, 0, 550, WINDOW_WIDTH, WINDOW_HEIGHT / 20);
 	//glutDisplayFunc(&(view::subDisplay));
-	//glutSetWindow(winIdMain);
-
+	//glutSetWindow(gameEngine.gameView.winIdMain);
 
 	/** \todo is aspect ratio based on world width or window width? */
-	controller::gameEngine.camera1.setView(DEFAULT_CAM);
-	controller::gameEngine.camera1.setShape(30.0f, WORLD_WIDTH/WORLD_HEIGHT, CAMERA_NEAR_DIST, CAMERA_FAR_DIST);
-	controller::gameEngine.camera1.set(eye, look, up); // make the initial camera
+	gameEngine.camera1.setView(DEFAULT_CAM);
+	gameEngine.camera1.setShape(30.0f, WORLD_WIDTH/WORLD_HEIGHT, CAMERA_NEAR_DIST, CAMERA_FAR_DIST);
+	gameEngine.camera1.set(eye, look, up); // make the initial camera
 
 	string s = "spaceScene.bmp";
 	int ret = pix[1].readBMPFile(s);  // make pixmap from image
@@ -69,98 +67,90 @@ void viewer::view::display(void){
 	glEnable(GL_DEPTH_TEST); // for removal of hidden surfaces
 	glEnable(GL_NORMALIZE);  // normalize vectors for proper shading
         glHint(GL_PERSPECTIVE_CORRECTION_HINT, GL_NICEST); //for nice perpective
-	
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT); // clear the screen
 	
 	//check camera view
-	if (controller::gameEngine.camera1.getView() == ONBOARD_CAM){
-		Point3 eye = controller::gameEngine.theWorld.serenity.getPosition();
-		eye.z += controller::gameEngine.theWorld.serenity.getSize()*10;
+	if (gameEngine.camera1.getView() == ONBOARD_CAM){
+		Point3 eye = gameEngine.theWorld.serenity.getPosition();
+		eye.z += gameEngine.theWorld.serenity.getSize()*10;
 		eye.y += 100;
-		//eye.y += controller::gameEngine.theWorld.serenity.getSize()*2;
+		//eye.y += gameEngine.theWorld.serenity.getSize()*2;
 		//This way camera only moves in the z direction
 		//Is this what we want?
 		//eye.y = WORLD_HEIGHT/2;
 		//eye.x = 0;
 		/** \todo is it legal to turn a vector into a point like this? */
 		/** I want to tell the camera to look where the spaceship is looking, how do I do it? */
-		//Vector3 lookv =  controller::gameEngine.theWorld.serenity.getDirection();
+		//Vector3 lookv =  gameEngine.theWorld.serenity.getDirection();
 		//Point3 look(eye.x +lookv.x, eye.y +lookv.y, lookv.z +lookv.z); 
 		Point3 look(eye.x, eye.y, eye.z - 500); 
 		Vector3 up(0.0, 1.0, 0.0);
-		controller::gameEngine.camera1.set(eye, look, up);//fix camera to ship
-
-
+		gameEngine.camera1.set(eye, look, up);//fix camera to ship
 	}
 
 	glViewport((WINDOW_WIDTH - WORLD_WIDTH)/2,(WINDOW_HEIGHT-WORLD_HEIGHT)/2, WORLD_HEIGHT, WORLD_WIDTH);
-	controller::gameEngine.theWorld.render();
-//	glPushMatrix();
-//glTranslated(0, WORLD_HEIGHT/2, 0);
-//glScaled(10, 10, 10);
-//controller::gameEngine.theWorld.serenity.rocketShip();
-//cout<<"DRAW ROCKET SHIP";
-//glPopMatrix();
+	gameEngine.theWorld.render();
+
+	//glPushMatrix();
+	//glTranslated(0, WORLD_HEIGHT/2, 0);
+	//glScaled(10, 10, 10);
+	//gameEngine.theWorld.serenity.rocketShip();
+	//cout<<"DRAW ROCKET SHIP";
+	//glPopMatrix();
+
 	glutSwapBuffers();
 }
 
-void viewer::view::subDisplay () 
-{ 
-//	cout << "in subdisplay";
-  /* Clear subwindow */ 
-  glutSetWindow (winIdSub); 
- // glClearColor (1.0, 1.0, 1.0, 1.0); 
-  glClear (GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT); 
-  
-  /* Draw border */ 
-  glColor3f (0.0F, 1.0F, 0.0F); 
-  glBegin (GL_LINE_LOOP); 
-  glVertex2f (0.0F, 0.0F); 
-  glVertex2f (0.0F, 0.99F); 
-  glVertex2f (0.999F, 0.99F); 
-  glVertex2f (0.999F, 0.0F); 
-  glEnd (); 
-glColor3f (0.0F, 1.0F, 0.0F); 
-
-glViewport (0, 0, WINDOW_WIDTH, WINDOW_HEIGHT/10); 
-  glMatrixMode (GL_PROJECTION); 
-  glLoadIdentity (); 
-  gluOrtho2D (0.0F, 30.0F, 0.0F, 30.0F); 
- 
-//controller::gameEngine.theWorld.drawGameOver();
- controller::gameEngine.theWorld.drawText();
-   
-  glutSwapBuffers (); 
+void viewer::view::subDisplay(){ 
+	//cout << "in subdisplay\n";
+	/* Clear subwindow */ 
+	glutSetWindow (gameEngine.gameView.winIdSub); 
+	// glClearColor (1.0, 1.0, 1.0, 1.0); 
+	glClear (GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT); 
+	
+	/* Draw border */ 
+	glColor3f (0.0F, 1.0F, 0.0F); 
+	glBegin (GL_LINE_LOOP); 
+	glVertex2f (0.0F, 0.0F); 
+	glVertex2f (0.0F, 0.99F); 
+	glVertex2f (0.999F, 0.99F); 
+	glVertex2f (0.999F, 0.0F); 
+	glEnd (); 
+	glColor3f (0.0F, 1.0F, 0.0F); 
+	
+	glViewport (0, 0, WINDOW_WIDTH, WINDOW_HEIGHT/10); 
+	glMatrixMode (GL_PROJECTION); 
+	glLoadIdentity (); 
+	gluOrtho2D (0.0F, 30.0F, 0.0F, 30.0F); 
+	
+	//gameEngine.theWorld.drawGameOver();
+	gameEngine.theWorld.drawText();
+	glutSwapBuffers ();
 }
-void viewer::view::subDisplay2 () 
-{ 
-	cout << "in subdisplay2";
-  /* Clear subwindow */ 
- // glutSetWindow (winIdSub2); 
- // glClearColor (1.0, 1.0, 1.0, 1.0); 
-  glClear (GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT); 
-  
 
-glViewport (0, 0, WINDOW_WIDTH, WINDOW_HEIGHT/10); 
-  glMatrixMode (GL_PROJECTION); 
-  glLoadIdentity (); 
-  gluOrtho2D (0.0F, 30.0F, 0.0F, 30.0F); 
- 
+void viewer::view::subDisplay2 () {
+	cout << "in subdisplay2\n";
 
-   void* bitmap_fonts[1] = {
-      GLUT_BITMAP_TIMES_ROMAN_24,    
-   };
+	/* Clear subwindow */
+	// glutSetWindow (gameEngine.gameView.winIdSub2);
+	// glClearColor (1.0, 1.0, 1.0, 1.0);
+	glClear (GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
-   char* bitmap_font_names[1] = {
-      "GLUT_BITMAP_TIMES_ROMAN_24",    
-   };
-  char* fileMenu[1] = {"File "};
-glRasterPos2f(0, 0);
-   controller::gameEngine.theWorld.print_bitmap_string(bitmap_fonts[0], fileMenu[0]);
- 
-  glutSwapBuffers (); 
- glutSetWindow (winIdMain); 
+	glViewport (0, 0, WINDOW_WIDTH, WINDOW_HEIGHT/10);
+	glMatrixMode (GL_PROJECTION);
+	glLoadIdentity ();
+	gluOrtho2D (0.0F, 30.0F, 0.0F, 30.0F);
+
+	void* bitmap_fonts[1] = {GLUT_BITMAP_TIMES_ROMAN_24};
+	char* bitmap_font_names[1] = {"GLUT_BITMAP_TIMES_ROMAN_24"};
+	char* fileMenu[] = {"File "};
+	glRasterPos2f(0, 0);
+	gameEngine.theWorld.print_bitmap_string(bitmap_fonts[0], fileMenu[0]);
+	
+	glutSwapBuffers (); 
+	glutSetWindow (gameEngine.gameView.winIdMain); 
 }
+
 /** camera constructor */
 viewer::camera::camera() {
 	//viewAngle = 0.0;
@@ -254,6 +244,7 @@ void viewer::camera::yaw(float angle) {
 	setModelViewMatrix(); // tell OpenGL
 }
 
+/** get the z position of the eye */
 float viewer::camera::getEyeZ(){
 	return eye.z;
 }

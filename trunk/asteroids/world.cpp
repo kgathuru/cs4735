@@ -12,7 +12,6 @@ model::world::world(){
 		astr.initialize();
 		asteroids.push_back(astr);
 	}
-
 }
 
 /**world deconstructor*/
@@ -40,14 +39,15 @@ void model::world::render(){
 	Point3 pos = serenity.getPosition();
 	float progress = (pos.z / -WORLD_DEPTH) * 100;
 	Point3 position = controller::gameEngine.theWorld.serenity.getPosition();
-glPushMatrix();
-glTranslated(-250, 0,0);
+	glPushMatrix();
+	glTranslated(-250, 0,0);
+
 	/** render progress bar */
 	glEnable(GL_TEXTURE_2D);
 	glTexEnvf(GL_TEXTURE_ENV, GL_TEXTURE_ENV_MODE, GL_DECAL);
 	glBindTexture(GL_TEXTURE_2D, 2003);   // choose the texture to use.
-	glBegin(GL_QUADS);		                // begin drawing a square   
-	  glTexCoord2f(-1.0, -1.0); glVertex3f(0, -32, -controller::gameEngine.camera1.getEyeZ()+1000);//-position.z+10);
+	glBegin(GL_QUADS); // begin drawing a square
+	  glTexCoord2f(-1.0, -1.0); glVertex3f(0, -32, -controller::gameEngine.camera1.getEyeZ()+1000);
   	  glTexCoord2f(-1.0, 1.0); glVertex3f(0,32,-controller::gameEngine.camera1.getEyeZ()+1000);
  	  glTexCoord2f(1.0, 1.0); glVertex3f( progress*10,32, -controller::gameEngine.camera1.getEyeZ()+1000);
 	  glTexCoord2f(1.0, -1.0); glVertex3f( progress*10, -32,-controller::gameEngine.camera1.getEyeZ()+1000);
@@ -65,7 +65,8 @@ glTranslated(-250, 0,0);
 	  glTexCoord2f(1.0, -1.0); glVertex3f( WINDOW_WIDTH, -32, -controller::gameEngine.camera1.getEyeZ()+1000);
 	glEnd();
 	glDisable(GL_TEXTURE_2D);
-glPopMatrix();
+	glPopMatrix();
+
 	/** render axes */
 	glDisable(GL_LIGHTING);	//Allow colors to be drawn regardless of light
 	glColor3f(1.0, 0.0, 0.0);
@@ -117,7 +118,7 @@ glPopMatrix();
 	glMaterialfv(GL_FRONT, GL_SHININESS, ship_shininess);
 
 	serenity.draw();
-                                                                                                                                                                                                             
+
 	/** render asteroids */
 	glMaterialfv(GL_FRONT, GL_SPECULAR, asteroid_specular);
 	glMaterialfv(GL_FRONT, GL_AMBIENT, asteroid_ambient);
@@ -151,8 +152,7 @@ glPopMatrix();
 	}
 
 	if(serenity.getHealth() < 1){
-		drawGameOver();
-			
+		drawGameOver();	
 	}
  
 	GLdouble size;
@@ -184,23 +184,20 @@ glPopMatrix();
 	/* model space equals one pixel in window space.                 */
 	glScaled(aspect, aspect, 1.0);
 	/* Now determine where to draw things. */
-glColor4f(0.0, 1.0, 0.0, 0.0);
-//	controller::gameEngine.theWorld.drawText();
+	glColor4f(0.0, 1.0, 0.0, 0.0);
+	controller::gameEngine.theWorld.drawText();
 
 	glPopMatrix();
 	glMatrixMode(GL_MODELVIEW);
 
 	//if(count == 500){
 	//int mainWin = glutGetWindow();
-//		viewer::view::subDisplay();
-//		count = 0;
-//		glutSetWindow (mainWin); 
-//	}
-//	count++;
+	//		viewer::view::subDisplay();
+	//		count = 0;
+	//		glutSetWindow (mainWin); 
+	//	}
+	//	count++;
 }
-
-
-
 
 
 /** updates the objects as time progresses */
@@ -244,21 +241,15 @@ void model::world::update(){
 				//Destroy Asteroid
 				iter = asteroids.erase(iter);
 				hit = true;
-
 			
 				iter->setDestroy(true);
 				cout << "Projectile and asteroid destroyed\n";
 				//cout << "NewNumAsteroids:" << projectiles.size() << "\n";
 
-
-
 				//Destroy Projectile
 				projIter->destroy();
 				projIter = projectiles.erase(projIter);
-
-			}
-			else
-			{
+			} else {
 				iter->setDestroy(false);
 				projIter++;
 			}
@@ -306,8 +297,7 @@ void model::world::update(){
 	glutPostRedisplay();
 }
 
-void model::world::print_bitmap_string(void* font, char* s)
-{
+void model::world::print_bitmap_string(void* font, char* s){
    if (s && strlen(s)) {
       while (*s) {
          glutBitmapCharacter(font, *s);
@@ -318,15 +308,8 @@ void model::world::print_bitmap_string(void* font, char* s)
 
 void model::world::drawText(void){
 	static int font_index = 0;
-	//void* bitmap_fonts[1] = {GLUT_BITMAP_9_BY_15};
-	//char* bitmap_font_names[1] = {"GLUT_BITMAP_9_BY_15"};
-   void* bitmap_fonts[1] = {
-      GLUT_BITMAP_HELVETICA_12,    
-   };
-
-   char* bitmap_font_names[1] = {
-      "GLUT_BITMAP_HELVETICA_12",    
-   };
+	void* bitmap_fonts[1] = {GLUT_BITMAP_HELVETICA_12};
+	char* bitmap_font_names[1] = {"GLUT_BITMAP_HELVETICA_12"};
 	GLfloat x, y, ystep, yild;
 	
 	/* Set up the strings with the characters to draw. */
@@ -362,7 +345,7 @@ void model::world::drawText(void){
 	scoreValue[1][counter] = '\0';
 
 	counter = 0;
-	int speed = serenity.getSpeed();
+	float speed = serenity.getSpeed();
 	out << speed;
 	str = out.str();
 	char speedValue[2][3];
@@ -373,12 +356,12 @@ void model::world::drawText(void){
 	}
 	speedValue[1][counter] = '\0';
 	
-
 	/* Draw the strings, according to the current mode and font. */
 	glColor4f(0.0, 1.0, 0.0, 0.0);
 	x = 0.0;
 	y = 70;
 	ystep = 50.0;
+
 /**	
 	glRasterPos2f(-200, y - ystep);
 	print_bitmap_string(bitmap_fonts[font_index], shipHealth[0]);
@@ -393,6 +376,7 @@ void model::world::drawText(void){
 	glRasterPos2f(120, y- ystep);
 	print_bitmap_string(bitmap_fonts[font_index], speedValue[1]);
 */
+
 	glRasterPos2f(1.0,0.0);
 	print_bitmap_string(bitmap_fonts[font_index], shipHealth[0]);
 	glRasterPos2f(3.0, 0);
@@ -408,36 +392,22 @@ void model::world::drawText(void){
 }
 
 void model:: world:: drawGameOver(){
- static int font_index = 0;
- void* bitmap_fonts[1] = {
-      GLUT_BITMAP_TIMES_ROMAN_24,    
-   };
-
-   char* bitmap_font_names[1] = {
-      "GLUT_BITMAP_TIMES_ROMAN_24",    
-   };
- char* gameOver[1] = {"Game Over"};
+	static int font_index = 0;
+	void* bitmap_fonts[1] = {GLUT_BITMAP_TIMES_ROMAN_24};
+	char* bitmap_font_names[1] = {"GLUT_BITMAP_TIMES_ROMAN_24"};
+	char* gameOver[1] = {"Game Over"};
 	glRasterPos2f(-50, WINDOW_HEIGHT/2 -60);
 	print_bitmap_string(bitmap_fonts[font_index], gameOver[0]);
 }
 
 void model:: world:: drawWinner(){
- static int font_index = 0;
- void* bitmap_fonts[1] = {
-      GLUT_BITMAP_TIMES_ROMAN_24,    
-   };
-
-   char* bitmap_font_names[1] = {
-      "GLUT_BITMAP_TIMES_ROMAN_24",    
-   };
- char* winner[1] = {"WINNER!"};
+	static int font_index = 0;
+	void* bitmap_fonts[1] = {GLUT_BITMAP_TIMES_ROMAN_24};
+	char* bitmap_font_names[1] = {"GLUT_BITMAP_TIMES_ROMAN_24"};
+	char* winner[1] = {"WINNER!"};
 	glRasterPos2f(-50, WINDOW_HEIGHT/2 -60);
 	print_bitmap_string(bitmap_fonts[font_index], winner[0]);
 }
-
-
-
-
 
 /** starting point accessor method */ 
 Point3 model::world::getStartPoint(){

@@ -5,10 +5,10 @@
 #include "world.h"
 #include "view.h"
 
-/*! the controller namespace contains the classes necessary for running the game */
+/** the controller namespace contains the classes necessary for running the game */
 namespace controller{
 
-/** \brief the engine class controls the flow of the game */
+/** the engine class controls the flow of the game */
 class engine{
   public:
 	static void keyboard(unsigned char key, int x, int y);
@@ -16,6 +16,7 @@ class engine{
 	static void redrawOverlay();
 	static void update(void);
 	static void mainMenu(int value);
+	void addMenus();
 	void init(int *argc, char**argv);
 	bool start(bool finish);
 	bool end();
@@ -23,6 +24,9 @@ class engine{
 	model::world theWorld;
 	viewer::view gameView;
 	viewer::camera camera1;
+  private:
+	/** this contains the menu constants */
+	enum { MENU_NEW_GAME, MENU_GAME_EXIT };
 };
 
 engine gameEngine; //global engine
