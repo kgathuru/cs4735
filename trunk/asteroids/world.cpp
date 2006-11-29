@@ -42,19 +42,20 @@ void model::world::render(){
 	
 
 	glPushMatrix();
-//	glTranslated(-250, 0,0);
-	glTranslated(-WORLD_WIDTH, 0, 0);
-	glTranslated(0, pos.y, 0);
-	glTranslated(0, 0, pos.z-serenity.getSize()*2);
+	//float xSpot = WINDOW_WIDTH - pos.x;
+	//glTranslated(-250, 0,0);
+	glTranslated(pos.x -137, 0, 0);
+	glTranslated(0, pos.y-40, 0);
+	glTranslated(0, 0, pos.z-10);//serenity.getSize()*2);
 	/** render progress bar */
 	glEnable(GL_TEXTURE_2D);
 	glTexEnvf(GL_TEXTURE_ENV, GL_TEXTURE_ENV_MODE, GL_DECAL);
 	glBindTexture(GL_TEXTURE_2D, 2003);   // choose the texture to use.
 	glBegin(GL_QUADS); // begin drawing a square
-	  glTexCoord2f(-1.0, -1.0); glVertex3f(0, -16,0);// -controller::gameEngine.camera1.getEyeZ()+1000);
-  	  glTexCoord2f(-1.0, 1.0); glVertex3f(0,16,0);//-controller::gameEngine.camera1.getEyeZ()+1000);
- 	  glTexCoord2f(1.0, 1.0); glVertex3f( progress*10,16,0);// -controller::gameEngine.camera1.getEyeZ()+1000);
-	  glTexCoord2f(1.0, -1.0); glVertex3f( progress*10, -16,0);//-controller::gameEngine.camera1.getEyeZ()+1000);
+	  glTexCoord2f(-1.0, -1.0); glVertex3f(0, -16,0);
+  	  glTexCoord2f(-1.0, 1.0); glVertex3f(0,16,0);
+ 	  glTexCoord2f(1.0, 1.0); glVertex3f( progress,16,0);
+	  glTexCoord2f(1.0, -1.0); glVertex3f( progress, -16,0);
 	glEnd();
 	glDisable(GL_TEXTURE_2D);
 	
@@ -63,10 +64,10 @@ void model::world::render(){
 	glTexEnvf(GL_TEXTURE_ENV, GL_TEXTURE_ENV_MODE, GL_DECAL);
 	glBindTexture(GL_TEXTURE_2D, 2004);   // choose the texture to use.
 	glBegin(GL_QUADS);		                // begin drawing a square   
-	  glTexCoord2f(-1.0, -1.0); glVertex3f(-0, -16,0);// -controller::gameEngine.camera1.getEyeZ()+1000);
-  	  glTexCoord2f(-1.0, 1.0); glVertex3f(-0,16,0);//-controller::gameEngine.camera1.getEyeZ()+1000);
- 	  glTexCoord2f(1.0, 1.0); glVertex3f( WINDOW_WIDTH,16, 0);//-controller::gameEngine.camera1.getEyeZ()+1000);
-	  glTexCoord2f(1.0, -1.0); glVertex3f( WINDOW_WIDTH, -16, 0);//-controller::gameEngine.camera1.getEyeZ()+1000);
+	  glTexCoord2f(-1.0, -1.0); glVertex3f(0, -16,0);
+  	  glTexCoord2f(-1.0, 1.0); glVertex3f(0,16,0);
+ 	  glTexCoord2f(1.0, 1.0); glVertex3f( serenity.getSize()*2,16, 0);//x was windowwidth
+	  glTexCoord2f(1.0, -1.0); glVertex3f( serenity.getSize()*2, -16, 0);
 	glEnd();
 	glDisable(GL_TEXTURE_2D);
 	glPopMatrix();

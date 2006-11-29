@@ -98,7 +98,7 @@ void model::ship::draw(){
 	rubberBand();
 	
 	//glTranslatef(position.x+(size/2), position.y-(size/2), position.z);//Move ship to position in space
-	glTranslatef(position.x , position.y +15, position.z);
+	glTranslatef(position.x , position.y +15, position.z -10);
 	//these three simply rotate the barn to be upright, delete for proper ship model
 	//glRotated(-90, 1, 0, 0);
 	//glRotated(90, 0,0, 1);
