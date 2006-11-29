@@ -373,17 +373,17 @@ void model::world::drawText(void){
 	y = -140;
 
 //	use this if not using sub windows
-	glRasterPos2f(-140, y);
+	glRasterPos2f(-115, y);
 	print_bitmap_string(bitmap_fonts[font_index], shipHealth[0]);
-	glRasterPos2f(-100, y);
+	glRasterPos2f(-75, y);
 	print_bitmap_string(bitmap_fonts[font_index], healthValue[1]);
-	glRasterPos2f(-50, y);
+	glRasterPos2f(100, y);
 	print_bitmap_string(bitmap_fonts[font_index], shipScore[0]);
-	glRasterPos2f(-15, y);
+	glRasterPos2f(140, y);
 	print_bitmap_string(bitmap_fonts[font_index], scoreValue[1]);
-	glRasterPos2f(80, y);
+	glRasterPos2f(285, y);
 	print_bitmap_string(bitmap_fonts[font_index], shipSpeed[0]);
-	glRasterPos2f(120, y);
+	glRasterPos2f(325, y);
 	print_bitmap_string(bitmap_fonts[font_index], speedValue[1]);
 
 	//use this if using subwindows
