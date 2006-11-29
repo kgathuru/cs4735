@@ -24,20 +24,13 @@ const int SHIP_START_HEALTH = 10;
 const int RELOAD_WAIT = 100;
 const float PROJECTILE_SIZE = 20;
 
-/** camera view */
-const int DEFAULT_CAM = 1;
-const int ONBOARD_CAM = 2;
+/** camera views */
+enum {DEFAULT_CAM, ONBOARD_CAM};
 
 /** math constants */
 static const double PI = 3.14159265358979323846264338327950288419716939937510f;
 
-/** game colors, should we move this? */
-//const GLfloat asteroid_ambient[] = { 0.5f, 0.25f, 0.25f, 1.0f};
-//const GLfloat asteroid_specular[] = { 0.25f, 0.25f, 0.75f, 1.0f};
-//const GLfloat asteroid_diffuse[] = { 0.7, 0.4, 0.4, 1.0 };
-//const GLfloat asteroid_shininess[] = { 125.0f };
-
-//pewter
+/** game colors */
 const GLfloat default_emissive[] = { 0.0f, 0.0f, 0.0f, 1.0f };
 
 const GLfloat asteroid_ambient[] = { 0.10588f, 0.058824f, 0.113725f, 1.0f}; 

@@ -109,7 +109,7 @@ void model::ship::draw(){
 	glScaled(size, size, size);
 
 	//call super.draw()
-//	Mesh::draw();
+	//Mesh::draw();
 
 	rocketShip();
 	glPopMatrix();
@@ -204,16 +204,18 @@ void model::ship::death(){
 
 //Make ship flash color when it's been hit to let player know
 void model::ship::hit(){
-	cout << "Serenity hit";
-  GLfloat hitShip_ambient[] = { 0.0f, 0.9f, 0.0f, 1.0f};
-  GLfloat hitShip_specular[] = { 0.25f, 0.25f, 0.75f, 1.0f};
-  GLfloat hitShip_diffuse[] = { 0.7, 0.0, 0.7, 1.0 };
-  GLfloat hitShip_shininess[] = { 315.0f };
+	cout << "Serenity hit\n";
+
+	GLfloat hitShip_ambient[] = { 0.0f, 0.9f, 0.0f, 1.0f};
+	GLfloat hitShip_specular[] = { 0.25f, 0.25f, 0.75f, 1.0f};
+	GLfloat hitShip_diffuse[] = { 0.7, 0.0, 0.7, 1.0 };
+	GLfloat hitShip_shininess[] = { 315.0f };
 
 	glMaterialfv(GL_FRONT, GL_SPECULAR, hitShip_specular);
 	glMaterialfv(GL_FRONT, GL_AMBIENT, hitShip_ambient);
 	glMaterialfv(GL_FRONT, GL_DIFFUSE, hitShip_diffuse);	
 	glMaterialfv(GL_FRONT, GL_SHININESS, hitShip_shininess);
+
 	draw();
 }
 
