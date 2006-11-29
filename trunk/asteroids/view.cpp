@@ -52,7 +52,7 @@ void viewer::view::initView(int *argc,char**argv){
 	ret = pix[4].readBMPFile(moreProgress);
 	pix[4].setTexture(2004);
 
-	string asteroidTexture = "ast.bmp";
+	string asteroidTexture = "asteroidPattern.bmp";
 	ret = pix[5].readBMPFile(asteroidTexture);
 	pix[5].setTexture(2005);
 
