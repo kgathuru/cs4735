@@ -40,9 +40,9 @@ void viewer::view::initView(int *argc,char**argv){
 	int ret = pix[1].readBMPFile(s);  // make pixmap from image
         pix[1].setTexture(2001);
 
-	string explode = "explodeSmall.bmp";
-	ret = pix[2].readBMPFile(explode);
-	pix[2].setTexture(2002);
+	//string explode = "explodeSmall.bmp";
+	//ret = pix[2].readBMPFile(explode);
+	//pix[2].setTexture(2002);
 
 	string progress = "progressBar1.bmp";
 	ret = pix[3].readBMPFile(progress);
@@ -92,18 +92,10 @@ void viewer::view::display(void){
 	glViewport((WINDOW_WIDTH - WORLD_WIDTH)/2,(WINDOW_HEIGHT-WORLD_HEIGHT)/2, WORLD_HEIGHT, WORLD_WIDTH);
 	gameEngine.theWorld.render();
 
-	//glPushMatrix();
-	//glTranslated(0, WORLD_HEIGHT/2, 0);
-	//glScaled(10, 10, 10);
-	//gameEngine.theWorld.serenity.rocketShip();
-	//cout<<"DRAW ROCKET SHIP";
-	//glPopMatrix();
-
 	glutSwapBuffers();
 }
-
+//this is not being used right now, it really slows down gameplay
 void viewer::view::subDisplay(){ 
-	//cout << "in subdisplay\n";
 	/* Clear subwindow */ 
 	glutSetWindow (gameEngine.gameView.winIdSub); 
 	// glClearColor (1.0, 1.0, 1.0, 1.0); 
@@ -130,8 +122,6 @@ void viewer::view::subDisplay(){
 }
 
 void viewer::view::subDisplay2 () {
-	cout << "in subdisplay2\n";
-
 	/* Clear subwindow */
 	// glutSetWindow (gameEngine.gameView.winIdSub2);
 	// glClearColor (1.0, 1.0, 1.0, 1.0);

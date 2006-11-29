@@ -39,18 +39,22 @@ void model::world::render(){
 	Point3 pos = serenity.getPosition();
 	float progress = (pos.z / -WORLD_DEPTH) * 100;
 	Point3 position = controller::gameEngine.theWorld.serenity.getPosition();
-	glPushMatrix();
-	glTranslated(-250, 0,0);
+	
 
+	glPushMatrix();
+//	glTranslated(-250, 0,0);
+	glTranslated(-WORLD_WIDTH, 0, 0);
+	glTranslated(0, pos.y, 0);
+	glTranslated(0, 0, pos.z-serenity.getSize()*2);
 	/** render progress bar */
 	glEnable(GL_TEXTURE_2D);
 	glTexEnvf(GL_TEXTURE_ENV, GL_TEXTURE_ENV_MODE, GL_DECAL);
 	glBindTexture(GL_TEXTURE_2D, 2003);   // choose the texture to use.
 	glBegin(GL_QUADS); // begin drawing a square
-	  glTexCoord2f(-1.0, -1.0); glVertex3f(0, -32, -controller::gameEngine.camera1.getEyeZ()+1000);
-  	  glTexCoord2f(-1.0, 1.0); glVertex3f(0,32,-controller::gameEngine.camera1.getEyeZ()+1000);
- 	  glTexCoord2f(1.0, 1.0); glVertex3f( progress*10,32, -controller::gameEngine.camera1.getEyeZ()+1000);
-	  glTexCoord2f(1.0, -1.0); glVertex3f( progress*10, -32,-controller::gameEngine.camera1.getEyeZ()+1000);
+	  glTexCoord2f(-1.0, -1.0); glVertex3f(0, -16,0);// -controller::gameEngine.camera1.getEyeZ()+1000);
+  	  glTexCoord2f(-1.0, 1.0); glVertex3f(0,16,0);//-controller::gameEngine.camera1.getEyeZ()+1000);
+ 	  glTexCoord2f(1.0, 1.0); glVertex3f( progress*10,16,0);// -controller::gameEngine.camera1.getEyeZ()+1000);
+	  glTexCoord2f(1.0, -1.0); glVertex3f( progress*10, -16,0);//-controller::gameEngine.camera1.getEyeZ()+1000);
 	glEnd();
 	glDisable(GL_TEXTURE_2D);
 	
@@ -59,14 +63,15 @@ void model::world::render(){
 	glTexEnvf(GL_TEXTURE_ENV, GL_TEXTURE_ENV_MODE, GL_DECAL);
 	glBindTexture(GL_TEXTURE_2D, 2004);   // choose the texture to use.
 	glBegin(GL_QUADS);		                // begin drawing a square   
-	  glTexCoord2f(-1.0, -1.0); glVertex3f(-0, -32, -controller::gameEngine.camera1.getEyeZ()+1000);
-  	  glTexCoord2f(-1.0, 1.0); glVertex3f(-0,32,-controller::gameEngine.camera1.getEyeZ()+1000);
- 	  glTexCoord2f(1.0, 1.0); glVertex3f( WINDOW_WIDTH,32, -controller::gameEngine.camera1.getEyeZ()+1000);
-	  glTexCoord2f(1.0, -1.0); glVertex3f( WINDOW_WIDTH, -32, -controller::gameEngine.camera1.getEyeZ()+1000);
+	  glTexCoord2f(-1.0, -1.0); glVertex3f(-0, -16,0);// -controller::gameEngine.camera1.getEyeZ()+1000);
+  	  glTexCoord2f(-1.0, 1.0); glVertex3f(-0,16,0);//-controller::gameEngine.camera1.getEyeZ()+1000);
+ 	  glTexCoord2f(1.0, 1.0); glVertex3f( WINDOW_WIDTH,16, 0);//-controller::gameEngine.camera1.getEyeZ()+1000);
+	  glTexCoord2f(1.0, -1.0); glVertex3f( WINDOW_WIDTH, -16, 0);//-controller::gameEngine.camera1.getEyeZ()+1000);
 	glEnd();
 	glDisable(GL_TEXTURE_2D);
 	glPopMatrix();
-
+	
+	
 	/** render axes */
 	glDisable(GL_LIGHTING);	//Allow colors to be drawn regardless of light
 	glColor3f(1.0, 0.0, 0.0);
@@ -128,13 +133,13 @@ void model::world::render(){
 	for (asteroid_iterator iter=asteroids.begin(); iter!=asteroids.end(); iter++){
 		
 		iter->draw();
-		if(iter->getDestroy() == true){
+	//	if(iter->getDestroy() == true){
 		//cout << "IS TRUE";
-			iter->destroy();
-		}
+		//	iter->destroy();
+	//	}
 	} 
 
-
+	
 	/** render projectiles */
 	glMaterialfv(GL_FRONT, GL_SPECULAR, projectile_specular);
 	glMaterialfv(GL_FRONT, GL_AMBIENT, projectile_ambient);

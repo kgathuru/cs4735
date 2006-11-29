@@ -119,6 +119,7 @@ void controller::engine::mainMenu(int value){
 	switch(value){
 	case MENU_NEW_GAME:
 		//new game
+		gameEngine.theWorld.serenity.death();
 		break;
 	case MENU_GAME_EXIT:
 		//quit game
