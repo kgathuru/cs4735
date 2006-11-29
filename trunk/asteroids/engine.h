@@ -5,6 +5,8 @@
 #include "world.h"
 #include "view.h"
 
+using namespace math;
+
 /** the controller namespace contains the classes necessary for running the game */
 namespace controller{
 

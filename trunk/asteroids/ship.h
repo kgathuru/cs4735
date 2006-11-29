@@ -4,7 +4,11 @@
 #include "projectile.h"
 #include "math.h"
 
+using namespace math;
+
 namespace model{
+
+/** the ship class models a spaceship in space */
 class ship: public object {
   public:
 	void setHealth(int h);

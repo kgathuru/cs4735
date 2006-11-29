@@ -6,14 +6,20 @@
 #ifndef MATH_H
 #define MATH_H
 
+#include<GL/gl.h>
+#include<GL/glu.h>
+#include<GL/glx.h>
 #include<GL/glut.h>
 #include<math.h>
 #include<iostream>
 #include<fstream>
-
-/** Support Classes for Mesh */
+#include<string>
 
 using namespace std;
+using std::string;
+
+/** this namespace contains helper functions */
+namespace math {
 
 /** Point2 class for 2D points with real coordinates */ 
 class Point2{ 
@@ -118,5 +124,56 @@ class Mesh{
         void makeEmpty() { numVerts = numFaces = numNormals = 0;}
         Vector3 newell4(int indx[]);
 };	
+
+//<<<<<<<<<<<<<<<<<<<PIXMAP helper functions >>>>>>>>>>>>>>>>>>
+typedef unsigned short ushort;
+typedef unsigned long ulong;
+fstream inf; // global in this file for convenience
+
+//<<<<<<<<<<<<<<<<<<<<< getShort >>>>>>>>>>>>>>>>>>>>
+ushort getShort() //helper function
+{ //BMP format uses little-endian integer types
+  // get a 2-byte integer stored in little-endian form
+		char ic;
+		ushort ip;
+		inf.get(ic); ip = ic;  //first byte is little one 
+		inf.get(ic);  ip |= ((ushort)ic << 8); // or in high order byte
+		return ip;
+}
+//<<<<<<<<<<<<<<<<<<<< getLong >>>>>>>>>>>>>>>>>>>
+ulong getLong() //helper function
+{  //BMP format uses little-endian integer types
+   // get a 4-byte integer stored in little-endian form
+		ulong ip = 0;
+		char ic = 0;
+		unsigned char uc = ic;
+		inf.get(ic); uc = ic; ip = uc;
+		inf.get(ic); uc = ic; ip |=((ulong)uc << 8);
+		inf.get(ic); uc = ic; ip |=((ulong)uc << 16);
+		inf.get(ic); uc = ic; ip |=((ulong)uc << 24);
+		return ip;
+	}
+//<<<<<<<<<<<<<<<<<< RGBPixmap:: readBmpFile>>>>>>>>>>>>>
+
+/** holds a color triple  each with 256 possible intensities */
+class RGB {
+    public: unsigned char r,g,b;
+};
+
+/** The RGBpixmap class.
+* stores the number of rows and columns in the pixmap, 
+* as well as the address of the first pixel in memory */
+class RGBpixmap{
+  public:
+	int nRows, nCols; // dimensions of the pixmap
+	RGB* pixel; 	// array of pixels
+	//	int readBMPFile(char * fname); // read BMP file into this pixmap
+	//void colorCube(Point3 P, Vector3 a, Vector3 b);
+	int B(float x, float y, float z);
+        void setTexture(GLuint textureName);
+	int readBMPFile(string fname); // read BMP file into this pixmap
+};
+
+}; //namespace math
 
 #endif

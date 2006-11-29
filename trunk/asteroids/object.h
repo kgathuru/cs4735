@@ -3,8 +3,11 @@
 
 #include "math.h"
 
+using namespace math;
+
 namespace model{
 
+/** the object class sets the basic behaviour of an object in space */
 class object: public Mesh{
   public:
 	void setSpeed(float s);

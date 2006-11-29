@@ -4,8 +4,12 @@
 #include <GL/glut.h>
 #include "RGBpixmap.h"
 
+using namespace math;
+
+/** the viewer namespace contains classes dealing with display of the game */
 namespace viewer {
 
+/** the camera class encapsulated the control of the camera */
 class camera{
   private:
 	Point3 eye;
@@ -27,6 +31,7 @@ class camera{
 	void setShape(float vAng, float asp, float nearD, float farD);
 };
 
+/** the view class contains methods to display the entire game */
 class view{
   public:
 	void initView(int *argc,char**argv);

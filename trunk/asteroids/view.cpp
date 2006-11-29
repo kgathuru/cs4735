@@ -2,6 +2,7 @@
 
 using controller::gameEngine;
 
+/** constructor for view class */
 viewer::view::view(){
 	
 }
@@ -52,7 +53,7 @@ void viewer::view::initView(int *argc,char**argv){
 	pix[4].setTexture(2004);
 }
 
-
+/** display the objects in the world */
 void viewer::view::display(void){
 	// set the light source properties
 	GLfloat light_intensity[] = {0.5f, 0.5f, 0.5f, 0.5f};
