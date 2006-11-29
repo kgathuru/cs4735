@@ -194,9 +194,19 @@ void model::world::render(){
 	/* model space equals one pixel in window space.                 */
 	glScaled(aspect, aspect, 1.0);
 	/* Now determine where to draw things. */
-	glColor4f(0.0, 1.0, 0.0, 0.0);
+	
+	glColor3f(1.0, 0, 0.0);
+	glTranslated(pos.x -137, 0, 0);
+	glTranslated(0, pos.y-40, 0);
+	glTranslated(0, 0, pos.z-10);
+	glBegin(GL_QUADS); // begin drawing a square
+	  glVertex3f(0, -16,0);
+  	  glVertex3f(0,16,0);
+ 	  glVertex3f( serenity.getSize()*3,16,0);
+	  glVertex3f( serenity.getSize()*3,-16,0);
+	glEnd();
+	glColor3f(0.0, 0.0, 1.0);
 	controller::gameEngine.theWorld.drawText();
-
 	glPopMatrix();
 	glMatrixMode(GL_MODELVIEW);
 
@@ -320,7 +330,7 @@ void model::world::drawText(void){
 	static int font_index = 0;
 	void* bitmap_fonts[1] = {GLUT_BITMAP_HELVETICA_12};
 	char* bitmap_font_names[1] = {"GLUT_BITMAP_HELVETICA_12"};
-	GLfloat x, y, ystep, yild;
+	GLfloat y;
 	
 	/* Set up the strings with the characters to draw. */
 	int health = serenity.getHealth();
@@ -343,7 +353,7 @@ void model::world::drawText(void){
 	}
 	healthValue[1][counter]= '\0';
 	counter = 0;
-	int score = serenity.getScore();
+    	int score = serenity.getScore(); 
 	out << score;
 	str = out.str();
 	char scoreValue[2][3];
@@ -368,26 +378,24 @@ void model::world::drawText(void){
 	
 	/* Draw the strings, according to the current mode and font. */
 	glColor4f(0.0, 1.0, 0.0, 0.0);
-	x = 0.0;
-	y = 70;
-	ystep = 50.0;
+	y = -140;
 
-/**	
-	glRasterPos2f(-200, y - ystep);
+//	use this if not using sub windows
+	glRasterPos2f(-140, y);
 	print_bitmap_string(bitmap_fonts[font_index], shipHealth[0]);
-	glRasterPos2f(-160, y- ystep);
+	glRasterPos2f(-100, y);
 	print_bitmap_string(bitmap_fonts[font_index], healthValue[1]);
-	glRasterPos2f(-50, y -ystep);
+	glRasterPos2f(-50, y);
 	print_bitmap_string(bitmap_fonts[font_index], shipScore[0]);
-	glRasterPos2f(-15, y -ystep);
+	glRasterPos2f(-15, y);
 	print_bitmap_string(bitmap_fonts[font_index], scoreValue[1]);
-	glRasterPos2f(80, y - ystep);
+	glRasterPos2f(80, y);
 	print_bitmap_string(bitmap_fonts[font_index], shipSpeed[0]);
-	glRasterPos2f(120, y- ystep);
+	glRasterPos2f(120, y);
 	print_bitmap_string(bitmap_fonts[font_index], speedValue[1]);
-*/
 
-	glRasterPos2f(1.0,0.0);
+	//use this if using subwindows
+	/**glRasterPos2f(1.0,0.0);
 	print_bitmap_string(bitmap_fonts[font_index], shipHealth[0]);
 	glRasterPos2f(3.0, 0);
 	print_bitmap_string(bitmap_fonts[font_index], healthValue[1]);
@@ -399,6 +407,7 @@ void model::world::drawText(void){
 	print_bitmap_string(bitmap_fonts[font_index], shipSpeed[0]);
 	glRasterPos2f(13, 0);
 	print_bitmap_string(bitmap_fonts[font_index], speedValue[1]);
+*/
 }
 
 void model:: world:: drawGameOver(){
