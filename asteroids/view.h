@@ -2,7 +2,7 @@
 #define VIEW_H
 
 #include <GL/glut.h>
-#include "RGBpixmap.h"
+#include "math.h"
 
 using namespace math;
 
