@@ -1,7 +1,7 @@
 
 /** ship constructor */
 model::ship::ship(){
-	readFile("SIMPBARN.3VN");
+	//readFile("SIMPBARN.3VN");
 	speed = 0.5;
 	position.set(0.0, WORLD_HEIGHT/2, 0.0);
 	direction.set(0.0, 0.0, -1.0);
