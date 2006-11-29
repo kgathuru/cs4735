@@ -42,9 +42,9 @@ void viewer::view::initView(int *argc,char**argv){
 	int ret = pix[1].readBMPFile(s);  // make pixmap from image
         pix[1].setTexture(2001);
 
-	//string explode = "explodeSmall.bmp";
-	//ret = pix[2].readBMPFile(explode);
-	//pix[2].setTexture(2002);
+	string explode = "explodeSmall.bmp";
+	ret = pix[2].readBMPFile(explode);
+	pix[2].setTexture(2002);
 
 	string progress = "progressBar1.bmp";
 	ret = pix[3].readBMPFile(progress);

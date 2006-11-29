@@ -129,19 +129,8 @@ void model::world::render(){
 	serenity.draw();
 
 	/** render asteroids */
-	//glMaterialfv(GL_FRONT, GL_SPECULAR, asteroid_specular);
-	//glMaterialfv(GL_FRONT, GL_AMBIENT, asteroid_ambient);
-	//glMaterialfv(GL_FRONT, GL_DIFFUSE, asteroid_diffuse);	
-	//glMaterialfv(GL_FRONT, GL_SHININESS, asteroid_shininess);
-
 	for (asteroid_iterator iter=asteroids.begin(); iter!=asteroids.end(); iter++){
-
 		iter->draw();
-
-	//	if(iter->getDestroy() == true){
-		//cout << "IS TRUE";
-		//	iter->destroy();
-	//	}
 	} 
 
 	
@@ -222,7 +211,6 @@ void model::world::render(){
 
 /** updates the objects as time progresses */
 void model::world::update(){
-
 	bool hit = false;
 	/** update projectiles */
 	projectile_iterator iter=projectiles.begin();
@@ -259,7 +247,7 @@ void model::world::update(){
 						
 				//Projectile hits asteroid, destroy both
 				//Destroy Asteroid
-				iter = asteroids.erase(iter);
+				//iter = asteroids.erase(iter);
 				hit = true;
 			
 				iter->setDestroy(true);
@@ -287,6 +275,10 @@ void model::world::update(){
 
 	/** update asteroids */
 	for (asteroid_iterator iter=asteroids.begin(); iter!=asteroids.end(); iter++){
+		//if destroyed and size < 0 remove from list
+		if (iter->getSize() < 0) {
+			iter = asteroids.erase(iter);
+		}
 		iter->doStep(worldTime + GAME_SPEED);
 	} 
 

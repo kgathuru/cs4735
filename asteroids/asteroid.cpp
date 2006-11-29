@@ -62,14 +62,14 @@ Vector3 model::asteroid:: getSpin(){
 void model::asteroid:: draw(){
 	GLUquadricObj*	qobj;
 
-	if(size > 0)
-	{
+	if (!destruct && size > 0) {
 		float angleRot = 5;//Rotate the asteroid by how much
 		glMatrixMode(GL_MODELVIEW);
 		glPushMatrix(); //save initial matrix
 		glRotatef(angleRot, spin.x, spin.y, spin.z);//Rotate mesh based on movement
 		glTranslatef(position.x, position.y, position.z);//Move asteroid to position in space
-		glScalef(size, size, size);//Asteroid mesh is within unit circle centered at origin, need to scale by size
+		glScalef(size, size, size);//Asteroid mesh is within unit circle centered at origin, 
+		//need to scale by size
 
 		glEnable(GL_TEXTURE_2D);
 		glTexEnvf(GL_TEXTURE_ENV, GL_TEXTURE_ENV_MODE, GL_DECAL);
@@ -83,38 +83,31 @@ void model::asteroid:: draw(){
 
 		//glutSolidSphere(1,15,15);//Asteroid is just a sphere for now
 		glPopMatrix();//return default matrix
+	} else if (destruct) {
+		// render explosion bitmap 
+		glEnable(GL_TEXTURE_2D);
+		glTexEnvf(GL_TEXTURE_ENV, GL_TEXTURE_ENV_MODE, GL_DECAL);
+		glBindTexture(GL_TEXTURE_2D, 2002);   // choose the texture to use.
+		glBegin(GL_QUADS);		                // begin drawing a square   
+		glTexCoord2f(0.0,0.0); glVertex3f( position.x - (size/2), position.y - (size/2), position.z);
+		glTexCoord2f(0.0,1.0); glVertex3f( position.x - (size/2), position.y + (size/2), position.z);
+		glTexCoord2f(1.0,1.0); glVertex3f( position.x + (size/2), position.y + (size/2), position.z);
+		glTexCoord2f(1.0,0.0); glVertex3f( position.x + (size/2), position.y - (size/2), position.z);
+		glEnd();
+		glDisable(GL_TEXTURE_2D);
+		size = size - 0.5;
 	}
 }
 
 void model::asteroid:: setDestroy(bool d){
 	destruct = d;
 }
+
 bool model::asteroid:: getDestroy(){
 	return destruct;
 }
+
 void model::asteroid:: destroy(){
-	//Animation to remove asteroid
-	//Needs to be better so player knows they've been hit
-
-	
-	/** render explosion bitmap */
-//	glEnable(GL_TEXTURE_2D);
-//	glTexEnvf(GL_TEXTURE_ENV, GL_TEXTURE_ENV_MODE, GL_DECAL);
-//	glBindTexture(GL_TEXTURE_2D, 2002);   // choose the texture to use.
-//	glBegin(GL_QUADS);		                // begin drawing a square   
-//	  glTexCoord2f(0.0,0.0); glVertex3f(-position.x, -position.y,position.z -50);
-  //	  glTexCoord2f(0.0,1.0); glVertex3f(-position.x,position.y,position.z-50);
- //	  glTexCoord2f(1.0, 1.0); glVertex3f( position.x,position.y,position.z-50);
-//	  glTexCoord2f(1.0, 0.0); glVertex3f( position.x, -position.y,position.z-50);
-//	glEnd();
-
-	glDisable(GL_TEXTURE_2D);
-	for(float i = size; i >= 0; i--);{
-		size = size - 0.5;
-		draw();
-	}
-	size = 0;
-	draw();
 
 }
 
@@ -138,7 +131,6 @@ void model::asteroid:: doStep(float t){
 	//Draw new asteroid after collision detection
 }
 
-
 bool model::asteroid:: checkCollision(Point3 shipPosition, float shipSize){
 	//Find distance between two centers
 	float distance;
@@ -153,9 +145,7 @@ bool model::asteroid:: checkCollision(Point3 shipPosition, float shipSize){
 		//Need to destroy the asteroid if it's true
 		return true;
 		//Call deconstructor outside of the method
-	} 
-	else 
-	{ 
+	} else { 
 		return false;
 	}
 }
