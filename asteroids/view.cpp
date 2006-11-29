@@ -20,19 +20,21 @@ void viewer::view::initView(int *argc,char**argv){
         Point3 look(0, WORLD_HEIGHT/2, -2000.0); 
         Vector3 up(0.0, 1.0, 0.0);
 
-	gameEngine.gameView.winIdSub2 = 
-		glutCreateSubWindow (gameEngine.gameView.winIdMain, 0, 0, 50, WINDOW_HEIGHT / 20);
-	glutDisplayFunc(&(view::subDisplay2));
-	glutSetWindow(gameEngine.gameView.winIdMain);
-	
 	/* Sub window creation and setup */ 
 	//gameEngine.gameView.winIdSub = 
 	//	glutCreateSubWindow (gameEngine.gameView.winIdMain, 0, 550, WINDOW_WIDTH, WINDOW_HEIGHT / 20);
 	//glutDisplayFunc(&(view::subDisplay));
 	//glutSetWindow(gameEngine.gameView.winIdMain);
 
+	gameEngine.gameView.winIdSub2 = 
+		glutCreateSubWindow (gameEngine.gameView.winIdMain, 0, 0, 50, WINDOW_HEIGHT / 20);
+	glutDisplayFunc(&(view::subDisplay2));
+	glutSetWindow(gameEngine.gameView.winIdMain);
+	
+
+
 	/** \todo is aspect ratio based on world width or window width? */
-	gameEngine.camera1.setView(DEFAULT_CAM);
+	gameEngine.camera1.setView(ONBOARD_CAM);
 	gameEngine.camera1.setShape(30.0f, WORLD_WIDTH/WORLD_HEIGHT, CAMERA_NEAR_DIST, CAMERA_FAR_DIST);
 	gameEngine.camera1.set(eye, look, up); // make the initial camera
 
@@ -106,15 +108,6 @@ void viewer::view::subDisplay(){
 	// glClearColor (1.0, 1.0, 1.0, 1.0); 
 	glClear (GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT); 
 	
-	/* Draw border */ 
-	glColor3f (0.0F, 1.0F, 0.0F); 
-	glBegin (GL_LINE_LOOP); 
-	glVertex2f (0.0F, 0.0F); 
-	glVertex2f (0.0F, 0.99F); 
-	glVertex2f (0.999F, 0.99F); 
-	glVertex2f (0.999F, 0.0F); 
-	glEnd (); 
-	glColor3f (0.0F, 1.0F, 0.0F); 
 	
 	glViewport (0, 0, WINDOW_WIDTH, WINDOW_HEIGHT/10); 
 	glMatrixMode (GL_PROJECTION); 
