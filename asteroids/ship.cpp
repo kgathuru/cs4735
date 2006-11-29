@@ -8,6 +8,7 @@ model::ship::ship(){
 	size = SHIP_SIZE;
 	health = SHIP_START_HEALTH;
 	reload = 0;
+	score = 0;
 }
 
 /** ship deconstructor */
