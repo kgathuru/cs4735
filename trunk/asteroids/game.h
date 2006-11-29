@@ -4,7 +4,7 @@
 #include <GL/glut.h>
 
 /** game engine constants */
-const int INITIAL_NUM_ASTEROIDS = 30;
+const int INITIAL_NUM_ASTEROIDS = 31;
 const int WINDOW_WIDTH = 750;
 const int WINDOW_HEIGHT = 600; 
 const int CAMERA_NEAR_DIST = 50; 
