@@ -126,8 +126,8 @@ void viewer::view::display(void){
 
 /** helper function to return string from int */
 char ret[255];
-char* num2char(float value);
-char* num2char(float value){
+char* num2char(int value);
+char* num2char(int value){
 	string tmp;
 	stringstream out;
 	out << value;
@@ -174,24 +174,32 @@ void viewer::view::drawStatus(){
 		break;
 	case GAME_LEVEL1: //display level1 game play
 		{
-		char* shipDataNames[3][2];
-		shipDataNames[0][0] = "Health: ";
-		shipDataNames[0][1] = num2char(gameEngine.theWorld.serenity.getHealth());
-		shipDataNames[1][0] = "Score: ";
-		shipDataNames[1][1] = num2char(gameEngine.theWorld.serenity.getScore());
-		shipDataNames[2][0] = "Speed: ";
-		shipDataNames[2][1] = num2char(gameEngine.theWorld.serenity.getSpeed());
-	
+		char stats[255] = {'\n'};
+		strcat(stats, "Health: ");
+		strcat(stats, num2char(gameEngine.theWorld.serenity.getHealth()));
+		strcat(stats, " Score: ");
+		strcat(stats, num2char(gameEngine.theWorld.serenity.getScore()));
+		strcat(stats, " Speed: ");
+		strcat(stats, num2char((int) gameEngine.theWorld.serenity.getSpeed()));
+		strcat(stats, "\n");
+		
 		glRasterPos2f(-250, -265);
-		for(int k = 0; k < 3; k++) {
-			print_bitmap_string(bitmap_fonts[1], shipDataNames[k][0]);
-			print_bitmap_string(bitmap_fonts[1], shipDataNames[k][1]);
-		}
+		print_bitmap_string(bitmap_fonts[1], stats);
 
 		printProgress((gameEngine.theWorld.serenity.getPosition().z/-WORLD_DEPTH)*100);
 		break;
 		}
 	}
+}
+
+/** print bitmap string */
+void viewer::view::print_bitmap_string(void* font, char* s){
+   if (s && strlen(s)) {
+      while (*s) {
+         glutBitmapCharacter(font, *s);
+         s++;
+      }
+   }
 }
 
 /** print progress bar */
@@ -207,7 +215,7 @@ void viewer::view::printProgress(float progressPercent){
 
 	glDisable(GL_LIGHTING);
 	//draw progress bar 
-	glColor3f(0.1F,0.9F,0.4F);
+	glColor3f(0.1F,0.0F,0.6F);
 	glBegin(GL_POLYGON);
 		glVertex2f(2,2);
 		glVertex2f((progressPercent*(barW-4)/100)+2,2);
@@ -216,7 +224,7 @@ void viewer::view::printProgress(float progressPercent){
 	glEnd();
 
 	//draw progress bar background
-	glColor3f(0.8F,0.5F,0.4F);
+	glColor3f(0.3F,0.2F,0.6F);
 	glBegin(GL_POLYGON);
 		glVertex2f(0,0);
 		glVertex2f(barW,0);
@@ -226,17 +234,6 @@ void viewer::view::printProgress(float progressPercent){
 	glEnable(GL_LIGHTING);
 
 	glPopMatrix();
-}
-
-
-/** print bitmap string */
-void viewer::view::print_bitmap_string(void* font, char* s){
-   if (s && strlen(s)) {
-      while (*s) {
-         glutBitmapCharacter(font, *s);
-         s++;
-      }
-   }
 }
 
 /** camera constructor */
