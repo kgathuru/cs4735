@@ -93,6 +93,7 @@ void viewer::view::display(void){
 	/** render text */
 	/* Use the whole window. */
 	glViewport(0, 0, WINDOW_WIDTH, WINDOW_HEIGHT);
+	glDisable(GL_LIGHTING);
 	
 	/* We are going to do some 2-D orthographic drawing. */
 	glMatrixMode(GL_PROJECTION);
@@ -112,13 +113,11 @@ void viewer::view::display(void){
 	   model space equals one pixel in window space.                 */
 	glScaled(aspect, aspect, 1.0);
 
-	//set text color
-	glColor3f(1.0, 0, 0.0);
-
 	// Now draw text relative to camera 
 	Point3 pos = gameEngine.camera1.getEye();
 	glTranslated(pos.x, pos.y, pos.z);
 	controller::gameEngine.gameView.drawStatus();
+	glEnable(GL_LIGHTING);
 	glPopMatrix();
 
 	glutSwapBuffers();
@@ -148,25 +147,27 @@ void viewer::view::drawStatus(){
  	char* bitmap_font_names[] = {"GLUT_BITMAP_TIMES_ROMAN_24", "GLUT_BITMAP_HELVETICA_12"};
 
 	/** draw menu */
+	glColor3f(0.9, 0.5, 0.9);
  	char* fileMenu[] = {"ASTEROIDS 3D 1.0 | Click Anywhere for Menu"};
  	glRasterPos2f(-250, 265);
  	controller::gameEngine.gameView.print_bitmap_string(bitmap_fonts[1], fileMenu[0]);
 	
 	/** draw game stats */
+	glColor3f(0.9, 0.5, 0.9);
   	switch (gameEngine.getStatus()){
 	case GAME_START: //display game start
 		break;	
 	case GAME_OVER: //display game over screen
 		{
 		char* gameOver[] = {"Game Over"};
-		glRasterPos2f(-50, WINDOW_HEIGHT/2 -60);
+		glRasterPos2f(-50, 200);
 		print_bitmap_string(bitmap_fonts[0], gameOver[0]);
 		break;
 		}
 	case GAME_WON: //display "you won" screen 
 		{
 		char* winner[] = {"You Won!"};
-		glRasterPos2f(-50, WINDOW_HEIGHT/2 -60);
+		glRasterPos2f(-50, 200);
 		print_bitmap_string(bitmap_fonts[0], winner[0]);
 		break; 
 		}
@@ -213,7 +214,6 @@ void viewer::view::printProgress(float progressPercent){
 	GLfloat barW = 230;
 	GLfloat barH = 10;
 
-	glDisable(GL_LIGHTING);
 	//draw progress bar 
 	glColor3f(0.1F,0.0F,0.6F);
 	glBegin(GL_POLYGON);
@@ -231,7 +231,6 @@ void viewer::view::printProgress(float progressPercent){
 		glVertex2f(barW,barH);
 		glVertex2f(0,barH);
 	glEnd();
-	glEnable(GL_LIGHTING);
 
 	glPopMatrix();
 }
