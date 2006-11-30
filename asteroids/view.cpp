@@ -26,11 +26,10 @@ void viewer::view::initView(int *argc,char**argv){
 	//glutDisplayFunc(&(view::subDisplay));
 	//glutSetWindow(gameEngine.gameView.winIdMain);
 
-	gameEngine.gameView.winIdSub2 = 
-		glutCreateSubWindow (gameEngine.gameView.winIdMain, 0, 0, 50, WINDOW_HEIGHT / 20);
-	glutDisplayFunc(&(view::subDisplay2));
-	glutSetWindow(gameEngine.gameView.winIdMain);
-	
+// 	gameEngine.gameView.winIdSub2 = 
+// 		glutCreateSubWindow (gameEngine.gameView.winIdMain, 0, 0, 50, WINDOW_HEIGHT / 20);
+// 	glutDisplayFunc(&(view::subDisplay2));
+// 	glutSetWindow(gameEngine.gameView.winIdMain);
 
 
 	/** \todo is aspect ratio based on world width or window width? */
@@ -39,25 +38,16 @@ void viewer::view::initView(int *argc,char**argv){
 	gameEngine.camera1.set(eye, look, up); // make the initial camera
 
 	string s = "spaceScene.bmp";
-	int ret = pix[1].readBMPFile(s);  // make pixmap from image
+	int ret = pix[1].readBMPFile(s);  
         pix[1].setTexture(2001);
 
 	string explode = "explodeSmall.bmp";
 	ret = pix[2].readBMPFile(explode);
 	pix[2].setTexture(2002);
 
-	string progress = "progressBar1.bmp";
-	ret = pix[3].readBMPFile(progress);
-	pix[3].setTexture(2003);
-	
-	string moreProgress = "progressOuter.bmp";
-	ret = pix[4].readBMPFile(moreProgress);
-	pix[4].setTexture(2004);
-
 	string asteroidTexture = "asteroidPattern.bmp";
 	ret = pix[5].readBMPFile(asteroidTexture);
-	pix[5].setTexture(2005);
-
+	pix[5].setTexture(2003);
 }
 
 /** display the objects in the world */
@@ -96,48 +86,157 @@ void viewer::view::display(void){
 		gameEngine.camera1.set(eye, look, up);//fix camera to ship
 	}
 
+	/** render world */
 	glViewport((WINDOW_WIDTH - WORLD_WIDTH)/2,(WINDOW_HEIGHT-WORLD_HEIGHT)/2, WORLD_HEIGHT, WORLD_WIDTH);
 	gameEngine.theWorld.render();
 
+	/** render text */
+	/* Use the whole window. */
+	glViewport(0, 0, WINDOW_WIDTH, WINDOW_HEIGHT);
+	
+	/* We are going to do some 2-D orthographic drawing. */
+	glMatrixMode(GL_PROJECTION);
+	glPushMatrix();
+	glLoadIdentity();
+	GLdouble size, aspect;
+	size = (GLdouble)((WINDOW_WIDTH >= WINDOW_HEIGHT) ? WINDOW_WIDTH : WINDOW_HEIGHT) / 2.0;
+	if (WINDOW_WIDTH <= WINDOW_HEIGHT) {  
+		aspect = (GLdouble)WINDOW_HEIGHT/(GLdouble)WINDOW_WIDTH;
+		glOrtho(-size, size, -size*aspect, size*aspect, 0, WORLD_DEPTH+1000);
+	} else {
+		aspect = (GLdouble)WINDOW_WIDTH/(GLdouble)WINDOW_HEIGHT;
+		glOrtho(-size*aspect, size*aspect, -size, size, 0, WORLD_DEPTH+1000);
+	}
+	
+	/* Make the world and window coordinates coincide so that 1.0 in 
+	   model space equals one pixel in window space.                 */
+	glScaled(aspect, aspect, 1.0);
+
+	//set text color
+	glColor3f(1.0, 0, 0.0);
+
+	// Now draw text relative to camera 
+	Point3 pos = gameEngine.camera1.getEye();
+	glTranslated(pos.x, pos.y, pos.z);
+	controller::gameEngine.gameView.drawStatus();
+	glPopMatrix();
+
 	glutSwapBuffers();
 }
-//this is not being used right now, it really slows down gameplay
-void viewer::view::subDisplay(){ 
-	/* Clear subwindow */ 
-	glutSetWindow (gameEngine.gameView.winIdSub); 
-	// glClearColor (1.0, 1.0, 1.0, 1.0); 
-	glClear (GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT); 
-	
-	
-	glViewport (0, 0, WINDOW_WIDTH, WINDOW_HEIGHT/10); 
-	glMatrixMode (GL_PROJECTION); 
-	glLoadIdentity (); 
-	gluOrtho2D (0.0F, 30.0F, 0.0F, 30.0F); 
-	
-	//gameEngine.theWorld.drawGameOver();
-	gameEngine.theWorld.drawText();
-	glutSwapBuffers ();
+
+/** helper function to return string from int */
+char ret[255];
+char* num2char(float value);
+char* num2char(float value){
+	string tmp;
+	stringstream out;
+	out << value;
+	tmp = out.str();
+	int j; char c;
+	for (j = 0; j < tmp.length(); j++){
+		c = tmp[j];
+		ret[j] = c;
+	}
+	ret[j] = '\0';
+	return ret;
 }
 
-void viewer::view::subDisplay2 () {
-	/* Clear subwindow */
-	// glutSetWindow (gameEngine.gameView.winIdSub2);
-	// glClearColor (1.0, 1.0, 1.0, 1.0);
-	glClear (GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+/** print status string */
+void viewer::view::drawStatus(){
+	/** load fonts */
+ 	void* bitmap_fonts[] = {GLUT_BITMAP_TIMES_ROMAN_24, GLUT_BITMAP_HELVETICA_12};
+ 	char* bitmap_font_names[] = {"GLUT_BITMAP_TIMES_ROMAN_24", "GLUT_BITMAP_HELVETICA_12"};
 
-	glViewport (0, 0, WINDOW_WIDTH, WINDOW_HEIGHT/10);
-	glMatrixMode (GL_PROJECTION);
-	glLoadIdentity ();
-	gluOrtho2D (0.0F, 30.0F, 0.0F, 30.0F);
-
-	void* bitmap_fonts[1] = {GLUT_BITMAP_TIMES_ROMAN_24};
-	char* bitmap_font_names[1] = {"GLUT_BITMAP_TIMES_ROMAN_24"};
-	char* fileMenu[] = {"File "};
-	glRasterPos2f(0, 0);
-	gameEngine.theWorld.print_bitmap_string(bitmap_fonts[0], fileMenu[0]);
+	/** draw menu */
+ 	char* fileMenu[] = {"ASTEROIDS 3D 1.0 | Click Anywhere for Menu"};
+ 	glRasterPos2f(-250, 265);
+ 	controller::gameEngine.gameView.print_bitmap_string(bitmap_fonts[1], fileMenu[0]);
 	
-	glutSwapBuffers (); 
-	glutSetWindow (gameEngine.gameView.winIdMain); 
+	/** draw game stats */
+  	switch (gameEngine.getStatus()){
+	case GAME_START: //display game start
+		break;	
+	case GAME_OVER: //display game over screen
+		{
+		char* gameOver[] = {"Game Over"};
+		glRasterPos2f(-50, WINDOW_HEIGHT/2 -60);
+		print_bitmap_string(bitmap_fonts[0], gameOver[0]);
+		break;
+		}
+	case GAME_WON: //display "you won" screen 
+		{
+		char* winner[] = {"You Won!"};
+		glRasterPos2f(-50, WINDOW_HEIGHT/2 -60);
+		print_bitmap_string(bitmap_fonts[0], winner[0]);
+		break; 
+		}
+	case GAME_PAUSE: //display pause screen
+		break;
+	case GAME_LEVEL1: //display level1 game play
+		{
+		char* shipDataNames[3][2];
+		shipDataNames[0][0] = "Health: ";
+		shipDataNames[0][1] = num2char(gameEngine.theWorld.serenity.getHealth());
+		shipDataNames[1][0] = "Score: ";
+		shipDataNames[1][1] = num2char(gameEngine.theWorld.serenity.getScore());
+		shipDataNames[2][0] = "Speed: ";
+		shipDataNames[2][1] = num2char(gameEngine.theWorld.serenity.getSpeed());
+	
+		glRasterPos2f(-250, -265);
+		for(int k = 0; k < 3; k++) {
+			print_bitmap_string(bitmap_fonts[1], shipDataNames[k][0]);
+			print_bitmap_string(bitmap_fonts[1], shipDataNames[k][1]);
+		}
+
+		printProgress((gameEngine.theWorld.serenity.getPosition().z/-WORLD_DEPTH)*100);
+		break;
+		}
+	}
+}
+
+/** print progress bar */
+void viewer::view::printProgress(float progressPercent){
+	/** render progress bar */
+	glPushMatrix();
+	glTranslated(20, -265, 0);
+
+	Point3 pos = gameEngine.camera1.getEye();
+
+	GLfloat barW = 230;
+	GLfloat barH = 10;
+
+	glDisable(GL_LIGHTING);
+	//draw progress bar 
+	glColor3f(0.1F,0.9F,0.4F);
+	glBegin(GL_POLYGON);
+		glVertex2f(2,2);
+		glVertex2f((progressPercent*(barW-4)/100)+2,2);
+		glVertex2f((progressPercent*(barW-4)/100)+2,barH-2);
+		glVertex2f(2,barH-2);
+	glEnd();
+
+	//draw progress bar background
+	glColor3f(0.8F,0.5F,0.4F);
+	glBegin(GL_POLYGON);
+		glVertex2f(0,0);
+		glVertex2f(barW,0);
+		glVertex2f(barW,barH);
+		glVertex2f(0,barH);
+	glEnd();
+	glEnable(GL_LIGHTING);
+
+	glPopMatrix();
+}
+
+
+/** print bitmap string */
+void viewer::view::print_bitmap_string(void* font, char* s){
+   if (s && strlen(s)) {
+      while (*s) {
+         glutBitmapCharacter(font, *s);
+         s++;
+      }
+   }
 }
 
 /** camera constructor */
@@ -153,13 +252,13 @@ viewer::camera::camera() {
 }
 
 /** change camera view, use constants in game.h */
-void viewer::camera::setView(int view){
-	cameraView = view;
+void viewer::camera::setView(CameraView cameraView){
+	view = cameraView;
 }
 
 /** change camera view, use constants in game.h */
-int viewer::camera::getView(){
-	return cameraView;
+CameraView viewer::camera::getView(){
+	return view;
 }
 
 /** load modelview matrix with existing camera values */
@@ -234,7 +333,7 @@ void viewer::camera::yaw(float angle) {
 }
 
 /** get the z position of the eye */
-float viewer::camera::getEyeZ(){
-	return eye.z;
+Point3 viewer::camera::getEye(){
+	return eye;
 }
 

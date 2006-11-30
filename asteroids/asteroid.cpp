@@ -73,7 +73,7 @@ void model::asteroid:: draw(){
 
 		glEnable(GL_TEXTURE_2D);
 		glTexEnvf(GL_TEXTURE_ENV, GL_TEXTURE_ENV_MODE, GL_DECAL);
-		glBindTexture(GL_TEXTURE_2D, 2005);   // choose the texture to use.
+		glBindTexture(GL_TEXTURE_2D, 2003);   // choose the texture to use.
 		qobj = gluNewQuadric();	
 		gluQuadricDrawStyle(qobj, GLU_FILL);
         	gluQuadricNormals(qobj, GLU_SMOOTH);

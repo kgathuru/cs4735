@@ -4,7 +4,7 @@ using controller::gameEngine;
 
 /** constructor for the engine class */
 controller::engine::engine(){
-	
+	status = GAME_LEVEL1;
 }
 
 /** initialises the game */
@@ -13,10 +13,9 @@ void controller::engine::init(int *argc,char**argv){
 	glutKeyboardFunc(keyboard);
 	glutSpecialFunc(keypad);
 	glutIdleFunc(update);
-	glutSetWindow(2);//should use variable or constant
+	//glutSetWindow(2);//should use variable or constant
 	addMenus();
-	glutSetWindow(1);//should use variable or constant
-
+	//glutSetWindow(1);//should use variable or constant
 	gameView.display(); //show initial pic
 
 	//glutKeyboardFunc(keyboardFunc);
@@ -128,12 +127,12 @@ void controller::engine::mainMenu(int value){
 	}
 }
 
-/** this method is called to start the entire game */
-bool controller::engine::start(bool finish){
-
+/** game status modifier */
+void controller::engine::setStatus(GameStatus gameStatus){
+	status = gameStatus;
 }
 
-/** this method is called when the game is over */
-bool controller::engine::end(){
-
+/** game status accessor */
+GameStatus controller::engine::getStatus(){
+	return status;
 }
