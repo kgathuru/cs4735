@@ -184,8 +184,7 @@ void model::ship::rubberBand(){
 	speed += (targetspeed - speed)/factor;
 }
 
-/** method to fire a projectile */
-/** creates a projectile object*/
+/** ship fires, creates a projectile object*/
 void model::ship::fire(){
 	projectile prot;
 	prot.setSize(15);
@@ -193,17 +192,16 @@ void model::ship::fire(){
 	controller::gameEngine.theWorld.projectiles.push_back(prot);
 }
 
-//What do to when the ship dies, runs out of health
+/** What do to when the ship dies, runs out of health */
 void model::ship::death(){
 	//reset health
 	//Reset position back to start
 	position.set(0.0, WORLD_HEIGHT/2, 0.0);
 	direction.set(0.0, 0.0, -1.0);
 	health = SHIP_START_HEALTH;
-
 }
 
-//Make ship flash color when it's been hit to let player know
+/** Make ship flash color when it's been hit to let player know */
 void model::ship::hit(){
 	cout << "Serenity hit\n";
 
@@ -240,6 +238,5 @@ void model::ship::rocketShip(){
 	glTranslated(0, 0.5, -0.8);
 	glutSolidCone(0.4, 0.4, 5, 5);
 	glPopMatrix();
-	
 }
 

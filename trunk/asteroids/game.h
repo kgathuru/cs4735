@@ -20,12 +20,15 @@ const float GAME_SPEED = 0.1; //multiplied by speed * time to move objects
 const float SHIP_SPEED = 100.0;
 const int SHIP_SIZE = 50;
 const float PROJECTILE_SPEED = 200;
-const int SHIP_START_HEALTH = 10;
+const int SHIP_START_HEALTH = 100;
 const int RELOAD_WAIT = 100;
 const float PROJECTILE_SIZE = 20;
 
 /** camera views */
-enum {DEFAULT_CAM, ONBOARD_CAM};
+enum CameraView {DEFAULT_CAM, ONBOARD_CAM};
+
+/** game status */
+enum GameStatus {GAME_START, GAME_OVER, GAME_PAUSE, GAME_LEVEL1, GAME_WON};
 
 /** math constants */
 static const double PI = 3.14159265358979323846264338327950288419716939937510f;

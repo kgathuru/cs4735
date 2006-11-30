@@ -8,7 +8,6 @@
 #include "projectile.h"
 #include "ship.h"
 #include "iostream"
-#include "string"
 #include "GL/gl.h"
 #include "GL/glut.h"
 #include <list> 
@@ -17,6 +16,8 @@
 #include <time.h>
 #include <sstream>
 #include <string>
+
+using std::string;
 
 using namespace math;
 
@@ -33,10 +34,6 @@ class world{
 	void render();
 	void renderPane();
 	void update();
-	void print_bitmap_string(void* font, char* s);
-        void drawText(void);	
-	void drawGameOver(void);
-	void drawWinner(void);
 
 	list<asteroid> asteroids;
 	typedef list<asteroid>::iterator asteroid_iterator;

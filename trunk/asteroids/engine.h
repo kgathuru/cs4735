@@ -20,8 +20,8 @@ class engine{
 	static void mainMenu(int value);
 	void addMenus();
 	void init(int *argc, char**argv);
-	bool start(bool finish);
-	bool end();
+	void setStatus(GameStatus gameStatus);
+	GameStatus getStatus();
 	engine();	
 	model::world theWorld;
 	viewer::view gameView;
@@ -29,6 +29,7 @@ class engine{
   private:
 	/** this contains the menu constants */
 	enum { MENU_NEW_GAME, MENU_GAME_EXIT };
+	GameStatus status;
 };
 
 engine gameEngine; //global engine
