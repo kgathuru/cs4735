@@ -111,7 +111,6 @@ void viewer::view::display(void){
 
 	glEnable(GL_LIGHTING);
 	glPopMatrix();
-
 	//double buffering
 	glutSwapBuffers();
 }
@@ -150,9 +149,37 @@ void viewer::view::drawStatus(){
   	switch (gameEngine.getStatus()){
 	case GAME_START: //display game start
 		{
-		char* gameStart[] = {"Start"};
-		glRasterPos2f(-20, 200);
+
+
+		char* gameStart[] = {"Press Enter To Start"};
+		glRasterPos2f(-100, 200);
 		print_bitmap_string(bitmap_fonts[0], gameStart[0]);
+
+		glColor3f(0.9, 0.5, 0.9);
+		char* controls[] = {"Controls:"};
+		char* spaceBar[] = {"space bar = fire laser"};
+		char* accelerate[] = {"a = accelerate"};
+		char* decelerate[] = {"z = decelerate"};
+		char* forward[] = {"f = forward"};
+		char* roll[] = {"r = roll"};
+		char* pitch[] = {"p = pitch"};
+		char* yaw[] = {"y = yaw"};
+		glRasterPos2f(-40, 30);
+		print_bitmap_string(bitmap_fonts[0], controls[0]);
+		glRasterPos2f(-100, 0);
+		print_bitmap_string(bitmap_fonts[0], spaceBar[0]);
+		glRasterPos2f(-60, -20);
+		print_bitmap_string(bitmap_fonts[0], accelerate[0]);
+		glRasterPos2f(-60, -40);
+		print_bitmap_string(bitmap_fonts[0], decelerate[0]);
+		glRasterPos2f(-60, -60);
+		print_bitmap_string(bitmap_fonts[0], forward[0]);
+		glRasterPos2f(-60, -80);
+		print_bitmap_string(bitmap_fonts[0], roll[0]);
+		glRasterPos2f(-60, -100);
+		print_bitmap_string(bitmap_fonts[0], pitch[0]);
+		glRasterPos2f(-60, -120);
+		print_bitmap_string(bitmap_fonts[0], yaw[0]);
 		break;	
 		}
 	case GAME_OVER: //display game over screen
