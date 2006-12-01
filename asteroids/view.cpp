@@ -119,21 +119,18 @@ void viewer::view::display(void){
 	gameEngine.getStatus();
 	controller::gameEngine.gameView.drawStatus();
 	if(gameEngine.theWorld.serenity.getPosition().z == 0){
-	//gameEngine.setStatus(GAME_START);
-	//controller::gameEngine.gameView.drawStatus();
-	//gameEngine.setStatus(GAME_LEVEL1);
-	//controller::gameEngine.gameView.drawStatus();
+		gameEngine.setStatus(GAME_START);
+		controller::gameEngine.gameView.drawStatus();
+		for(int i = 0; i <1000; i++);
+		gameEngine.getStatus();
+		controller::gameEngine.gameView.drawStatus();
 	}
 	else if(gameEngine.theWorld.serenity.getPosition().z == -WORLD_DEPTH){
 	gameEngine.setStatus(GAME_WON);
 	controller::gameEngine.gameView.drawStatus();
-	gameEngine.setStatus(GAME_LEVEL1);
-	controller::gameEngine.gameView.drawStatus();
 	}
 	else if(gameEngine.theWorld.serenity.getHealth() < 1){
 	gameEngine.setStatus(GAME_OVER);
-	controller::gameEngine.gameView.drawStatus();
-	gameEngine.setStatus(GAME_LEVEL1);
 	controller::gameEngine.gameView.drawStatus();
 	}
 	else{
