@@ -98,19 +98,11 @@ void model::ship::draw(){
 	//engage rubberband
 	rubberBand();
 	
-	//glTranslatef(position.x+(size/2), position.y-(size/2), position.z);//Move ship to position in space
 	glTranslatef(position.x , position.y +15, position.z -10);
-	//these three simply rotate the barn to be upright, delete for proper ship model
-	//glRotated(-90, 1, 0, 0);
-	//glRotated(90, 0,0, 1);
-	
 	glRotated(30, 1, 0, 0);
 	glRotated(90, 0, 0,1);
 	glRotated(-190, 0,1,0);
 	glScaled(size, size, size);
-
-	//call super.draw()
-	//Mesh::draw();
 
 	rocketShip();
 	glPopMatrix();
@@ -229,6 +221,9 @@ void model::ship::rocketShip(){
 	GLUquadricObj *qobj = gluNewQuadric();
 	gluQuadricDrawStyle(qobj, GLU_FILL);	
 	gluCylinder(qobj, 1, 1, 1.4, 10, 10);
+	glPopMatrix();
+	glPushMatrix();
+	gluDisk(qobj, 0, 0.5, 10, 10);
 	glPopMatrix();
 	glPushMatrix();
 	glTranslated(0, -0.5, -0.8);
