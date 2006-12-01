@@ -198,17 +198,6 @@ void model::ship::death(){
 void model::ship::hit(){
 	//cout << "Serenity hit\n";
 
-	GLfloat hitShip_ambient[] = { 0.0f, 0.9f, 0.0f, 1.0f};
-	GLfloat hitShip_specular[] = { 0.25f, 0.25f, 0.75f, 1.0f};
-	GLfloat hitShip_diffuse[] = { 0.7, 0.0, 0.7, 1.0 };
-	GLfloat hitShip_shininess[] = { 315.0f };
-
-	glMaterialfv(GL_FRONT, GL_SPECULAR, hitShip_specular);
-	glMaterialfv(GL_FRONT, GL_AMBIENT, hitShip_ambient);
-	glMaterialfv(GL_FRONT, GL_DIFFUSE, hitShip_diffuse);	
-	glMaterialfv(GL_FRONT, GL_SHININESS, hitShip_shininess);
-
-	draw();
 }
 
 /** draws a rocket ship model*/
@@ -256,13 +245,13 @@ void model::ship::rocketShip(){
 	//glPushMatrix();
 	//Draw crosshair
 	glDisable(GL_LIGHTING);	//Allow colors to be drawn regardless of light
-	glColor3f(1.0, 0.0, 0.0);
-	glLineWidth(5);
+	glColor3f(1.0, 1.0, 0.0);
+	glLineWidth(2);
 	glBegin(GL_LINES);
-		glVertex3f(position.x - 25, position.y, position.z - size - 50);
-		glVertex3f(position.x + 25, position.y, position.z - size - 50);
-		glVertex3f(position.x, position.y - 25, position.z - size - 50);
-		glVertex3f(position.x, position.y + 25, position.z - size - 50);
+		glVertex3f(position.x - 25, position.y, position.z - 2*size);
+		glVertex3f(position.x + 25, position.y, position.z - 2*size);
+		glVertex3f(position.x, position.y - 25, position.z - 2*size);
+		glVertex3f(position.x, position.y + 25, position.z - 2*size);
 	glEnd();
 	glEnable(GL_LIGHTING);
 	//glPopMatrix();
