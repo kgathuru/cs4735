@@ -7,15 +7,15 @@ controller::engine::engine(){
 	status = GAME_LEVEL1;
 }
 
-/** initialises the game */
+/** initialises the game 
+    \param int argc takes number of arguments 
+    \param char** argv takes array of arguments */
 void controller::engine::init(int *argc,char**argv){
 	gameView.initView(argc, argv);
 	glutKeyboardFunc(keyboard);
 	glutSpecialFunc(keypad);
 	glutIdleFunc(update);
-	//glutSetWindow(2);//should use variable or constant
 	addMenus();
-	//glutSetWindow(1);//should use variable or constant
 	gameView.display(); //show initial pic
 
 	//glutKeyboardFunc(keyboardFunc);
@@ -39,6 +39,15 @@ void controller::engine::addMenus(){
 void controller::engine::update(void) {
 	if(gameEngine.getStatus() == GAME_LEVEL1)
 		gameEngine.theWorld.update();
+
+	if(gameEngine.theWorld.serenity.getPosition().z == 0){
+		gameEngine.setStatus(GAME_START);
+	} else if (gameEngine.theWorld.serenity.getPosition().z == -WORLD_DEPTH){
+		gameEngine.setStatus(GAME_WON);
+	} else if (gameEngine.theWorld.serenity.getHealth() < 1) {
+		gameEngine.setStatus(GAME_OVER);
+	} 
+
 }
 
 /** deals with input from keyboard */
