@@ -91,11 +91,11 @@ void viewer::view::display(void){
 	gameEngine.theWorld.render();
 
 	/** render text */
-	/* Use the whole window. */
+	// Use the whole window. 
 	glViewport(0, 0, WINDOW_WIDTH, WINDOW_HEIGHT);
 	glDisable(GL_LIGHTING);
 	
-	/* We are going to do some 2-D orthographic drawing. */
+	// We are going to do some 2-D orthographic drawing.
 	glMatrixMode(GL_PROJECTION);
 	glPushMatrix();
 	glLoadIdentity();

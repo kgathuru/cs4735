@@ -22,9 +22,10 @@ class engine{
 	void init(int *argc, char**argv);
 	void setStatus(GameStatus gameStatus);
 	GameStatus getStatus();
+	bool pause;
 	engine();	
-	model::world theWorld;
 	viewer::view gameView;
+	model::world theWorld;
 	viewer::camera camera1;
   private:
 	/** this contains the menu constants */
