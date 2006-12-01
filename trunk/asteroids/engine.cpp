@@ -42,6 +42,14 @@ void controller::engine::update(void) {
 
 	if(gameEngine.theWorld.serenity.getPosition().z == 0){
 		gameEngine.setStatus(GAME_START);
+				//give a background for border
+	//glColor3f(0.0, 0.0, 0.0);
+	//glBegin(GL_QUADS);
+	//glVertex3f(-100, -200, 0);
+	//glVertex3f(-100, 100, 0);
+	//glVertex3f(120, 100, 0);
+	//glVertex3f(120, -200, 0);
+	//glEnd();
 	} else if (gameEngine.theWorld.serenity.getPosition().z == -WORLD_DEPTH){
 		gameEngine.setStatus(GAME_WON);
 	} else if (gameEngine.theWorld.serenity.getHealth() < 1) {

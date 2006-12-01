@@ -191,6 +191,7 @@ void model::ship::death(){
 	position.set(0.0, WORLD_HEIGHT/2, 0.0);
 	direction.set(0.0, 0.0, -1.0);
 	health = SHIP_START_HEALTH;
+	score = 0;
 }
 
 /** Make ship flash color when it's been hit to let player know */
