@@ -20,7 +20,7 @@ const float GAME_SPEED = 0.1; //multiplied by speed * time to move objects
 const float SHIP_SPEED = 100.0;
 const int SHIP_SIZE = 50;
 const float PROJECTILE_SPEED = 200;
-const int SHIP_START_HEALTH = 100;
+const int SHIP_START_HEALTH = 250;
 const int RELOAD_WAIT = 100;
 const float PROJECTILE_SIZE = 20;
 

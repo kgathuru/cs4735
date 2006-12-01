@@ -38,6 +38,15 @@ void viewer::view::initView(int *argc,char**argv){
 	string asteroidTexture = "asteroidPattern.bmp";
 	ret = pix[5].readBMPFile(asteroidTexture);
 	pix[5].setTexture(2003);
+
+	string shipTexture = "metalTexture.bmp";
+	ret = pix[6].readBMPFile(shipTexture);
+	pix[6].setTexture(2004);
+
+	string shipTexture2 = "red.bmp";
+	ret = pix[6].readBMPFile(shipTexture2);
+	pix[6].setTexture(2005);
+
 }
 
 /** display the objects in the world */

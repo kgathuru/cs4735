@@ -62,6 +62,7 @@ void model::world::render(){
 	/** render world box */
 	glDisable(GL_LIGHTING);	//Allow colors to be drawn regardless of light
 	glColor3f(1.0, 1.0, 1.0);
+	glLineWidth(1);
 	glBegin(GL_LINE_STRIP);
 		glVertex3f(-(WORLD_WIDTH/2), 0.0, 0.0);
 		glVertex3f(WORLD_WIDTH/2, 0.0, 0.0);
@@ -153,7 +154,7 @@ void model::world::update(){
 				hit = true;
 			
 				iter->setDestroy(true);
-				cout << "Projectile and asteroid destroyed\n";
+				//cout << "Projectile and asteroid destroyed\n";
 				//cout << "NewNumAsteroids:" << projectiles.size() << "\n";
 
 				//Destroy Projectile
@@ -193,17 +194,19 @@ void model::world::update(){
 		//returns true if there is a collision
 		if(iter->checkCollision(serenity.getPosition(), serenity.getSize()))
 		{
+			if(serenity.getHealth() - 1 == 0)
+			{
+				serenity.death();
+				//gameEngine.setStatus(GAME_OVER);
+			}
+			serenity.setHealth(serenity.getHealth() - (int)(iter->getSize()/4));
+
 			//cout << "ASTEROID HIT PROJECTILE\n";
 			iter->destroy();
 			//Only destroy for good when laser hits them
 			iter->recreate();
 			//Decrement ship health
-			if(serenity.getHealth() - 1 == 0)
-			{
-				serenity.death();
-				//Restart the game??
-			}
-			serenity.setHealth(serenity.getHealth() - 1);
+
 			//Do something when the ship is hit to let player know
 			
 			//do we want to decrease the score when the ship gets hit?
