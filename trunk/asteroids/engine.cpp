@@ -5,7 +5,7 @@ using controller::gameEngine;
 /** constructor for the engine class */
 controller::engine::engine(){
 	status = GAME_START;
-	pause = false;
+	pause = true;
 }
 
 /** initialises the game 
@@ -61,6 +61,16 @@ void controller::engine::update(void) {
 
 /** deals with input from keyboard */
 void controller::engine::keyboard(unsigned char key, int x, int y){
+//<<<<<<< .mine
+	//if  (gameEngine.getStatus() == GAME_START){
+	//	//during pause, only allow unpause
+	//	if(key == 13){	
+	//		gameEngine.pause = false;
+	//		gameEngine.setStatus(GAME_LEVEL1);
+	//	}
+	//	return;
+	//}
+
 	//during pause, only allow unpause
 	if  (gameEngine.pause){
 		if(key == 13){	
