@@ -37,11 +37,15 @@ void controller::engine::addMenus(){
 
 /** updates the game at regular intervals */
 void controller::engine::update(void) {
-	gameEngine.theWorld.update();
+	if(gameEngine.getStatus() == GAME_LEVEL1)
+		gameEngine.theWorld.update();
 }
 
 /** deals with input from keyboard */
 void controller::engine::keyboard(unsigned char key, int x, int y){
+
+	if(gameEngine.getStatus() == GAME_LEVEL1)
+	{
 	switch (key){
 		// slide controls for camera
 		case 'F':    gameEngine.camera1.slide(0,0,-5.0); break; // slide camera forward
@@ -89,13 +93,30 @@ void controller::engine::keyboard(unsigned char key, int x, int y){
 			glutDestroyWindow(1); // shut down our window 
 			exit(0); // exit the program...normal termination.
 			break;
+		case 'q':
+			if(gameEngine.getStatus() != GAME_PAUSE)
+				gameEngine.setStatus(GAME_PAUSE);
+			else
+				gameEngine.setStatus(GAME_LEVEL1);
+			break;
 	}
 
 	glutPostRedisplay();
+	}	
+	//Only let the player unpause the game, no other movement when paused
+	else if(key == 'q')
+	{
+		gameEngine.setStatus(GAME_LEVEL1);
+	}
+
 }
 
 /** deals with special keys */
 void controller::engine::keypad(int key, int x, int y){
+
+	if(gameEngine.getStatus() == GAME_LEVEL1)
+	{
+
 	switch (key){
 		// controls for ship
 		case GLUT_KEY_UP: //pitch down
@@ -110,6 +131,8 @@ void controller::engine::keypad(int key, int x, int y){
 			gameEngine.theWorld.serenity.moveRight(); break;
 	}
 	glutPostRedisplay();
+
+	}
 }
 
 /** deals with selections on the main menu */
