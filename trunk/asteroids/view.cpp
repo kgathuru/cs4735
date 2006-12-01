@@ -169,23 +169,39 @@ void viewer::view::drawStatus(){
 		glRasterPos2f(-100, 200);
 		print_bitmap_string(bitmap_fonts[0], gameStart[0]);
 
-		glColor3f(0.4, 0.5, 0.6);
+		glColor3f(0, 0, 0);
 		char* controls[] = {"Controls:"};
 		char* spaceBar[] = {"space bar = fire laser"};
 		char* accelerate[] = {"a = accelerate"};
 		char* decelerate[] = {"z = decelerate"};
 		char* arrows[] = {"move = arrow keys"};
-		glRasterPos2f(-40, 30);
+		glRasterPos2f(-40, 70);
 		print_bitmap_string(bitmap_fonts[0], controls[0]);
-		glRasterPos2f(-100, 0);
+		glRasterPos2f(-100, 40);
 		print_bitmap_string(bitmap_fonts[0], spaceBar[0]);
-		glRasterPos2f(-60, -20);
+		glRasterPos2f(-100, 20);
 		print_bitmap_string(bitmap_fonts[0], accelerate[0]);
-		glRasterPos2f(-60, -40);
+		glRasterPos2f(-100, 00);
 		print_bitmap_string(bitmap_fonts[0], decelerate[0]);
-		glRasterPos2f(-60, -60);
+		glRasterPos2f(-100, -20);
 		print_bitmap_string(bitmap_fonts[0], arrows[0]);
-		glRasterPos2f(-60, -80);
+		glRasterPos2f(-100, -40);
+
+		glColor3f(1.0, 0.7, 0.9);
+		glBegin(GL_POLYGON);
+			glVertex2f(-148,-58);
+			glVertex2f(148,-58);
+			glVertex2f(148,108);
+			glVertex2f(-148,108);
+		glEnd();
+		glColor3f(0.9, 0.6, 0.8);
+		glBegin(GL_POLYGON);
+			glVertex2f(-150,-60);
+			glVertex2f(150,-60);
+			glVertex2f(150,110);
+			glVertex2f(-150,110);
+		glEnd();
+
 		break;	
 		}
 	case GAME_OVER: //display game over screen

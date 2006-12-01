@@ -9,6 +9,7 @@ model::ship::ship(){
 	health = SHIP_START_HEALTH;
 	reload = 0;
 	score = 0;
+	damage = 0;
 }
 
 /** ship deconstructor */
@@ -36,10 +37,12 @@ int model::ship::getScore(){
 	return score;
 }
 
+/**  reload time accessor method */
 void model::ship::setReload(int r){
 	reload = r;
 }
 
+/** reload mutator method */
 int model::ship::getReload(){
 	return reload;
 }
@@ -49,35 +52,42 @@ void model::ship::setSecondaryDirection(float x, float y, float z){
 	secondaryDirection.set(x,y,z);
 }
 
+/** access secondary direction */
 Vector3 model::ship::getSecondaryDirection(){
 	return secondaryDirection;
 }
 
+/** moves the ship up */
 void model::ship::moveUp(){
 	secondaryDirection.y = 1.0;
 	position.y = position.y + 0.1 * SHIP_SPEED * secondaryDirection.y;
 }
 
+/** moves the ship down */
 void model::ship::moveDown(){
 	secondaryDirection.y = -1.0;
 	position.y = position.y + 0.1 * SHIP_SPEED * secondaryDirection.y;
 }
 
+/** moves the ship left */
 void model::ship::moveLeft(){
 	secondaryDirection.x = -1.0;
 	position.x = position.x + 0.1 * SHIP_SPEED * secondaryDirection.x;
 }
 
+/** moves the ship right */
 void model::ship::moveRight(){
 	secondaryDirection.x = 1.0;
 	position.x = position.x + 0.1 * SHIP_SPEED * secondaryDirection.x;
 }
 
+/** makes the ship go faster */
 void model::ship::accelerate(){
 	direction.z += -1.0;
 	position.z = position.z + 0.1 * SHIP_SPEED * direction.z;
 }
 
+/** makes the ship go slower */
 void model::ship::deccelerate(){
 	direction.z += 1.0;
 	position.z = position.z + 0.1 * SHIP_SPEED * direction.z;
@@ -93,18 +103,23 @@ void model::ship::pitch(float angle){
 	direction.x += angle;
 }
 
+/** override parent draw method */
 void model::ship::draw(){
 	glPushMatrix();
+
 	//engage rubberband
 	rubberBand();
 	
+	//place in correct position
 	glTranslatef(position.x , position.y +15, position.z -10);
 	glRotated(30, 1, 0, 0);
 	glRotated(90, 0, 0,1);
 	glRotated(-190, 0,1,0);
 	glScaled(size, size, size);
 
+	//draw ship
 	rocketShip();
+
 	glPopMatrix();
 }
 
@@ -128,12 +143,10 @@ void model::ship::doStep(float t){
 		reload--;
 
 	//Check to see if ship is past finish line
-	/** \todo put "you won" code? */
 	if (position.z < -WORLD_DEPTH) { position.z = -WORLD_DEPTH; }
 }
 
-/** \brief this function acts as an autopilot to return the ship to its default course */
-//Return ship to the middle of the box anywhere along the z axis
+/** this function acts as an autopilot to return the ship to its default course */
 void model::ship::rubberBand(){
 	//factor for smooth transition
 	float factor = 500;
@@ -157,7 +170,8 @@ void model::ship::rubberBand(){
 		else
 			secondaryDirection.x += -0.1;	
 	}
-		//Make secondary direction closer to (0,0,0)
+	
+	//Make secondary direction closer to (0,0,0)
 	if(secondaryDirection.y != 0.0) {
 		if(secondaryDirection.y < 0)
 			secondaryDirection.y += 0.1;
@@ -189,16 +203,16 @@ void model::ship::fire(){
 void model::ship::death(){
 	//reset health
 	//Reset position back to start
-	position.set(0.0, WORLD_HEIGHT/2, 0.0);
-	direction.set(0.0, 0.0, -1.0);
-	health = SHIP_START_HEALTH;
-	score = 0;
+// 	position.set(0.0, WORLD_HEIGHT/2, 0.0);
+// 	direction.set(0.0, 0.0, -1.0);
+// 	health = SHIP_START_HEALTH;
+// 	score = 0;
 }
 
 /** Make ship flash color when it's been hit to let player know */
 void model::ship::hit(){
 	//cout << "Serenity hit\n";
-
+	damage += 50;
 }
 
 /** draws a rocket ship model*/
@@ -221,7 +235,14 @@ void model::ship::rocketShip(){
 	//Cylinder body
 	glPushMatrix();
 	glTranslated(0.0, 0.0, -1.0);
-	glBindTexture(GL_TEXTURE_2D, 2004);   // choose the texture to use.
+	glColor3f(0,1,0);
+	glTexEnvf(GL_TEXTURE_ENV, GL_TEXTURE_ENV_MODE, GL_MODULATE);
+	if (damage > 0){
+ 		glBindTexture(GL_TEXTURE_2D, 2005);   // choose the texture to use.
+		damage--;
+	} else { 
+ 		glBindTexture(GL_TEXTURE_2D, 2004);   // choose the texture to use.
+	}
 	gluCylinder(qobj, 0.5, 0.5, 1.0, 10, 10);
 	glPopMatrix();
 

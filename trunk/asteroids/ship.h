@@ -41,6 +41,7 @@ class ship: public object {
 	int health;
 	int score; 
 	int reload;
+	int damage;
 	Vector3 secondaryDirection;
 };
 
