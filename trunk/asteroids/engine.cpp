@@ -4,7 +4,8 @@ using controller::gameEngine;
 
 /** constructor for the engine class */
 controller::engine::engine(){
-	status = GAME_LEVEL1;
+	status = GAME_START;
+	pause = false;
 }
 
 /** initialises the game 
@@ -40,8 +41,6 @@ void controller::engine::update(void) {
 	if(gameEngine.getStatus() == GAME_LEVEL1)
 		gameEngine.theWorld.update();
 
-	if(gameEngine.theWorld.serenity.getPosition().z == 0){
-		gameEngine.setStatus(GAME_START);
 				//give a background for border
 	//glColor3f(0.0, 0.0, 0.0);
 	//glBegin(GL_QUADS);
@@ -50,19 +49,24 @@ void controller::engine::update(void) {
 	//glVertex3f(120, 100, 0);
 	//glVertex3f(120, -200, 0);
 	//glEnd();
-	} else if (gameEngine.theWorld.serenity.getPosition().z == -WORLD_DEPTH){
+
+	if (gameEngine.theWorld.serenity.getPosition().z == -WORLD_DEPTH){
 		gameEngine.setStatus(GAME_WON);
 	} else if (gameEngine.theWorld.serenity.getHealth() < 1) {
 		gameEngine.setStatus(GAME_OVER);
 	} 
-
 }
 
 /** deals with input from keyboard */
 void controller::engine::keyboard(unsigned char key, int x, int y){
-
-	if(gameEngine.getStatus() == GAME_LEVEL1)
-	{
+	if  (gameEngine.pause){
+		//during pause, only allow unpause
+		if(key == 13){	
+			gameEngine.pause = false;
+		}
+		return;
+	}
+	
 	switch (key){
 		// slide controls for camera
 		case 'F':    gameEngine.camera1.slide(0,0,-5.0); break; // slide camera forward
@@ -80,18 +84,17 @@ void controller::engine::keyboard(unsigned char key, int x, int y){
 
 		//game controls
 		case 'c': // change camera view
-		if (gameEngine.camera1.getView() == DEFAULT_CAM){
-			gameEngine.camera1.setView(ONBOARD_CAM);
-		} else {
-			gameEngine.camera1.setView(DEFAULT_CAM);
-		} break; 
+			if (gameEngine.camera1.getView() == DEFAULT_CAM){
+				gameEngine.camera1.setView(ONBOARD_CAM);
+			} else {
+				gameEngine.camera1.setView(DEFAULT_CAM);
+			} break; 
 
 		// controls for ship
-		//Changes speed only
 		case 'a': // accelerate ship
-		gameEngine.theWorld.serenity.setSpeed(
-			gameEngine.theWorld.serenity.getSpeed() + 1.0
-		); break; 
+			gameEngine.theWorld.serenity.setSpeed(
+				gameEngine.theWorld.serenity.getSpeed() + 1.0
+			); break; 
 		case 'z': // decellerate ship, only to stopping, not reverse
 			if(gameEngine.theWorld.serenity.getSpeed() > 0.0){
 				gameEngine.theWorld.serenity.setSpeed(
@@ -106,34 +109,22 @@ void controller::engine::keyboard(unsigned char key, int x, int y){
 				gameEngine.theWorld.serenity.setReload(RELOAD_WAIT);
 			}
 			break;
-		case 27: //escape key, exit game
-			glutDestroyWindow(1); // shut down our window 
-			exit(0); // exit the program...normal termination.
-			break;
-		case 'q':
-			if(gameEngine.getStatus() != GAME_PAUSE)
-				gameEngine.setStatus(GAME_PAUSE);
-			else
+		case 13: //enter key, pause
+			if(gameEngine.getStatus() == GAME_LEVEL1) {
+				gameEngine.pause = true; 
+			} else {
 				gameEngine.setStatus(GAME_LEVEL1);
+			}	
 			break;
-	}
-
+	} //switch key
 	glutPostRedisplay();
-	}	
-	//Only let the player unpause the game, no other movement when paused
-	else if(key == 'q')
-	{
-		gameEngine.setStatus(GAME_LEVEL1);
-	}
-
 }
 
 /** deals with special keys */
 void controller::engine::keypad(int key, int x, int y){
 
-	if(gameEngine.getStatus() == GAME_LEVEL1)
+	if(!gameEngine.pause)
 	{
-
 	switch (key){
 		// controls for ship
 		case GLUT_KEY_UP: //pitch down
@@ -148,18 +139,19 @@ void controller::engine::keypad(int key, int x, int y){
 			gameEngine.theWorld.serenity.moveRight(); break;
 	}
 	glutPostRedisplay();
-
 	}
 }
 
 /** deals with selections on the main menu */
 void controller::engine::mainMenu(int value){
-	static int is_quit = 0;
 	switch(value){
 	case MENU_NEW_GAME:
+		{
 		//new game
-		gameEngine.theWorld.serenity.death();
+		model::world newWorld;
+		gameEngine.theWorld = newWorld;
 		break;
+		}	
 	case MENU_GAME_EXIT:
 		//quit game
 		glutDestroyWindow(1);
@@ -174,5 +166,6 @@ void controller::engine::setStatus(GameStatus gameStatus){
 
 /** game status accessor */
 GameStatus controller::engine::getStatus(){
+	if (pause) { return GAME_PAUSE; } 
 	return status;
 }
