@@ -116,7 +116,29 @@ void viewer::view::display(void){
 	// Now draw text relative to camera 
 	Point3 pos = gameEngine.camera1.getEye();
 	glTranslated(pos.x, pos.y, pos.z);
+	gameEngine.getStatus();
 	controller::gameEngine.gameView.drawStatus();
+	if(gameEngine.theWorld.serenity.getPosition().z == 0){
+	//gameEngine.setStatus(GAME_START);
+	//controller::gameEngine.gameView.drawStatus();
+	//gameEngine.setStatus(GAME_LEVEL1);
+	//controller::gameEngine.gameView.drawStatus();
+	}
+	else if(gameEngine.theWorld.serenity.getPosition().z == -WORLD_DEPTH){
+	gameEngine.setStatus(GAME_WON);
+	controller::gameEngine.gameView.drawStatus();
+	gameEngine.setStatus(GAME_LEVEL1);
+	controller::gameEngine.gameView.drawStatus();
+	}
+	else if(gameEngine.theWorld.serenity.getHealth() < 1){
+	gameEngine.setStatus(GAME_OVER);
+	controller::gameEngine.gameView.drawStatus();
+	gameEngine.setStatus(GAME_LEVEL1);
+	controller::gameEngine.gameView.drawStatus();
+	}
+	else{
+	controller::gameEngine.gameView.drawStatus();
+	}
 	glEnable(GL_LIGHTING);
 	glPopMatrix();
 
@@ -156,7 +178,12 @@ void viewer::view::drawStatus(){
 	glColor3f(0.9, 0.5, 0.9);
   	switch (gameEngine.getStatus()){
 	case GAME_START: //display game start
+		{
+		char* gameStart[] = {"Start"};
+		glRasterPos2f(-20, 200);
+		print_bitmap_string(bitmap_fonts[0], gameStart[0]);
 		break;	
+		}
 	case GAME_OVER: //display game over screen
 		{
 		char* gameOver[] = {"Game Over"};
@@ -167,7 +194,7 @@ void viewer::view::drawStatus(){
 	case GAME_WON: //display "you won" screen 
 		{
 		char* winner[] = {"You Won!"};
-		glRasterPos2f(-50, 200);
+		glRasterPos2f(-20, 200);
 		print_bitmap_string(bitmap_fonts[0], winner[0]);
 		break; 
 		}

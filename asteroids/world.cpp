@@ -159,10 +159,12 @@ void model::world::update(){
 				//Destroy Projectile
 				projIter->destroy();
 				projIter = projectiles.erase(projIter);
+				serenity.setScore(serenity.getScore() + 100);
 			} else {
 				iter->setDestroy(false);
 				projIter++;
 			}
+			
 		}
 		if(!hit)
 		{
@@ -203,7 +205,14 @@ void model::world::update(){
 			}
 			serenity.setHealth(serenity.getHealth() - 1);
 			//Do something when the ship is hit to let player know
+			
+			//do we want to decrease the score when the ship gets hit?
+			//probably just want to decrease health
+			if(serenity.getScore() -1 > 0){
+			  serenity.setScore(serenity.getScore()-1);
+			}
 			serenity.hit();
+
 		}
 	
 	} 
