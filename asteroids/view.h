@@ -41,7 +41,7 @@ class view{
 	int winIdSub, winIdSub2, winIdMain;
   private:
 	void printProgress(float progressPercent);
-	RGBpixmap pix[6];
+	RGBpixmap pix[8];
 };
 
 }; //namespace viewer

@@ -196,7 +196,7 @@ void model::ship::death(){
 
 /** Make ship flash color when it's been hit to let player know */
 void model::ship::hit(){
-	cout << "Serenity hit\n";
+	//cout << "Serenity hit\n";
 
 	GLfloat hitShip_ambient[] = { 0.0f, 0.9f, 0.0f, 1.0f};
 	GLfloat hitShip_specular[] = { 0.25f, 0.25f, 0.75f, 1.0f};
@@ -213,26 +213,58 @@ void model::ship::hit(){
 
 /** draws a rocket ship model*/
 void model::ship::rocketShip(){
+
+	GLUquadricObj*	qobj;
+	glEnable(GL_TEXTURE_2D);
+	glTexEnvf(GL_TEXTURE_ENV, GL_TEXTURE_ENV_MODE, GL_DECAL);
+	qobj = gluNewQuadric();	
+	gluQuadricDrawStyle(qobj, GLU_FILL);
+        gluQuadricNormals(qobj, GLU_SMOOTH);
+        gluQuadricTexture(qobj, GL_TRUE);
+ 
 	glPushMatrix();
-	glutSolidCone(0.5, 1, 10, 10);
+	//Front Cone
+	glBindTexture(GL_TEXTURE_2D, 2005);   // choose the texture to use.
+	gluCylinder(qobj,0.5,0.01, 1, 10, 10);
 	glPopMatrix();
+
+	//Cylinder body
 	glPushMatrix();
-	glScaled(0.5, 0.5, 0.5);
-	glTranslated(0.0, 0.0, -1.4);
-	GLUquadricObj *qobj = gluNewQuadric();
-	gluQuadricDrawStyle(qobj, GLU_FILL);	
-	gluCylinder(qobj, 1, 1, 1.4, 10, 10);
+	glTranslated(0.0, 0.0, -1.0);
+	glBindTexture(GL_TEXTURE_2D, 2004);   // choose the texture to use.
+	gluCylinder(qobj, 0.5, 0.5, 1.0, 10, 10);
 	glPopMatrix();
+
 	glPushMatrix();
+	glTranslated(0.0, 0.0, -1.0);
 	gluDisk(qobj, 0, 0.5, 10, 10);
 	glPopMatrix();
+
 	glPushMatrix();
-	glTranslated(0, -0.5, -0.8);
-	glutSolidCone(0.4, 0.4, 5, 5);
+	glTranslated(0, -0.5, -1.0);
+	//Back Cone
+	glBindTexture(GL_TEXTURE_2D, 2005);   // choose the texture to use.
+	gluCylinder(qobj, 0.4, 0.01, 0.4, 5, 5);
 	glPopMatrix();
 	glPushMatrix();
-	glTranslated(0, 0.5, -0.8);
-	glutSolidCone(0.4, 0.4, 5, 5);
+	glTranslated(0, 0.5, -1.0);
+	//Back Cone
+	gluCylinder(qobj, 0.4, 0.01, 0.4, 5, 5);
 	glPopMatrix();
+	glDisable(GL_TEXTURE_2D);
+
+	//glPushMatrix();
+	//Draw crosshair
+	glDisable(GL_LIGHTING);	//Allow colors to be drawn regardless of light
+	glColor3f(1.0, 0.0, 0.0);
+	glLineWidth(5);
+	glBegin(GL_LINES);
+		glVertex3f(position.x - 25, position.y, position.z - size - 50);
+		glVertex3f(position.x + 25, position.y, position.z - size - 50);
+		glVertex3f(position.x, position.y - 25, position.z - size - 50);
+		glVertex3f(position.x, position.y + 25, position.z - size - 50);
+	glEnd();
+	glEnable(GL_LIGHTING);
+	//glPopMatrix();
 }
 
