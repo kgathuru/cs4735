@@ -38,8 +38,15 @@ void controller::engine::addMenus(){
 
 /** updates the game at regular intervals */
 void controller::engine::update(void) {
-	if(gameEngine.getStatus() == GAME_LEVEL1)
-		gameEngine.theWorld.update();
+	if (gameEngine.pause) {
+		return;
+	} else if (gameEngine.theWorld.serenity.getPosition().z == -WORLD_DEPTH){
+		gameEngine.setStatus(GAME_WON);
+	} else if (gameEngine.theWorld.serenity.getHealth() < 1) {
+		gameEngine.setStatus(GAME_OVER);
+	} else { 
+		gameEngine.theWorld.update(); 
+	}
 
 				//give a background for border
 	//glColor3f(0.0, 0.0, 0.0);
@@ -50,23 +57,18 @@ void controller::engine::update(void) {
 	//glVertex3f(120, -200, 0);
 	//glEnd();
 
-	if (gameEngine.theWorld.serenity.getPosition().z == -WORLD_DEPTH){
-		gameEngine.setStatus(GAME_WON);
-	} else if (gameEngine.theWorld.serenity.getHealth() < 1) {
-		gameEngine.setStatus(GAME_OVER);
-	} 
 }
 
 /** deals with input from keyboard */
 void controller::engine::keyboard(unsigned char key, int x, int y){
+	//during pause, only allow unpause
 	if  (gameEngine.pause){
-		//during pause, only allow unpause
 		if(key == 13){	
 			gameEngine.pause = false;
 		}
 		return;
 	}
-	
+
 	switch (key){
 		// slide controls for camera
 		case 'F':    gameEngine.camera1.slide(0,0,-5.0); break; // slide camera forward
@@ -166,6 +168,5 @@ void controller::engine::setStatus(GameStatus gameStatus){
 
 /** game status accessor */
 GameStatus controller::engine::getStatus(){
-	if (pause) { return GAME_PAUSE; } 
 	return status;
 }

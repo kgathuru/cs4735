@@ -28,7 +28,7 @@ const float PROJECTILE_SIZE = 20;
 enum CameraView {DEFAULT_CAM, ONBOARD_CAM};
 
 /** game status */
-enum GameStatus {GAME_START, GAME_OVER, GAME_PAUSE, GAME_LEVEL1, GAME_WON};
+enum GameStatus {GAME_START, GAME_OVER, GAME_WON, GAME_LEVEL1};
 
 /** math constants */
 static const double PI = 3.14159265358979323846264338327950288419716939937510f;
