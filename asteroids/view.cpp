@@ -155,24 +155,26 @@ void viewer::view::drawStatus(){
 	
 	/** draw game stats */
 	glColor3f(0.9, 0.5, 0.9);
+
+	if (gameEngine.pause){
+		char* winner[] = {"PAUSED"};
+		glRasterPos2f(-20, 200);
+		print_bitmap_string(bitmap_fonts[0], winner[0]);
+	}
+
   	switch (gameEngine.getStatus()){
 	case GAME_START: //display game start
 		{
-
-
 		char* gameStart[] = {"Press Enter To Start"};
 		glRasterPos2f(-100, 200);
 		print_bitmap_string(bitmap_fonts[0], gameStart[0]);
 
-		glColor3f(0.9, 0.5, 0.9);
+		glColor3f(0.4, 0.5, 0.6);
 		char* controls[] = {"Controls:"};
 		char* spaceBar[] = {"space bar = fire laser"};
 		char* accelerate[] = {"a = accelerate"};
 		char* decelerate[] = {"z = decelerate"};
-		char* forward[] = {"f = forward"};
-		char* roll[] = {"r = roll"};
-		char* pitch[] = {"p = pitch"};
-		char* yaw[] = {"y = yaw"};
+		char* arrows[] = {"move = arrow keys"};
 		glRasterPos2f(-40, 30);
 		print_bitmap_string(bitmap_fonts[0], controls[0]);
 		glRasterPos2f(-100, 0);
@@ -182,13 +184,8 @@ void viewer::view::drawStatus(){
 		glRasterPos2f(-60, -40);
 		print_bitmap_string(bitmap_fonts[0], decelerate[0]);
 		glRasterPos2f(-60, -60);
-		print_bitmap_string(bitmap_fonts[0], forward[0]);
+		print_bitmap_string(bitmap_fonts[0], arrows[0]);
 		glRasterPos2f(-60, -80);
-		print_bitmap_string(bitmap_fonts[0], roll[0]);
-		glRasterPos2f(-60, -100);
-		print_bitmap_string(bitmap_fonts[0], pitch[0]);
-		glRasterPos2f(-60, -120);
-		print_bitmap_string(bitmap_fonts[0], yaw[0]);
 		break;	
 		}
 	case GAME_OVER: //display game over screen
@@ -205,8 +202,6 @@ void viewer::view::drawStatus(){
 		print_bitmap_string(bitmap_fonts[0], winner[0]);
 		break; 
 		}
-	case GAME_PAUSE: //display pause screen
-		break;
 	case GAME_LEVEL1: //display level1 game play
 		{
 		char stats[255] = {'\n'};
