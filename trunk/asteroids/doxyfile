@@ -25,7 +25,7 @@ ABBREVIATE_BRIEF       = "The $name class" \
 ALWAYS_DETAILED_SEC    = NO
 INLINE_INHERITED_MEMB  = NO
 FULL_PATH_NAMES        = YES
-STRIP_FROM_PATH        = /home1/ugrads/b95p6/
+STRIP_FROM_PATH        = /home1/ugrads/j719k/
 STRIP_FROM_INC_PATH    = 
 SHORT_NAMES            = NO
 JAVADOC_AUTOBRIEF      = YES
@@ -80,7 +80,7 @@ WARN_LOGFILE           =
 #---------------------------------------------------------------------------
 # configuration options related to the input files
 #---------------------------------------------------------------------------
-INPUT                  = /home1/ugrads/b95p6/CS4735/asteroids
+INPUT                  = /home1/ugrads/j719k/ComputerGraphics/project/cs4735/asteroids
 FILE_PATTERNS          = *.c \
                          *.cc \
                          *.cxx \
