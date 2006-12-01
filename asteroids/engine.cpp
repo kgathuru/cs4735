@@ -5,7 +5,7 @@ using controller::gameEngine;
 /** constructor for the engine class */
 controller::engine::engine(){
 	status = GAME_START;
-	pause = true;
+	pause = false;
 }
 
 /** initialises the game 
@@ -38,7 +38,7 @@ void controller::engine::addMenus(){
 
 /** updates the game at regular intervals */
 void controller::engine::update(void) {
-	if (gameEngine.pause) {
+	if (gameEngine.pause || gameEngine.getStatus() == GAME_START) {
 		return;
 	} else if (gameEngine.theWorld.serenity.getPosition().z == -WORLD_DEPTH){
 		gameEngine.setStatus(GAME_WON);
@@ -48,7 +48,7 @@ void controller::engine::update(void) {
 		gameEngine.theWorld.update(); 
 	}
 
-				//give a background for border
+	//give a background for border
 	//glColor3f(0.0, 0.0, 0.0);
 	//glBegin(GL_QUADS);
 	//glVertex3f(-100, -200, 0);
@@ -162,6 +162,7 @@ void controller::engine::mainMenu(int value){
 		//new game
 		model::world newWorld;
 		gameEngine.theWorld = newWorld;
+		gameEngine.setStatus(GAME_START);
 		break;
 		}	
 	case MENU_GAME_EXIT:
