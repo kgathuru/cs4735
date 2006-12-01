@@ -10,33 +10,23 @@ viewer::view::view(){
 /** initialize OpenGL environment */
 void viewer::view::initView(int *argc,char**argv){
 	glutInit (argc,argv);
+
+	//set up opengl window
 	glutInitDisplayMode (GLUT_RGB | GLUT_DOUBLE | GLUT_DEPTH);
 	glutInitWindowSize (WINDOW_WIDTH,WINDOW_HEIGHT);
-
 	gameEngine.gameView.winIdMain = glutCreateWindow("Asteroids3D");
 	glutDisplayFunc(&(view::display));
 	
+	// make the initial camera view
         Point3 eye(0, WORLD_HEIGHT/2, 950.0); 
         Point3 look(0, WORLD_HEIGHT/2, -2000.0); 
         Vector3 up(0.0, 1.0, 0.0);
 
-	/* Sub window creation and setup */ 
-	//gameEngine.gameView.winIdSub = 
-	//	glutCreateSubWindow (gameEngine.gameView.winIdMain, 0, 550, WINDOW_WIDTH, WINDOW_HEIGHT / 20);
-	//glutDisplayFunc(&(view::subDisplay));
-	//glutSetWindow(gameEngine.gameView.winIdMain);
-
-// 	gameEngine.gameView.winIdSub2 = 
-// 		glutCreateSubWindow (gameEngine.gameView.winIdMain, 0, 0, 50, WINDOW_HEIGHT / 20);
-// 	glutDisplayFunc(&(view::subDisplay2));
-// 	glutSetWindow(gameEngine.gameView.winIdMain);
-
-
-	/** \todo is aspect ratio based on world width or window width? */
 	gameEngine.camera1.setView(ONBOARD_CAM);
 	gameEngine.camera1.setShape(30.0f, WORLD_WIDTH/WORLD_HEIGHT, CAMERA_NEAR_DIST, CAMERA_FAR_DIST);
-	gameEngine.camera1.set(eye, look, up); // make the initial camera
+	gameEngine.camera1.set(eye, look, up); 
 
+	//load textures
 	string s = "spaceScene.bmp";
 	int ret = pix[1].readBMPFile(s);  
         pix[1].setTexture(2001);
@@ -52,6 +42,7 @@ void viewer::view::initView(int *argc,char**argv){
 
 /** display the objects in the world */
 void viewer::view::display(void){
+
 	// set the light source properties
 	GLfloat light_intensity[] = {0.5f, 0.5f, 0.5f, 0.5f};
 	GLfloat light_position[] = {10.0f, 10.0f, 10.0f, 0.0f};
@@ -116,29 +107,12 @@ void viewer::view::display(void){
 	// Now draw text relative to camera 
 	Point3 pos = gameEngine.camera1.getEye();
 	glTranslated(pos.x, pos.y, pos.z);
-	gameEngine.getStatus();
 	controller::gameEngine.gameView.drawStatus();
-	if(gameEngine.theWorld.serenity.getPosition().z == 0){
-		gameEngine.setStatus(GAME_START);
-		controller::gameEngine.gameView.drawStatus();
-		for(int i = 0; i <1000; i++);
-		gameEngine.getStatus();
-		controller::gameEngine.gameView.drawStatus();
-	}
-	else if(gameEngine.theWorld.serenity.getPosition().z == -WORLD_DEPTH){
-	gameEngine.setStatus(GAME_WON);
-	controller::gameEngine.gameView.drawStatus();
-	}
-	else if(gameEngine.theWorld.serenity.getHealth() < 1){
-	gameEngine.setStatus(GAME_OVER);
-	controller::gameEngine.gameView.drawStatus();
-	}
-	else{
-	controller::gameEngine.gameView.drawStatus();
-	}
+
 	glEnable(GL_LIGHTING);
 	glPopMatrix();
 
+	//double buffering
 	glutSwapBuffers();
 }
 
