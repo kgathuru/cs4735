@@ -98,6 +98,19 @@ void model::world::render(){
 		iter->draw();
 	} 
 
+	/** render crosshairs*/
+	Point3 crosshair = gameEngine.theWorld.serenity.getPosition();
+	glDisable(GL_LIGHTING);	//Allow colors to be drawn regardless of light
+	glColor3f(1.0, 0.0, 0.0);
+	glLineWidth(2);
+	glBegin(GL_LINES);
+		glVertex3f(crosshair.x - 25, crosshair.y, crosshair.z - 2000);
+		glVertex3f(crosshair.x + 25, crosshair.y, crosshair.z - 2000);
+		glVertex3f(crosshair.x, crosshair.y + 25, crosshair.z - 2000);
+		glVertex3f(crosshair.x, crosshair.y - 25, crosshair.z - 2000);
+	glEnd();	
+	glEnable(GL_LIGHTING);
+
 	
 	/** render projectiles */
 	glMaterialfv(GL_FRONT, GL_SPECULAR, projectile_specular);

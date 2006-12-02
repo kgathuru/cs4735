@@ -264,29 +264,5 @@ void model::ship::rocketShip(){
 	glPopMatrix();
 	glDisable(GL_TEXTURE_2D);
 	glPopMatrix();
-	
-
-	//DOESN'T WORK????
-	//Crosshair
-	glPushMatrix();
-	glTranslated(0.5, 0.5, 10.0);
-	glRotatef(90,1,0,0);
-	glBindTexture(GL_TEXTURE_2D, 2004);   // choose the texture to use.
-	gluCylinder(qobj, 0.4, 0.01, 0.4, 5, 5);
-	glPopMatrix();
-
-	/*
-	//Draw crosshair
-	glDisable(GL_LIGHTING);	//Allow colors to be drawn regardless of light
-	glColor3f(1.0, 0.0, 0.0);
-	glLineWidth(2);
-	glBegin(GL_LINES);
-		glVertex3f(-50, 0, -100);
-		glVertex3f(50, 0, -100);
-		glVertex3f(0, -50, -100);
-		glVertex3f(0, 50, -100);
-	glEnd();
-	glEnable(GL_LIGHTING);
-	*/
 }
 

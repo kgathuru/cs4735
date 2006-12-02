@@ -9,7 +9,7 @@ const int WINDOW_WIDTH = 750;
 const int WINDOW_HEIGHT = 600; 
 const int CAMERA_NEAR_DIST = 50; 
 const int CAMERA_FAR_DIST = 20000;
-const int WORLD_DEPTH = 8000; //Length of path followed by ship along the Z axis
+const int WORLD_DEPTH = 10000; //Length of path followed by ship along the Z axis
 const int WORLD_HEIGHT = 500; //Upper limit of y axis
 const int WORLD_WIDTH = 500; //X axis goes from -WIDTH/2 to WIDTH/2
 const int ASTEROID_MAX_SIZE = 80;
@@ -20,7 +20,7 @@ const float GAME_SPEED = 0.1; //multiplied by speed * time to move objects
 const float SHIP_SPEED = 100.0;
 const int SHIP_SIZE = 50;
 const float PROJECTILE_SPEED = 200;
-const int SHIP_START_HEALTH = 250;
+const int SHIP_START_HEALTH = 200;
 const int RELOAD_WAIT = 100;
 const float PROJECTILE_SIZE = 20;
 
