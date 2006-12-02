@@ -173,7 +173,7 @@ void model::world::update(){
 				//Destroy Projectile
 				projIter->destroy();
 				projIter = projectiles.erase(projIter);
-				serenity.setScore(serenity.getScore() + 100);
+				serenity.setScore(serenity.getScore() + (int)(2*iter->getSize()));
 			} else {
 				iter->setDestroy(false);
 				projIter++;
