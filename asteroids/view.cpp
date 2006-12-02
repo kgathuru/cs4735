@@ -116,6 +116,8 @@ void viewer::view::display(void){
 	// Now draw text relative to camera 
 	Point3 pos = gameEngine.camera1.getEye();
 	glTranslated(pos.x, pos.y, pos.z);
+
+	//Draw message based on status of game
 	controller::gameEngine.gameView.drawStatus();
 
 	glEnable(GL_LIGHTING);
@@ -286,6 +288,8 @@ void viewer::view::drawStatus(){
 		{
 		char stats[255] = {'\n'};
 		strcat(stats, "Health: ");
+		if(gameEngine.theWorld.serenity.getHealth() < 0)
+			gameEngine.theWorld.serenity.setHealth(0);
 		strcat(stats, num2char(gameEngine.theWorld.serenity.getHealth()));
 		strcat(stats, " Score: ");
 		strcat(stats, num2char(gameEngine.theWorld.serenity.getScore()));

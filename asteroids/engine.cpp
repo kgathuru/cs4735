@@ -42,8 +42,12 @@ void controller::engine::update(void) {
 		return;
 	} else if (gameEngine.theWorld.serenity.getPosition().z == -WORLD_DEPTH){
 		gameEngine.setStatus(GAME_WON);
+		//Simulate user pressing enter to display message
+		gameEngine.keyboard(13, 0, 0);
 	} else if (gameEngine.theWorld.serenity.getHealth() < 1) {
 		gameEngine.setStatus(GAME_OVER);
+		//Simulate user pressing enter to display message
+		gameEngine.keyboard(13, 0, 0);
 	} else { 
 		gameEngine.theWorld.update(); 
 	}
