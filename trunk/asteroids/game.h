@@ -4,7 +4,7 @@
 #include <GL/glut.h>
 
 /** game engine constants */
-const int INITIAL_NUM_ASTEROIDS = 31;
+const int INITIAL_NUM_ASTEROIDS = 50;
 const int WINDOW_WIDTH = 750;
 const int WINDOW_HEIGHT = 600; 
 const int CAMERA_NEAR_DIST = 50; 
@@ -14,7 +14,7 @@ const int WORLD_HEIGHT = 500; //Upper limit of y axis
 const int WORLD_WIDTH = 500; //X axis goes from -WIDTH/2 to WIDTH/2
 const int ASTEROID_MAX_SIZE = 80;
 const int ASTEROID_MIN_SIZE = 30;
-const int ASTEROID_SPEED = 50;
+const int ASTEROID_SPEED = 75;
 const int PANE_WIDTH = 50;
 const float GAME_SPEED = 0.1; //multiplied by speed * time to move objects 
 const float SHIP_SPEED = 100.0;
