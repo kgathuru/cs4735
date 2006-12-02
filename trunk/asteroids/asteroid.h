@@ -21,6 +21,7 @@ class asteroid: public object{
    private:
 	Vector3 spin;
 	bool destruct;
+	float angleRotate;
 	
    public:
 	asteroid(); 		// constructor
@@ -31,6 +32,8 @@ class asteroid: public object{
 	void draw(); //Draws a solid sphere for now, may make mesh later
 	void setDestroy(bool d);
 	bool getDestroy();
+	void setAngle(float a);
+	float getAngle();
 	void destroy();	//Animation to destroy asteroid
 	bool checkCollision(Point3 shipPosition, float shipSize);
 	void initialize();

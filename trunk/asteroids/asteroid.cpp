@@ -17,6 +17,9 @@ model::asteroid::~asteroid(){
 void model::asteroid:: initialize(){
 	//Size is radius of the sphere that represents the asteroid
 	int x,y,z;
+
+	//Set initial angle of rotation
+	angleRotate = 0.1;
  
 	//Set speed to be the same for every asteroid
 	speed = ASTEROID_SPEED;
@@ -30,9 +33,9 @@ void model::asteroid:: initialize(){
 
 	//Generate random spin for x, y, and z direction
 	//Value in degrees, between 0 and 360 degrees
-	x = (rand()%360);
-	y = (rand()%360);
-	z = (rand()%360);
+	x = (rand()%100);
+	y = (rand()%100);
+	z = (rand()%100);
 	spin.set(x,y,z);
 
 	//Set position randomly based on size of the world
@@ -59,11 +62,18 @@ Vector3 model::asteroid:: getSpin(){
 	return spin;
 }
 
+void model::asteroid::setAngle(float a){
+	angleRotate = a;
+}
+
+float model::asteroid::getAngle(){
+	return angleRotate;
+}
+
 void model::asteroid:: draw(){
 	GLUquadricObj*	qobj;
 
 	if (!destruct && size > 0) {
-		float angleRot = 5;//Rotate the asteroid by how much
 		glMatrixMode(GL_MODELVIEW);
 		glPushMatrix(); //save initial matrix
 
@@ -76,7 +86,8 @@ void model::asteroid:: draw(){
         	gluQuadricTexture(qobj, GL_TRUE);
 
 		glTranslatef(position.x, position.y, position.z);//Move asteroid to position in space
-		glRotatef(angleRot, spin.x, spin.y, spin.z);//Rotate mesh based on movement
+
+		glRotatef(angleRotate, spin.x/100, spin.y/100, spin.z/100);//Rotate mesh based on movement
 
 		glScalef(size, size, size);//Asteroid mesh is within unit circle centered at origin, 
 		//need to scale by size
@@ -117,6 +128,7 @@ void model::asteroid:: destroy(){
 void model::asteroid:: doStep(float t){
 	//call super (parent) doStep method 
 	object::doStep(t);
+	angleRotate += 0.1;
 
 	//do additional work for asteroid
 	if (position.z > 0.0 && size > 0)
