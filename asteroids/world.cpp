@@ -104,10 +104,10 @@ void model::world::render(){
 	glColor3f(1.0, 0.0, 0.0);
 	glLineWidth(2);
 	glBegin(GL_LINES);
-		glVertex3f(crosshair.x - 25, crosshair.y, crosshair.z - 2000);
-		glVertex3f(crosshair.x + 25, crosshair.y, crosshair.z - 2000);
-		glVertex3f(crosshair.x, crosshair.y + 25, crosshair.z - 2000);
-		glVertex3f(crosshair.x, crosshair.y - 25, crosshair.z - 2000);
+		glVertex3f(crosshair.x - 25, crosshair.y, crosshair.z - 1500);
+		glVertex3f(crosshair.x + 25, crosshair.y, crosshair.z - 1500);
+		glVertex3f(crosshair.x, crosshair.y + 25, crosshair.z - 1500);
+		glVertex3f(crosshair.x, crosshair.y - 25, crosshair.z - 1500);
 	glEnd();	
 	glEnable(GL_LIGHTING);
 
@@ -133,7 +133,7 @@ void model::world::update(){
 	while(iter!=projectiles.end())
 	{
 		iter->doStep(worldTime + GAME_SPEED);
-		if(iter->getPosition().z <= -WORLD_DEPTH * 2)
+		if(iter->getPosition().z <= -WORLD_DEPTH)
 		{
 			//Destroy the projectile when it goes off screen
 			//iter->destroy();

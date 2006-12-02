@@ -79,6 +79,8 @@ void controller::engine::keyboard(unsigned char key, int x, int y){
 		return;
 	}
 
+	if(gameEngine.getStatus() != GAME_OVER && gameEngine.getStatus() != GAME_WON)
+	{
 	switch (key){
 		// slide controls for camera
 		case 'F':    gameEngine.camera1.slide(0,0,-5.0); break; // slide camera forward
@@ -129,13 +131,14 @@ void controller::engine::keyboard(unsigned char key, int x, int y){
 			}	
 			break;
 	} //switch key
+	}//end if
 	glutPostRedisplay();
 }
 
 /** deals with special keys */
 void controller::engine::keypad(int key, int x, int y){
 
-	if(!gameEngine.pause)
+	if(!gameEngine.pause && gameEngine.getStatus() != GAME_OVER && gameEngine.getStatus() != GAME_WON)
 	{
 	switch (key){
 		// controls for ship
