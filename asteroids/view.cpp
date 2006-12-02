@@ -157,17 +157,51 @@ void viewer::view::drawStatus(){
 	glColor3f(0.9, 0.5, 0.9);
 
 	if (gameEngine.pause){
-		char* winner[] = {"PAUSED"};
-		glRasterPos2f(-20, 200);
-		print_bitmap_string(bitmap_fonts[0], winner[0]);
+		glColor3f(0, 0, 0);
+		char* paused[] = {"PAUSED"};
+		glRasterPos2f(-45, -5);
+		print_bitmap_string(bitmap_fonts[0], paused[0]);
+		glColor3f(1.0, 0.7, 0.9);
+		glBegin(GL_POLYGON);
+			glVertex2f(-148,-58);
+			glVertex2f(148,-58);
+			glVertex2f(148,58);
+			glVertex2f(-148,58);
+		glEnd();
+		glColor3f(0.9, 0.6, 0.8);
+		glBegin(GL_POLYGON);
+			glVertex2f(-150,-60);
+			glVertex2f(150,-60);
+			glVertex2f(150,60);
+			glVertex2f(-150,60);
+		glEnd();
+
 	}
 
   	switch (gameEngine.getStatus()){
 	case GAME_START: //display game start
 		{
+		glColor3f(0, 0, 0);
 		char* gameStart[] = {"Press Enter To Start"};
-		glRasterPos2f(-100, 200);
+		glRasterPos2f(-100, 177);
 		print_bitmap_string(bitmap_fonts[0], gameStart[0]);
+
+		glColor3f(1.0, 0.7, 0.9);
+		glBegin(GL_POLYGON);
+			glVertex2f(-148,200);
+			glVertex2f(148,200);
+			glVertex2f(148,170);
+			glVertex2f(-148,170);
+		glEnd();
+		glColor3f(0.9, 0.6, 0.8);
+		glBegin(GL_POLYGON);
+			glVertex2f(-150,202);
+			glVertex2f(150,202);
+			glVertex2f(150,168);
+			glVertex2f(-150,168);
+		glEnd();
+
+
 
 		glColor3f(0, 0, 0);
 		char* controls[] = {"Controls:"};
@@ -206,16 +240,46 @@ void viewer::view::drawStatus(){
 		}
 	case GAME_OVER: //display game over screen
 		{
+		glColor3f(0, 0, 0);
 		char* gameOver[] = {"Game Over"};
-		glRasterPos2f(-50, 200);
+		glRasterPos2f(-50, -5);
 		print_bitmap_string(bitmap_fonts[0], gameOver[0]);
+		glColor3f(1.0, 0.7, 0.9);
+		glBegin(GL_POLYGON);
+			glVertex2f(-148,-58);
+			glVertex2f(148,-58);
+			glVertex2f(148,58);
+			glVertex2f(-148,58);
+		glEnd();
+		glColor3f(0.9, 0.6, 0.8);
+		glBegin(GL_POLYGON);
+			glVertex2f(-150,-60);
+			glVertex2f(150,-60);
+			glVertex2f(150,60);
+			glVertex2f(-150,60);
+		glEnd();
 		break;
 		}
 	case GAME_WON: //display "you won" screen 
 		{
+		glColor3f(0, 0, 0);
 		char* winner[] = {"You Won!"};
-		glRasterPos2f(-20, 200);
+		glRasterPos2f(-50, -5);
 		print_bitmap_string(bitmap_fonts[0], winner[0]);
+		glColor3f(1.0, 0.7, 0.9);
+		glBegin(GL_POLYGON);
+			glVertex2f(-148,-58);
+			glVertex2f(148,-58);
+			glVertex2f(148,58);
+			glVertex2f(-148,58);
+		glEnd();
+		glColor3f(0.9, 0.6, 0.8);
+		glBegin(GL_POLYGON);
+			glVertex2f(-150,-60);
+			glVertex2f(150,-60);
+			glVertex2f(150,60);
+			glVertex2f(-150,60);
+		glEnd();
 		break; 
 		}
 	case GAME_LEVEL1: //display level1 game play
