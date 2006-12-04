@@ -24,20 +24,19 @@ class asteroid: public object{
 	float angleRotate;
 	
    public:
-	asteroid(); 		// constructor
-	~asteroid();	//deconstructor
-	void setSpin(float Sx, float Sy, float Sz);	//Set the spin in degrees
-	Vector3 getSpin();	//Return spin
-	void doStep(float t);	//Change in time t in the simulation, change to reflect
-	void draw(); //Draws a solid sphere for now, may make mesh later
+	asteroid();
+	~asteroid();
+	void setSpin(float Sx, float Sy, float Sz);
+	Vector3 getSpin();
+	void doStep(float t);
+	void draw(); 
 	void setDestroy(bool d);
 	bool getDestroy();
 	void setAngle(float a);
 	float getAngle();
-	void destroy();	//Animation to destroy asteroid
 	bool checkCollision(Point3 shipPosition, float shipSize);
 	void initialize();
-	void recreate();
+	//void recreate();
 };
 
 };

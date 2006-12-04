@@ -14,6 +14,7 @@ model::asteroid::~asteroid(){
     //this = NULL;
 }
 
+/** initialize asteroid values */
 void model::asteroid:: initialize(){
 	//Size is radius of the sphere that represents the asteroid
 	int x,y,z;
@@ -48,28 +49,34 @@ void model::asteroid:: initialize(){
 	setPosition(x,y,z);
 }
 
-void model::asteroid:: recreate(){
-	//create asteroid anew and then initialize it
-	//sorry Kate for messing these up, the two functions did exactly the same thing.
-	initialize();
-}
+/** recreate the asteroid */
+// void model::asteroid:: recreate(){
+// 	//create asteroid anew and then initialize it
+// 	//sorry Kate for messing these up, the two functions did exactly the same thing.
+// 	//initialize();
+// }
 
+/** set the spin of the asteroid */
 void model::asteroid:: setSpin(float Sx, float Sy, float Sz){
 	spin.set(Sx,Sy,Sz);
 }
 
+/** spin accessor method */
 Vector3 model::asteroid:: getSpin(){
 	return spin;
 }
 
+/** angle mutator method */
 void model::asteroid::setAngle(float a){
 	angleRotate = a;
 }
 
+/** angle accessor method */
 float model::asteroid::getAngle(){
 	return angleRotate;
 }
 
+/** asteroid draw method */
 void model::asteroid:: draw(){
 	GLUquadricObj*	qobj;
 
@@ -102,7 +109,7 @@ void model::asteroid:: draw(){
 		glEnable(GL_TEXTURE_2D);
 		glTexEnvf(GL_TEXTURE_ENV, GL_TEXTURE_ENV_MODE, GL_DECAL);
 		glBindTexture(GL_TEXTURE_2D, 2002);   // choose the texture to use.
-		glBegin(GL_QUADS);		                // begin drawing a square   
+		glBegin(GL_QUADS); // begin drawing a square
 		glTexCoord2f(0.0,0.0); glVertex3f( position.x - (size/2), position.y - (size/2), position.z);
 		glTexCoord2f(0.0,1.0); glVertex3f( position.x - (size/2), position.y + (size/2), position.z);
 		glTexCoord2f(1.0,1.0); glVertex3f( position.x + (size/2), position.y + (size/2), position.z);
@@ -113,16 +120,15 @@ void model::asteroid:: draw(){
 	}
 }
 
+/** destroy mutator method 
+	\param d value to set destroy to */
 void model::asteroid:: setDestroy(bool d){
 	destruct = d;
 }
 
+/** destroy accessor method */
 bool model::asteroid:: getDestroy(){
 	return destruct;
-}
-
-void model::asteroid:: destroy(){
-
 }
 
 void model::asteroid:: doStep(float t){
@@ -135,9 +141,9 @@ void model::asteroid:: doStep(float t){
 	{
 		//cout<<"\nRECREATE\n";
 		//Destroy asteroid
-		destroy();
+		//destroy();
 		//Reset fields and restart at end of path
-		recreate();
+		initialize();
 	}
 
 	//Need to check for collision with spaceship

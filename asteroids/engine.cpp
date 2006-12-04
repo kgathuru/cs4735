@@ -9,8 +9,8 @@ controller::engine::engine(){
 }
 
 /** initialises the game 
-    \param int argc takes number of arguments 
-    \param char** argv takes array of arguments */
+    \param argc integer containing number of arguments 
+    \param argv character array of arguments */
 void controller::engine::init(int *argc,char**argv){
 	gameView.initView(argc, argv);
 	glutKeyboardFunc(keyboard);
@@ -36,8 +36,8 @@ void controller::engine::addMenus(){
 	glutAttachMenu(GLUT_LEFT_BUTTON);
 }
 
-/** updates the game at regular intervals */
-void controller::engine::update(void) {
+/** updates the game status at regular intervals */
+void controller::engine::update() {
 	if (gameEngine.pause || gameEngine.getStatus() == GAME_START) {
 		return;
 	} else if (gameEngine.theWorld.serenity.getPosition().z == -WORLD_DEPTH){
@@ -60,21 +60,13 @@ void controller::engine::update(void) {
 	//glVertex3f(120, 100, 0);
 	//glVertex3f(120, -200, 0);
 	//glEnd();
-
 }
 
-/** deals with input from keyboard */
+/** deals with input from keyboard 
+	\param key character key pressed
+	\param x x position of mouse
+	\param y y position of mouse */
 void controller::engine::keyboard(unsigned char key, int x, int y){
-//<<<<<<< .mine
-	//if  (gameEngine.getStatus() == GAME_START){
-	//	//during pause, only allow unpause
-	//	if(key == 13){	
-	//		gameEngine.pause = false;
-	//		gameEngine.setStatus(GAME_LEVEL1);
-	//	}
-	//	return;
-	//}
-
 	//during pause, only allow unpause
 	if  (gameEngine.pause){
 		if(key == 13){	
@@ -102,10 +94,12 @@ void controller::engine::keyboard(unsigned char key, int x, int y){
 
 		//game controls
 		case 'c': // change camera view
-			if (gameEngine.camera1.getView() == DEFAULT_CAM){
+			if (gameEngine.camera1.getView() == START_CAM){
 				gameEngine.camera1.setView(ONBOARD_CAM);
+			} else if (gameEngine.camera1.getView() == ONBOARD_CAM){
+				gameEngine.camera1.setView(EXTERNAL_CAM);
 			} else {
-				gameEngine.camera1.setView(DEFAULT_CAM);
+				gameEngine.camera1.setView(START_CAM);
 			} break; 
 
 		// controls for ship

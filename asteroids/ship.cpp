@@ -1,7 +1,6 @@
 
 /** ship constructor */
 model::ship::ship(){
-	//readFile("SIMPBARN.3VN");
 	speed = 0.5;
 	position.set(0.0, WORLD_HEIGHT/2, 0.0);
 	direction.set(0.0, 0.0, -1.0);
@@ -17,24 +16,19 @@ model::ship::~ship(){
 
 }
 
-/** health mutator method */ 
-void model::ship::setHealth(int h){
-	health = h;
-}
-
 /** health accessor method */
 int model::ship::getHealth(){
 	return health;
 }
 
-/** score mutator method */ 
-void model::ship::setScore(int s){
-	score = s;
-}
-
 /** score accessor method */
 int model::ship::getScore(){
 	return score;
+}
+
+/** score mutator method */
+void model::ship::setScore(int s){
+	score = s;
 }
 
 /**  reload time accessor method */
@@ -123,6 +117,7 @@ void model::ship::draw(){
 	glPopMatrix();
 }
 
+/** performs a single step in time of movement */
 void model::ship::doStep(float t){
 
 	//Only let ship go to 0 position, not before
@@ -139,8 +134,7 @@ void model::ship::doStep(float t){
 	if (position.x < -WORLD_WIDTH/2){ position.x = -WORLD_WIDTH/2; }
 	if (position.x > WORLD_WIDTH/2){ position.x = WORLD_WIDTH/2; }
 
-	if(reload > 0)
-		reload--;
+	if (reload > 0) { reload--; }
 
 	//Check to see if ship is past finish line
 	if (position.z < -WORLD_DEPTH) { position.z = -WORLD_DEPTH; }
@@ -161,22 +155,22 @@ void model::ship::rubberBand(){
 	targetposition.y =  WORLD_HEIGHT/2;
 	targetposition.z = position.z;
 	//targetspeed = 0.5;
-	targetspeed = 10;
+	targetspeed = 0;
 
 	//Make secondary direction closer to (0,0,0)
 	if(secondaryDirection.x != 0.0) {
 		if (secondaryDirection.x < 0)
-			secondaryDirection.x += 0.1;
+			secondaryDirection.x += 0.01;
 		else
-			secondaryDirection.x += -0.1;	
+			secondaryDirection.x += -0.01;	
 	}
 	
 	//Make secondary direction closer to (0,0,0)
 	if(secondaryDirection.y != 0.0) {
 		if(secondaryDirection.y < 0)
-			secondaryDirection.y += 0.1;
+			secondaryDirection.y += 0.01;
 		else
-			secondaryDirection.y += -0.1;	
+			secondaryDirection.y += -0.01;	
 	}
 
 	//reset direction
@@ -199,20 +193,13 @@ void model::ship::fire(){
 	controller::gameEngine.theWorld.projectiles.push_back(prot);
 }
 
-/** What do to when the ship dies, runs out of health */
-void model::ship::death(){
-	//reset health
-	//Reset position back to start
-// 	position.set(0.0, WORLD_HEIGHT/2, 0.0);
-// 	direction.set(0.0, 0.0, -1.0);
-// 	health = SHIP_START_HEALTH;
-// 	score = 0;
-}
-
 /** Make ship flash color when it's been hit to let player know */
-void model::ship::hit(){
+void model::ship::hit(int amount){
 	//cout << "Serenity hit\n";
-	damage += 50;
+	damage += amount;
+	health -= amount;
+	if (health < 0) {health = 0;};
+	score--;
 }
 
 /** draws a rocket ship model*/
@@ -237,12 +224,8 @@ void model::ship::rocketShip(){
 	glTranslated(0.0, 0.0, -1.0);
 	glColor3f(0,1,0);
 	glTexEnvf(GL_TEXTURE_ENV, GL_TEXTURE_ENV_MODE, GL_MODULATE);
-	if (damage > 0){
- 		glBindTexture(GL_TEXTURE_2D, 2005);   // choose the texture to use.
-		damage--;
-	} else { 
- 		glBindTexture(GL_TEXTURE_2D, 2004);   // choose the texture to use.
-	}
+	if (damage > 0){ glBindTexture(GL_TEXTURE_2D, 2005); damage--; } //draw damaged 
+	else { glBindTexture(GL_TEXTURE_2D, 2004); } //draw nosrmal
 	gluCylinder(qobj, 0.5, 0.5, 1.0, 10, 10);
 	glPopMatrix();
 
@@ -254,7 +237,7 @@ void model::ship::rocketShip(){
 	glPushMatrix();
 	glTranslated(0, -0.5, -1.0);
 	//Back Cone
-	glBindTexture(GL_TEXTURE_2D, 2005);   // choose the texture to use.
+	glBindTexture(GL_TEXTURE_2D, 2005); // choose the texture to use.
 	gluCylinder(qobj, 0.4, 0.01, 0.4, 5, 5);
 	glPopMatrix();
 	glPushMatrix();

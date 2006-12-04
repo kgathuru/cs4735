@@ -5,21 +5,17 @@ model::projectile::projectile(){
 
 }
 
+/** copy constructor */
+// model::projectile::projectile(const projectile &copyin) {
+// 	initialize(PROJECTILE_SPEED, ((object)copyin).getDirection(), ((object)copyin).getPosition());
+// }
+
 /** projectile deconstructor */
-/*model::projectile::~projectile(){
-
-}*/
-
-/** lifetime mutator method */ 
-void model::projectile::setLifetime(){
+model::projectile::~projectile(){
 
 }
 
-/** lifetime accessor method */
-int model::projectile::getLifetime(){
-
-}
-
+/** method to draw the projectile */
 void model::projectile::draw(){
 	if(size > 0)
 	{
@@ -31,16 +27,12 @@ void model::projectile::draw(){
 	}
 } 
 
+/** set initial values of the projectile */
 void model::projectile::initialize(float spd, Vector3 dir, Point3 pos){
 	speed = PROJECTILE_SPEED;
 	direction = dir;
 	position = pos;
 	size = PROJECTILE_SIZE;
 	position.z = position.z - size;
-}
-
-void model::projectile::destroy(){
-	size = 0;
-	draw();
 }
 
