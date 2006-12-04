@@ -11,7 +11,6 @@ namespace model{
 /** the ship class models a spaceship in space */
 class ship: public object {
   public:
-	void setHealth(int h);
 	int getHealth();
 	void setScore(int s);
 	int getScore();
@@ -29,8 +28,7 @@ class ship: public object {
 	void moveRight();
 	void accelerate();
 	void deccelerate();
-	void death();
-	void hit();
+	void hit(int amount);
 	void setReload(int r);
 	int getReload();
 	void rocketShip();

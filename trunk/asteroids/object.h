@@ -18,14 +18,14 @@ class object: public Mesh{
 	Point3 getPosition();
 	void setSize(float s);
 	float getSize();
-	void doStep(float t);	//Change in time t in the simulation, change to reflect
+	void doStep(float t);
 	object();
 	~object();	
   protected:
-	Vector3 direction;
-	Point3 position;
-	float speed;
-	float size;
+	Vector3 direction; ///< direction of the object
+	Point3 position; ///< position of the object in space 
+	float speed; ///< speed of the object
+	float size; ///< size of the object
 };
 
 };

@@ -5,6 +5,7 @@
 
 #include "math.h"
 
+/** Mesh constructor */
 Mesh::Mesh(){
   numVerts = numFaces = numNormals = 0; 
   pt = NULL; norm = NULL; face = NULL;
@@ -26,6 +27,7 @@ void Mesh:: draw(){
   }
 }
 
+/** read mesh file */
 int Mesh:: readFile(char * fileName){
   fstream infile;
   infile.open(fileName, ios::in);

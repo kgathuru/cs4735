@@ -35,20 +35,17 @@ class world{
 	void renderPane();
 	void update();
 
-	list<asteroid> asteroids;
-	typedef list<asteroid>::iterator asteroid_iterator;
+	list<asteroid> asteroids; ///<STL list of asteroids
+	typedef list<asteroid>::iterator asteroid_iterator; ///< asteroid iterator
+	list<projectile> projectiles; ///< STL list of projectiles
+	typedef list<projectile>::iterator projectile_iterator; ///< projectile iterator
+	ship serenity; ///< the ship - originally named spacebarn, now named serenity
 
-	list<projectile> projectiles;
-	typedef list<projectile>::iterator projectile_iterator;
-	
-	ship serenity;
-
-	/** \todo add more methods from UML */ 	
 	world();
 	~world();
   private:
-	double worldTime;
-	Point3 startPoint;
+	//double worldTime; ///< current time in the world
+	Point3 startPoint; ///< starting point of game
 	Point3 endPoint;
 };
 

@@ -3,7 +3,7 @@
 /**world constructor*/
 model::world::world(){
 	// initialise variables 
-	worldTime = 0.01;
+	//worldTime = 0;
 
 	//initialise randomizer
 	srand((unsigned)time(0));
@@ -99,7 +99,7 @@ void model::world::render(){
 	} 
 
 	/** render crosshairs*/
-	Point3 crosshair = gameEngine.theWorld.serenity.getPosition();
+	Point3 crosshair = gameEngine.camera1.getEye();
 	glDisable(GL_LIGHTING);	//Allow colors to be drawn regardless of light
 	glColor3f(1.0, 0.0, 0.0);
 	glLineWidth(2);
@@ -128,60 +128,56 @@ void model::world::render(){
 /** updates the objects as time progresses */
 void model::world::update(){
 	bool hit = false;
+
+// bad memory bug here, don know why, this is a workaround
+//reload somehow gets set to a really large number
+//cout << serenity.getReload();cout << "\n";
+if (serenity.getReload() > RELOAD_WAIT){serenity.setReload(RELOAD_WAIT);}
+//end fix, if you figure out the bug remove this please
+
+
 	/** update projectiles */
 	projectile_iterator iter=projectiles.begin();
 	while(iter!=projectiles.end())
 	{
-		iter->doStep(worldTime + GAME_SPEED);
-		if(iter->getPosition().z <= -WORLD_DEPTH)
-		{
+		iter->doStep(GAME_SPEED);
+		if(iter->getPosition().z <= -WORLD_DEPTH) {
 			//Destroy the projectile when it goes off screen
 			//iter->destroy();
 			iter = projectiles.erase(iter);
-		}
-		else
-		{
+		} else {
 			iter++;
 		}
 	} 
 
-	if(projectiles.size() > 0)
-	{
+	if(projectiles.size() > 0) {
 	//CHECK COLLISIONS BETWEEN EVERY ASTEROID AND EVERY PROJECTILE
 	asteroid_iterator iter=asteroids.begin();
-	while(iter!=asteroids.end())
-	{
+	while(iter!=asteroids.end()) {
 		//cout << "NUMPROJECTILES" << projectiles.size() << "\n";
 		projectile_iterator projIter=projectiles.begin();
 		projectile_iterator projIter2;
-		while(projIter!=projectiles.end())	
-		{
+		while(projIter!=projectiles.end()) {
 			//cout << "CHECK EACH PROJECTILE\n";
 			//returns true if there is a collision
-			if(iter->checkCollision(projIter->getPosition(),projIter->getSize()))
-			{
-						
+			if(iter->checkCollision(projIter->getPosition(),projIter->getSize())) {
 				//Projectile hits asteroid, destroy both
 				//Destroy Asteroid
 				//iter = asteroids.erase(iter);
 				hit = true;
-			
 				iter->setDestroy(true);
 				//cout << "Projectile and asteroid destroyed\n";
 				//cout << "NewNumAsteroids:" << projectiles.size() << "\n";
-
 				//Destroy Projectile
-				projIter->destroy();
+				projIter->setSize(0);
 				projIter = projectiles.erase(projIter);
 				serenity.setScore(serenity.getScore() + (int)(2*iter->getSize()));
 			} else {
 				iter->setDestroy(false);
 				projIter++;
 			}
-			
 		}
-		if(!hit)
-		{
+		if(!hit) {
 			//iter->setDestroy(false);
 			iter++;
 		}
@@ -197,52 +193,29 @@ void model::world::update(){
 		if (iter->getSize() < 0) {
 			iter = asteroids.erase(iter);
 		}
-		iter->doStep(worldTime + GAME_SPEED);
+		iter->doStep(GAME_SPEED);
 	} 
 
 	/** update ship */
-	serenity.doStep(worldTime + GAME_SPEED);
+	serenity.doStep(GAME_SPEED);
 	//CHECK COLLISIONS BETWEEN EVERY ASTEROID AND THE SHIP
 	for (asteroid_iterator iter=asteroids.begin(); iter!=asteroids.end(); iter++){	
 		//returns true if there is a collision
 		if(iter->checkCollision(serenity.getPosition(), serenity.getSize()))
 		{
-			if(serenity.getHealth() - 1 == 0)
-			{
-				serenity.death();
-				//gameEngine.setStatus(GAME_OVER);
-			}
-			serenity.setHealth(serenity.getHealth() - (int)(iter->getSize()/4));
-
 			//cout << "ASTEROID HIT PROJECTILE\n";
-			iter->destroy();
 			//Only destroy for good when laser hits them
-			iter->recreate();
+			iter->initialize();
 			//Decrement ship health
 
 			//Do something when the ship is hit to let player know
-			
+		
 			//do we want to decrease the score when the ship gets hit?
 			//probably just want to decrease health
-			if(serenity.getScore() -1 > 0){
-			  serenity.setScore(serenity.getScore()-1);
-			}
-			serenity.hit();
-
+			serenity.hit((int)(iter->getSize()/4));
 		}
-	
 	} 
 
-	/** update status */
-// 	Point3 p = serenity.getPosition();
-// 	if(p.z <= -WORLD_DEPTH+100){
-// 		drawWinner();
-// 	}
-// 
-// 	if(serenity.getHealth() < 1){
-// 		drawGameOver();	
-// 	}
-	
 	glutPostRedisplay();
 }
 

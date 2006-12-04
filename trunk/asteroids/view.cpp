@@ -68,23 +68,37 @@ void viewer::view::display(void){
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT); // clear the screen
 	
 	//check camera view
-	if (gameEngine.camera1.getView() == ONBOARD_CAM){
+	switch(gameEngine.camera1.getView()){
+	case START_CAM:{
+		Point3 eye(0,(WORLD_HEIGHT/2)+100,1500);
+		Point3 look(eye.x, eye.y, eye.z - 500); 
+		Vector3 up(0.0, 1.0, 0.0);
+		gameEngine.camera1.setShape(30.0f, WORLD_WIDTH/WORLD_HEIGHT, CAMERA_NEAR_DIST, CAMERA_FAR_DIST);
+		gameEngine.camera1.set(eye, look, up);
+		break;}
+	case ONBOARD_CAM:{
 		Point3 eye = gameEngine.theWorld.serenity.getPosition();
 		eye.z += gameEngine.theWorld.serenity.getSize()*10;
 		eye.y += 100;
-		//eye.y += gameEngine.theWorld.serenity.getSize()*2;
 		//This way camera only moves in the z direction
 		//Is this what we want?
 		//eye.y = WORLD_HEIGHT/2;
 		//eye.x = 0;
-		/** \todo is it legal to turn a vector into a point like this? */
-		/** I want to tell the camera to look where the spaceship is looking, how do I do it? */
 		//Vector3 lookv =  gameEngine.theWorld.serenity.getDirection();
 		//Point3 look(eye.x +lookv.x, eye.y +lookv.y, lookv.z +lookv.z); 
 		Point3 look(eye.x, eye.y, eye.z - 500); 
 		Vector3 up(0.0, 1.0, 0.0);
 		gameEngine.camera1.set(eye, look, up);//fix camera to ship
+		break;}
+	case EXTERNAL_CAM:{
+		Point3 eye(19000,WORLD_HEIGHT/2, -5000);
+		Point3 look(eye.x-500, eye.y, eye.z); 
+		Vector3 up(0.0, 1.0, 0.0);
+		gameEngine.camera1.setShape(30.0f, WORLD_WIDTH/WORLD_HEIGHT, CAMERA_NEAR_DIST, 50000);
+		gameEngine.camera1.set(eye, look, up);
+		break;}
 	}
+
 
 	/** render world */
 	glViewport((WINDOW_WIDTH - WORLD_WIDTH)/2,(WINDOW_HEIGHT-WORLD_HEIGHT)/2, WORLD_HEIGHT, WORLD_WIDTH);
@@ -203,8 +217,6 @@ void viewer::view::drawStatus(){
 			glVertex2f(-150,168);
 		glEnd();
 
-
-
 		glColor3f(0, 0, 0);
 		char* controls[] = {"Controls:"};
 		char* spaceBar[] = {"space bar = fire laser"};
@@ -288,8 +300,6 @@ void viewer::view::drawStatus(){
 		{
 		char stats[255] = {'\n'};
 		strcat(stats, "Health: ");
-		if(gameEngine.theWorld.serenity.getHealth() < 0)
-			gameEngine.theWorld.serenity.setHealth(0);
 		strcat(stats, num2char(gameEngine.theWorld.serenity.getHealth()));
 		strcat(stats, " Score: ");
 		strcat(stats, num2char(gameEngine.theWorld.serenity.getScore()));
@@ -371,7 +381,7 @@ CameraView viewer::camera::getView(){
 }
 
 /** load modelview matrix with existing camera values */
-void viewer::camera::setModelViewMatrix(void){ 
+void viewer::camera::setModelViewMatrix(){ 
 	float m[16];
 	Vector3 eVec(eye.x, eye.y, eye.z); // a vector version of eye 
 	m[0] =  u.x; m[4] =  u.y; m[8]  =  u.z;  m[12] = -eVec.dot(u);

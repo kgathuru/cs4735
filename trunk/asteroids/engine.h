@@ -22,18 +22,18 @@ class engine{
 	void init(int *argc, char**argv);
 	void setStatus(GameStatus gameStatus);
 	GameStatus getStatus();
-	bool pause;
 	engine();	
-	viewer::view gameView;
-	model::world theWorld;
-	viewer::camera camera1;
+	bool pause; ///< set this to true to pause the game
+	viewer::view gameView; ///< the viewer to control display
+	model::world theWorld; ///< world objct contains all objects
+	viewer::camera camera1; ///< main camera 
   private:
 	/** this contains the menu constants */
 	enum { MENU_NEW_GAME, MENU_GAME_EXIT };
 	GameStatus status;
 };
 
-engine gameEngine; //global engine
+engine gameEngine; ///< global game engine object
 };
 
 #endif
